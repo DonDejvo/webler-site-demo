@@ -1,0 +1,139 @@
+body{
+    background-color: rgb(143, 158, 168);
+    margin: 0px;
+    padding: 0px;
+}
+
+.navBarBG{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0px;
+    z-index: 987;
+}
+
+.smallnavform{
+    font-size: x-small;
+}
+
+.forgot{
+    color: rgb(59, 92, 10);
+    text-decoration: none;
+}
+
+.navEntry{
+    margin-top: 9px;
+    height:fit-content;
+}
+
+.navButton{
+    margin: 3px 2px -8px 2px;
+}
+
+.navFormContainer{
+    height:60px;
+}
+
+main{
+    background-color: aliceblue;
+}
+
+.NavLink{
+    font-weight: 700;
+}
+
+.NavLink:hover{
+    color:rgb(63, 62, 168);
+    transform: scale(1.1);
+}
+
+#navbarScrollingDropdown1:hover, #navbarScrollingDropdown2:hover{
+    color:rgb(39, 141, 107);
+    transform: scale(1.1);
+}
+
+.bannerImage{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    background: url(../resources/images/collage.jpg);
+    background-color: rgb(39, 39, 39);
+    background-blend-mode: soft-light;
+    -webkit-filter: blur(2px) brightness(88%);
+    filter: blur(2px) brightness(88%);
+    background-attachment: fixed;
+    background-position: center;
+    z-index: -4;
+}
+
+.bannerImagePropsFore{
+    position: sticky;
+    top: 123px;
+    height: 88vh;
+    left: 94px;
+    margin-left: 33px;
+    z-index: -3;
+    color: white;
+}
+
+.bannerText{
+    font-size: 1.9em;
+    padding-left: 42px;
+}
+
+.bTsmaller{
+    font-weight: 200;
+}
+
+.bTbigger{
+    font-weight: 500;
+    margin-top: 54px;
+}
+
+.bannerGitHubAdv{
+    position: absolute;
+    top:-57px;
+    right: 33px;
+    color: white;
+    background-color: rgba(23, 39, 97, 0.712);
+    border-radius: 9px;
+    padding-right: 10px;
+}
+
+.gitlogo{
+    vertical-align: middle;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.719);
+}
+
+.mainAfterBanner{
+    /* Styling for Home page's <main> */
+    height: 1234px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 70px;
+}
+
+main{
+    padding: 20px;
+    min-height: 100vh;
+}
+
+footer{
+    background-color: rgb(158, 158, 230);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.footerTextDiv{
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+}
