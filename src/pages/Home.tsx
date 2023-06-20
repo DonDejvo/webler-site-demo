@@ -16,7 +16,7 @@ function Home() {
 
             {/* Main */}
             <main className="mainAfterBanner">
-                <a href="https://github.com/WeblerGroup" target="blank" className="bannerGitHubAdv" ><img className="gitlogo" src="/src/resources/images/github-mark.png" width="33px"/> GitHub | Check out our project source codes</a>
+                <a href="https://github.com/WeblerGroup" target="blank" className="bannerGitHubAdv" ><img className="gitlogo" src="/src/resources/images/githubmark.png" width="33px"/> GitHub | Check out our project source codes</a>
                 <h1>Home</h1>
                 <h4>Welcome to Webler!</h4>
                 <hr></hr>
