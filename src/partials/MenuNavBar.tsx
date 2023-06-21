@@ -5,6 +5,20 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+//import { SyntheticEvent } from 'react';
+
+/*
+function handleLoginButton(e: SyntheticEvent) {
+  e.preventDefault();
+  //logInAction();
+}
+
+function handleSignupButton(e: SyntheticEvent) {
+  e.preventDefault();
+  //signUpAction();
+}
+*/
+
 function MenuNavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary navBarBG">
@@ -21,12 +35,12 @@ function MenuNavBar() {
             <Nav.Link href="/products" className="NavLink">Products</Nav.Link>
             <Nav.Link href="/news" className="NavLink">News</Nav.Link>
             <NavDropdown title="More" id="navbarScrollingDropdown1">
-            <NavDropdown.Item href="/about">About Us</NavDropdown.Item>
+            <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/contact">Contact Us</NavDropdown.Item>
+              <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item>
               <NavDropdown.Item href="/help">Help & FAQ's</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/memberslist">Members List</NavDropdown.Item>
+              <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="Settings" id="navbarScrollingDropdown2">
@@ -52,6 +66,7 @@ function MenuNavBar() {
             </NavDropdown>
             
           </Nav>
+          {/*
           <Form className="d-flex">
             <Form.Control
               type="email"
@@ -72,8 +87,10 @@ function MenuNavBar() {
               </div>
               <a href="/resetpassword" className="smallnavform forgot">Forgot password?</a>
             </div>
-            
           </Form>
+          */}
+            <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
+            <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

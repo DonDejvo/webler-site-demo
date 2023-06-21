@@ -16,6 +16,7 @@ import MembersList from './pages/MembersList';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import SignUp from './pages/SignUp';
+import LogIn from './pages/LogIn';
 
 
 function App(){
@@ -25,18 +26,19 @@ function App(){
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/products" element={<Products />} />
         <Route path="/news" element={<News />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/help" element={<Help />} />
         <Route path="/member" element={<Member />} />
-        <Route path="/memberslist" element={<MembersList />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/members-list" element={<MembersList />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-        <Route path="/*" element={<Error404 />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/*" element={<Error404 />} />
       </Routes>
     </>
   );
