@@ -6,80 +6,55 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { SyntheticEvent } from 'react';
-import { auth } from '../services/firebase.config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
-
-    signUpAction();
+    logInAction();
 }
 
-function signUpAction() {
-
+function logInAction() {
     const email = (document.getElementById("email") as HTMLInputElement).value;
-    //const name = (document.getElementById("name") as HTMLInputElement).value;
     const password = (document.getElementById("password") as HTMLInputElement).value;
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // User successfully created in sign up procedure
-            const user = userCredential.user;
-            // ...
-            console.log(user.uid);
-            toast("Congrats. You have created your new account.", {
-                position: "bottom-center",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-            console.log(errorCode, errorMessage);
-            toast("Error. Check for required inputs", {
-                position: "bottom-center",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        });
+    //Do something here with login
+    console.log(`Logging in: ${email} and ${password}`);
+    //What will happen?
+    toast("Authentication in progress", {
+        position: "bottom-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
 }
 
-function SignUp() {
-    PageTitle("Sign Up | Webler")
+function LogIn() {
+    PageTitle("Log in | Webler")
     return (
         <>
         {/* Header */}
         <MenuNavBar />
-        
+
         {/* Main */}
         <div className="d-flex flex-column justify-content-center" style={{ height: "100vh" }}>
             <div className="d-flex justify-content-center">
                 <div className="w-100 p-4 m-2 rounded bg-white" style={{ maxWidth: '600px' }}>
-                    <h3 className="text-center m-2">Sign Up</h3>
-                    <p className="text-center">New here? Let's create your account:</p>
+                    <h3 className="text-center m-2">Log in</h3>
+                    <p className="text-center">Let's get back in to your existing account:</p>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-2">
                             <label htmlFor="email">Email</label>
-                            <input className="form-control" type="email" name="email" id="email" placeholder="email adrress"/>
+                            <input className="form-control" type="email" name="email" id="email" placeholder="email adress" />
                         </div>
                         <div className="form-group mb-2">
                             <label htmlFor="password">Password</label>
-                            <input className="form-control" type="password" name="password" id="password" placeholder="password" />
+                            <input className="form-control" type="password" name="password" id="password" placeholder="password"/>
                         </div>
-                        <div className="pt-2">
-                            <button type="submit" className="btn btn-primary w-100">Sign up</button>
+                        <div className="pt-2" >
+                            <button type="submit" className="btn btn-primary w-100">Log In</button>
+                            <a href="/reset-password" className="text-center small">Forgot password?</a>
                             <ToastContainer
                                 position="bottom-center"
                                 autoClose={4000}
@@ -125,8 +100,8 @@ function SignUp() {
                     </div>
                     <div className="mt-4">
                         <p className="text-center">
-                            <span>Already have an account?</span>
-                            <a className="ms-2" href="/login">Log in</a>
+                            <span>Don't have an account?</span>
+                            <a className="ms-2" href="/signup">Sign up</a>
                         </p>
                     </div>
                 </div>
@@ -139,4 +114,4 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+export default LogIn;

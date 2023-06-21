@@ -1,7 +1,9 @@
 import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
+import PageTitle from "../partials/PageTitle";
 
 function ContactUs() {
+    PageTitle("Contact Us | Webler")
     return (
         <>
             {/* Header */}

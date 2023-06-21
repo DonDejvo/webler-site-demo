@@ -29,7 +29,7 @@ function Footer() {
           <div className="row">
             <ul>
               <li>
-                <a href="/contact">Contact us</a>
+                <a href="/contact-us">Contact us</a>
               </li>
               <li>
                 <a href="/products">Our Products</a>

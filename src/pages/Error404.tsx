@@ -1,7 +1,9 @@
 import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
+import PageTitle from "../partials/PageTitle";
 
 function Error404() {
+    PageTitle("Page not found")
     return (
         <>
             {/* Header */}
