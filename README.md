@@ -4,6 +4,7 @@ This is a draft version of the Webler Group's official website. This website use
 <hr/><br />
 <br />
 Vite was used to create this React app, so to run the app in "dev mode" , just enter in terminal: <code>npm run dev</code> . <br />
+You might be required to <code>npm install</code> after downloading this project in your local PC for testing.
 
 Use <code>npm run build</code> to deploy production build, and <code>npm run preview</code> to preview the production build. <br />
 
