@@ -15,6 +15,7 @@ import Member from './pages/Member';
 import MembersList from './pages/MembersList';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
+import SignUp from './pages/SignUp';
 
 
 function App(){
@@ -35,6 +36,7 @@ function App(){
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/*" element={<Error404 />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );
