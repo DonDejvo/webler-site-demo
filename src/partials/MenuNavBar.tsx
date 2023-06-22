@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useAuth } from '../context/AuthContext';
 
 //import { SyntheticEvent } from 'react';
 
@@ -20,6 +22,25 @@ function handleSignupButton(e: SyntheticEvent) {
 */
 
 function MenuNavBar() {
+
+  const { currentUser, signout } = useAuth()
+  const username = localStorage.getItem("username")
+
+  async function handleLogout() {
+
+    try {
+      await signout()
+      window.location.href = "/login"
+    } catch {
+      console.log("Failed to log out")
+    }
+  }
+
+  function openProfile() {
+    if(username)
+      window.location.href = "/member/" + username;
+  }
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary navBarBG">
       <Container fluid className="navBarSvg">
@@ -89,8 +110,24 @@ function MenuNavBar() {
             </div>
           </Form>
           */}
-            <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
-            <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+          <Nav>
+          {
+            currentUser ?
+              <>
+                <NavDropdown align="end" title={username} id="navbarScrollingDropdownUser">
+                  <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item>Settings</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              </>
+            : 
+            <>
+              <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
+              <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+            </>
+          }
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
