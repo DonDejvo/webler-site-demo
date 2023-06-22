@@ -28,7 +28,7 @@ function Member() {
         });
     }, []);
 
-    PageTitle("username | Webler")
+    PageTitle(`${localStorage.getItem("username")} | Webler`)
 
     return (
         <>
