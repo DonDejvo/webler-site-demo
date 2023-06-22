@@ -18,6 +18,7 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import { AuthProvider } from './context/AuthContext';
+import EditMember from './pages/EditMember';
 
 
 function App(){
@@ -33,6 +34,7 @@ function App(){
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/help" element={<Help />} />
         <Route path="/member/:username" element={<Member />} />
+        <Route path="/edit-member" element={<EditMember />} />
         <Route path="/members-list" element={<MembersList />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

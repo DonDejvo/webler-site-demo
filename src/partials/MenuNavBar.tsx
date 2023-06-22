@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -117,7 +116,7 @@ function MenuNavBar() {
                 <NavDropdown align="end" title={username} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item>Settings</NavDropdown.Item>
+                  <NavDropdown.Item href="/edit-member">Settings</NavDropdown.Item>
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               </>

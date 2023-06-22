@@ -5,7 +5,9 @@ import {
     signOut,
     GoogleAuthProvider,
     sendPasswordResetEmail,
-    signInWithPopup
+    signInWithPopup,
+    updatePassword,
+    reauthenticateWithPopup
 } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../services/firebase.config";
@@ -57,6 +59,14 @@ export function AuthProvider({ children }: any) {
         return sendPasswordResetEmail(auth, email)
     }
 
+    function changePassword(password: string) {
+        return updatePassword(currentUser, password)
+      }
+
+      function reauthWithGoogle() {
+        return reauthenticateWithPopup(currentUser, googleProvider)
+    }
+
     async function createUserIfNotExists(uid: string, username: string | null) {
         const dbRef = ref(db);
         const snapshot = await get(child(dbRef, `users/${uid}`))
@@ -82,7 +92,9 @@ export function AuthProvider({ children }: any) {
         signin,
         signWithGoogle,
         signout,
-        resetPassword
+        resetPassword,
+        changePassword,
+        reauthWithGoogle
     }
 
     return (
