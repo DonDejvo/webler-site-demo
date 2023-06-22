@@ -17,12 +17,13 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import { AuthProvider } from './context/AuthContext';
 
 
 function App(){
 
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -31,7 +32,7 @@ function App(){
         <Route path="/news" element={<News />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/member" element={<Member />} />
+        <Route path="/member/:username" element={<Member />} />
         <Route path="/members-list" element={<MembersList />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -40,7 +41,7 @@ function App(){
         <Route path="/login" element={<LogIn />} />
         <Route path="/*" element={<Error404 />} />
       </Routes>
-    </>
+    </AuthProvider>
   );
 
 };
