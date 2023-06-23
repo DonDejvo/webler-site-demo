@@ -22,7 +22,7 @@ function handleSignupButton(e: SyntheticEvent) {
 
 function MenuNavBar() {
 
-  const { currentUser, signout } = useAuth()
+  const { signout } = useAuth()
   const username = localStorage.getItem("username")
 
   async function handleLogout() {
@@ -111,12 +111,12 @@ function MenuNavBar() {
           */}
           <Nav>
           {
-            currentUser ?
+            (username) ?
               <>
                 <NavDropdown align="end" title={username} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="/edit-member">Settings</NavDropdown.Item>
+                  <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               </>

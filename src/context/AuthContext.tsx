@@ -7,7 +7,9 @@ import {
     sendPasswordResetEmail,
     signInWithPopup,
     updatePassword,
-    reauthenticateWithPopup
+    reauthenticateWithPopup,
+    reauthenticateWithCredential,
+    EmailAuthProvider
 } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../services/firebase.config";
@@ -36,7 +38,7 @@ export function AuthProvider({ children }: any) {
         const dbRef = ref(db);
         await get(child(dbRef, `users/${userCredential.user.uid}`))
             .then(snapshot => {
-                localStorage.setItem("username", (snapshot.val() as User).username);
+                localStorage.setItem("username", snapshot.val().username);
             })
     }
 
@@ -45,9 +47,6 @@ export function AuthProvider({ children }: any) {
         await createUserIfNotExists(userCredential.user.uid, null);
         const dbRef = ref(db);
         await get(child(dbRef, `users/${userCredential.user.uid}`))
-            .then(snapshot => {
-                localStorage.setItem("username", (snapshot.val() as User).username);
-            })
     }
 
     async function signout() {
@@ -67,6 +66,11 @@ export function AuthProvider({ children }: any) {
         return reauthenticateWithPopup(currentUser, googleProvider)
     }
 
+    function reauthWithCredential(password: string) {
+        const credential = EmailAuthProvider.credential(currentUser.email, password);
+        return reauthenticateWithCredential(currentUser, credential);
+    }
+
     async function createUserIfNotExists(uid: string, username: string | null) {
         const dbRef = ref(db);
         const snapshot = await get(child(dbRef, `users/${uid}`))
@@ -75,13 +79,20 @@ export function AuthProvider({ children }: any) {
                 username = "User" + Date.now().toString() + Math.floor(Math.random() * 10).toString();
             }
             const user = new User(username);
+            localStorage.setItem("username", username)
             await set(ref(db, 'users/' + uid), user);
+        }
+        else {
+            localStorage.setItem("username", snapshot.val().username)
         }
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
+            if(!user) {
+                localStorage.setItem("username", "");
+            }
         })
         return unsubscribe;
     }, []);
@@ -94,7 +105,8 @@ export function AuthProvider({ children }: any) {
         signout,
         resetPassword,
         changePassword,
-        reauthWithGoogle
+        reauthWithGoogle,
+        reauthWithCredential
     }
 
     return (
