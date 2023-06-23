@@ -2,7 +2,7 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { SyntheticEvent, useState } from 'react';
@@ -119,7 +119,7 @@ function SignUp() {
                                 <input className="form-control" type="email" name="email" id="email" placeholder="email adrress" />
                             </div>
                             <div className="form-group mb-2">
-                                <label htmlFor="username">Name</label>
+                                <label htmlFor="username">Username</label>
                                 <input className="form-control" type="text" name="username" id="username" placeholder="username" />
                             </div>
                             <div className="form-group mb-2">

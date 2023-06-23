@@ -2,12 +2,13 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { SyntheticEvent, useState } from 'react';
 import { Alert, Button } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
+
 
 function LogIn() {
 
