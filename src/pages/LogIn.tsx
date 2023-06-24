@@ -2,9 +2,6 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { SyntheticEvent, useState } from 'react';
 import { Alert, Button } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
@@ -14,7 +11,7 @@ function LogIn() {
 
     const emailRef = document.getElementById("email") as HTMLInputElement
     const passwordRef = document.getElementById("password") as HTMLInputElement
-    const { signin, signWithGoogle } = useAuth()
+    const { signin, signWithGoogle, getUserDetails } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
@@ -27,7 +24,7 @@ function LogIn() {
             console.log(emailRef.value);
 
             await signin(emailRef.value, passwordRef.value)
-            window.location.href = "/member/" + localStorage.getItem("username");
+            window.location.href = "/member/" + getUserDetails().username;
         } catch {
             setError("Failed to login")
         }
@@ -40,32 +37,12 @@ function LogIn() {
             setError("")
             setLoading(true)
             await signWithGoogle()
-            window.location.href = "/member/" + localStorage.getItem("username");
+            window.location.href = "/member/" + getUserDetails().username;
         } catch {
             setError("Failed to login")
         }
         setLoading(false)
     }
-
-    /*
-    function logInAction() {
-        const email = (document.getElementById("email") as HTMLInputElement).value;
-        const password = (document.getElementById("password") as HTMLInputElement).value;
-        //Do something here with login
-        console.log(`Logging in: ${email} and ${password}`);
-        //What will happen?
-        toast("Authentication in progress", {
-            position: "bottom-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    }
-    */
 
     PageTitle("Log in | Webler")
 
@@ -93,18 +70,6 @@ function LogIn() {
                             <div className="pt-2" >
                                 <Button disabled={loading} type="submit" className="w-100">Log In</Button>
                                 <a href="/reset-password" className="text-center small">Forgot password?</a>
-                                <ToastContainer
-                                    position="bottom-center"
-                                    autoClose={4000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover={false}
-                                    theme="light"
-                                />
                             </div>
                         </form>
                         <p className="text-divider">

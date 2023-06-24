@@ -2,12 +2,10 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { SyntheticEvent, useState } from 'react';
 import { useAuth } from "../context/AuthContext";
 import { Alert, Button } from "react-bootstrap";
+import DatabaseClient from "../api/DatabaseClient";
 
 function SignUp() {
 
@@ -15,7 +13,7 @@ function SignUp() {
     const usernameRef = document.getElementById("username") as HTMLInputElement
     const passwordRef = document.getElementById("password") as HTMLInputElement
     const passwordConfirmationRef = document.getElementById("password-confirmation") as HTMLInputElement
-    const { signup, signWithGoogle } = useAuth()
+    const { signup, signWithGoogle, getUserDetails } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
@@ -25,18 +23,19 @@ function SignUp() {
         if(passwordConfirmationRef.value != passwordRef.value) {
             return setError("Passwords do not match")
         }
-        
-        /*setError("")
-            setLoading(true)
-            await signup(emailRef.value, passwordRef.value)
-            window.location.href = "/";*/
+
+        let snapshot = await DatabaseClient.getUserByUsername(usernameRef.value);
+        if(snapshot.exists()) {
+            return setError("Username is used")
+        }
 
         try {
             setError("")
             setLoading(true)
             await signup(emailRef.value, usernameRef.value, passwordRef.value)
-            window.location.href = "/member/" + localStorage.getItem("username");
-          } catch {
+            window.location.href = "/member/" + getUserDetails().username;
+          } catch(err) {
+            console.log(err);
             setError("Failed to create an account")
           }
       
@@ -48,55 +47,14 @@ function SignUp() {
             setError("")
             setLoading(true)
             await signWithGoogle()
-            window.location.href = "/member/" + localStorage.getItem("username");
-        } catch {
+            window.location.href = "/member/" + getUserDetails().username;
+        } catch(err) {
+            console.log(err);
             setError("Failed to login")
         }
         setLoading(false)
     }
 
-    /*
-    function signUpAction() {
-
-        const email = (document.getElementById("email") as HTMLInputElement).value;
-        //const name = (document.getElementById("name") as HTMLInputElement).value;
-        const password = (document.getElementById("password") as HTMLInputElement).value;
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // User successfully created in sign up procedure
-                const user = userCredential.user;
-                // ...
-                console.log(user.uid);
-                toast("Congrats. You have created your new account.", {
-                    position: "bottom-center",
-                    autoClose: 4000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-                console.log(errorCode, errorMessage);
-                toast("Error. Check for required inputs", {
-                    position: "bottom-center",
-                    autoClose: 4000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            });
-    }
-    */
 
 
     PageTitle("Sign Up | Webler")
@@ -132,18 +90,6 @@ function SignUp() {
                             </div>
                             <div className="pt-2">
                                 <Button disabled={loading} type="submit" className="w-100">Sign up</Button>
-                                <ToastContainer
-                                    position="bottom-center"
-                                    autoClose={4000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover={false}
-                                    theme="light"
-                                />
                             </div>
                         </form>
                         <p className="text-divider">

@@ -1,6 +1,10 @@
 class User {
 
+    uid: string;
+
     username: string;
+
+    usernameLowercase: string;
 
     nationality: string | null;
 
@@ -8,8 +12,10 @@ class User {
 
     avatarUrl: string;
 
-    constructor(username: string) {
+    constructor(uid: string, username: string) {
+        this.uid = uid;
         this.username = username;
+        this.usernameLowercase = username.toLowerCase();
         this.nationality = null;
         this.bio = "Member of Webler";
         this.avatarUrl = "";

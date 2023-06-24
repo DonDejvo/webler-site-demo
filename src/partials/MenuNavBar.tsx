@@ -1,4 +1,4 @@
-\import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -12,8 +12,8 @@ import DatabaseClient from "../api/DatabaseClient";
 
 function MenuNavBar() {
 
-  const { signout } = useAuth()
-  const username = localStorage.getItem("username")
+  const { signout, getUserDetails } = useAuth()
+  const username = getUserDetails()?.username
 
   const [user, setUser] = useState<User>();
 
