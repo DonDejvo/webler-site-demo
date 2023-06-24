@@ -5,20 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from '../context/AuthContext';
-
-//import { SyntheticEvent } from 'react';
-
-/*
-function handleLoginButton(e: SyntheticEvent) {
-  e.preventDefault();
-  //logInAction();
-}
-
-function handleSignupButton(e: SyntheticEvent) {
-  e.preventDefault();
-  //signUpAction();
-}
-*/
+import { NavItem } from 'react-bootstrap';
 
 function MenuNavBar() {
 
@@ -62,53 +49,17 @@ function MenuNavBar() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item>
             </NavDropdown>
-
-            <NavDropdown title="Settings" id="navbarScrollingDropdown2">
-              <NavDropdown.Item href="#toggleSwitch1">
+            <NavItem className="center">
                 <Form>
                   <Form.Check // prettier-ignore
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
+                    style={{position:"relative",top:"7px",left:"5px"}}
                   />
                 </Form>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#toggleSwitch2">
-              <Form>
-                  <Form.Check // prettier-ignore
-                    type="switch"
-                    id="remember-me-switch"
-                    label="Remember me (keep me logged in)"
-                  />
-                </Form>
-              </NavDropdown.Item>
-            </NavDropdown>
-            
+            </NavItem>
           </Nav>
-          {/*
-          <Form className="d-flex">
-            <Form.Control
-              type="email"
-              placeholder="e-mail address"
-              className="me-2 navEntry"
-              aria-label="Email address"
-            />
-            <Form.Control
-              type="password"
-              placeholder="password"
-              className="me-2 navEntry"
-              aria-label="Password"
-            />
-            <div className="e-flex navFormContainer">
-              <div className="d-flex">
-                <Button size="sm" className="smallnavform navButton"><strong>Login</strong></Button>
-                <Button size="sm" className="smallnavform navButton">Sign-up</Button>
-              </div>
-              <a href="/resetpassword" className="smallnavform forgot">Forgot password?</a>
-            </div>
-          </Form>
-          */}
           <Nav>
           {
             (username) ?
@@ -122,8 +73,10 @@ function MenuNavBar() {
               </>
             : 
             <>
-              <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
-              <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+              <NavItem>
+                <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
+                <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+              </NavItem>
             </>
           }
           </Nav>
