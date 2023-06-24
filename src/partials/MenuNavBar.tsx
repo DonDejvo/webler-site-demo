@@ -4,13 +4,30 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import User from "../views/User";
 import { useAuth } from '../context/AuthContext';
 import { NavItem } from 'react-bootstrap';
+import DatabaseClient from "../api/DatabaseClient";
 
 function MenuNavBar() {
 
   const { signout } = useAuth()
   const username = localStorage.getItem("username")
+
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+
+    DatabaseClient.getUserByUsername(username as string)
+        .then(snapshot => {
+            const data = snapshot.val();
+            const user = Object.values(data)[0] as User;
+            setUser(user)
+        })
+
+}, []);
 
   async function handleLogout() {
 
@@ -64,7 +81,8 @@ function MenuNavBar() {
           {
             (username) ?
               <>
-                <NavDropdown align="end" title={username} id="navbarScrollingDropdownUser">
+                
+                <NavDropdown align="end" title={user?<><img width={34} height={34} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} /> {(username)} </>: <></>} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
