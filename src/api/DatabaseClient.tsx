@@ -17,7 +17,7 @@ const DatabaseClient = (function() {
     }
 
     async function getUserByUsername(username: string) {
-        const userRef = query(ref(db, `users`), orderByChild('username'), equalTo(username));
+        const userRef = query(ref(db, `users`), orderByChild('usernameLowercase'), equalTo(username.toLowerCase()));
         return await get(userRef)
     }
 

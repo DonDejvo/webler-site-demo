@@ -2,7 +2,6 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 import { SyntheticEvent, useEffect, useState } from "react";
-import User from "../views/User";
 import { Alert, Form } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import Reauntheticate from "../partials/Reauntheticate";
@@ -12,7 +11,7 @@ import StorageClient from "../api/StorageClient";
 
 function EditMember() {
 
-    const { changePassword } = useAuth()
+    const { changePassword, getUserDetails, updateUserDetails } = useAuth()
     const [activeTab, setActiveTab] = useState("account")
     const [uid, setUid] = useState<string>('');
     const [username, setUsername] = useState<string>('');
@@ -28,15 +27,21 @@ function EditMember() {
 
     useEffect(() => {
 
+        const userDetails = getUserDetails();
+
+        setUid(userDetails.uid);
+        setUsername(userDetails.username)
+        setBio(userDetails.bio)
+        setAvatarUrl(userDetails.avatarUrl)
+
         setLoading(true);
 
-        DatabaseClient.getUserByUsername(localStorage.getItem("username") as string)
+        DatabaseClient.getUserByUsername(userDetails.username)
             .then(snapshot => {
                 const data = snapshot.val();
 
-                let [key, user] = Object.entries(data)[0] as [string, User];
+                let user = (Object.values(data)[0]) as any;
 
-                setUid(key);
                 setUsername(user.username)
                 setBio(user.bio)
                 setAvatarUrl(user.avatarUrl)
@@ -52,16 +57,42 @@ function EditMember() {
 
     async function saveAccountSettings() {
         try {
-            setLoading(true)
             setError('')
             setMessage('')
 
+            if(!username.match(/^[a-zA-Z]+[a-zA-Z0-9]*$/)) {
+                return setError('Username must start with a letter and can contain only letters and numbers')
+            }
+
+            if(username.length < 3 || username.length > 20) {
+                return setError('Username must be 3 - 20 characters long')
+            }
+
+            if(bio.length > 240) {
+                return setError('Bio cannot have more than 240 characters')
+            }
+
+            setLoading(true)
+
+            if(username != getUserDetails().username) {
+                let snapshot = await DatabaseClient.getUserByUsername(username);
+                if(snapshot.exists()) {
+                    setLoading(false)
+                    return setError("Username is used")
+                }
+            }
+
             await DatabaseClient.updateUser(uid, {
+                usernameLowercase: username.toLowerCase(),
                 username,
                 bio
             });
 
-            localStorage.setItem("username", username)
+            updateUserDetails({
+                username,
+                bio
+            })
+
             setMessage('Account updated')
         }
         catch (err) {
@@ -74,6 +105,10 @@ function EditMember() {
 
         setError('')
         setMessage('')
+
+        if (password.length < 6) {
+            return setError("Passwords must be at least 6 characters long")
+        }
 
         if (passwordConfirmation != password) {
             return setError("Passwords do not match")
@@ -151,7 +186,7 @@ function EditMember() {
         setError('')
         setMessage('')
 
-        if(!file) {
+        if (!file) {
             return setError('No image selected')
         }
 
@@ -163,6 +198,10 @@ function EditMember() {
             setAvatarUrl(url)
 
             await DatabaseClient.updateUser(uid, {
+                avatarUrl: url
+            })
+
+            updateUserDetails({
                 avatarUrl: url
             })
 
@@ -198,7 +237,7 @@ function EditMember() {
         setLoading(false)
     }
 
-    PageTitle(`${localStorage.getItem("username")} | Webler`)
+    PageTitle(`${getUserDetails().username} | Webler`)
 
     return (
         <>
@@ -219,7 +258,7 @@ function EditMember() {
                             <div className="bg-white rounded-lg d-block d-sm-flex">
                                 <div className="profile-tab-nav border-right">
                                     <div className="p-4">
-                                        <h4 className="text-center">{localStorage.getItem("username")}</h4>
+                                        <h4 className="text-center">{getUserDetails().username}</h4>
                                     </div>
                                     <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         <a onClick={(e) => handleTabToggle(e, "account")} className="nav-link active tab" id="account-tab" href="#account-tabpanel" data-toggle="pill" role="tab" data-controls="account-tabpanel" aria-selected="true">

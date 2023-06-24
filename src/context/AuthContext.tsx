@@ -29,26 +29,34 @@ export function AuthProvider({ children }: any) {
 
     async function signup(email: string, username: string, password: string) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-        await createUserIfNotExists(userCredential.user.uid, username);
-        localStorage.setItem("username", username);
+        await createUserIfNotExists(userCredential.user.uid, username)
+            .then(snapshot => {
+                let user = snapshot.val() as User
+                setUserDetails(user)
+            });
     }
 
     async function signin(email: string, password: string) {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         await DatabaseClient.getUser(userCredential.user.uid)
             .then(snapshot => {
-                localStorage.setItem("username", snapshot.val().username);
+                let user = snapshot.val() as User
+                setUserDetails(user)
             })
     }
 
     async function signWithGoogle() {
         const userCredential = await signInWithPopup(auth, googleProvider);
-        await createUserIfNotExists(userCredential.user.uid, null);
+        await createUserIfNotExists(userCredential.user.uid, null)
+            .then(snapshot => {
+                let user = snapshot.val() as User
+                setUserDetails(user)
+            })
     }
 
     async function signout() {
         await signOut(auth);
-        localStorage.setItem("username", "");
+        setUserDetails(null)
     }
 
     function resetPassword(email: string) {
@@ -57,9 +65,9 @@ export function AuthProvider({ children }: any) {
 
     function changePassword(password: string) {
         return updatePassword(currentUser, password)
-      }
+    }
 
-      function reauthWithGoogle() {
+    function reauthWithGoogle() {
         return reauthenticateWithPopup(currentUser, googleProvider)
     }
 
@@ -74,20 +82,40 @@ export function AuthProvider({ children }: any) {
             if (username == null) {
                 username = "User" + Date.now().toString() + Math.floor(Math.random() * 10).toString();
             }
-            const user = new User(username);
-            localStorage.setItem("username", username)
+            const user = new User(uid, username);
             await DatabaseClient.createUser(uid, user);
+            snapshot = await DatabaseClient.getUser(uid);
+        }
+        return snapshot
+    }
+
+    function getUserDetails() {
+        let item = localStorage.getItem("user");
+        return item ? JSON.parse(item) : null;
+    }
+
+    function setUserDetails(user: User | null) {
+        if (user) {
+            localStorage.setItem("user", JSON.stringify(user));
         }
         else {
-            localStorage.setItem("username", snapshot.val().username)
+            localStorage.removeItem("user")
         }
+    }
+
+    function updateUserDetails(data: any) {
+        const user = getUserDetails()
+        for (let attr in data) {
+            user[attr] = data[attr]
+        }
+        setUserDetails(user)
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
-            if(!user) {
-                localStorage.setItem("username", "");
+            if (!user) {
+                setUserDetails(null)
             }
         })
         return unsubscribe;
@@ -102,7 +130,10 @@ export function AuthProvider({ children }: any) {
         resetPassword,
         changePassword,
         reauthWithGoogle,
-        reauthWithCredential
+        reauthWithCredential,
+        getUserDetails,
+        setUserDetails,
+        updateUserDetails
     }
 
     return (

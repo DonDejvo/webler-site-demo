@@ -22,8 +22,8 @@ function handleSignupButton(e: SyntheticEvent) {
 
 function MenuNavBar() {
 
-  const { signout } = useAuth()
-  const username = localStorage.getItem("username")
+  const { signout, getUserDetails } = useAuth()
+  const username = getUserDetails()?.username
 
   async function handleLogout() {
 

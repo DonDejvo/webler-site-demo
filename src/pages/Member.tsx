@@ -11,8 +11,8 @@ import DatabaseClient from "../api/DatabaseClient";
 function Member() {
 
     let { username } = useParams();
-    const [user, setUser] = useState<User>();
-    const { signout } = useAuth()
+    const [user, setUser] = useState<User | null>();
+    const { signout, getUserDetails } = useAuth()
 
     useEffect(() => {
 
@@ -35,7 +35,7 @@ function Member() {
         }
       }
 
-    PageTitle(`${localStorage.getItem("username")} | Webler`)
+    PageTitle(`${user?.username} | Webler`)
 
     return (
         <>
@@ -59,10 +59,13 @@ function Member() {
                                             <b>0 Followers</b>
                                         </div>
                                         <p>{user.bio}</p>
-                                        <div className="d-flex" style={{ gap: 8 }}>
-                                            <a href="#" onClick={handleLogout} className="btn btn-secondary">Logout</a>
-                                            <a href="/edit-member" className="btn btn-primary">Edit Profile</a>
-                                        </div>
+                                        {
+                                            user.username == getUserDetails()?.username &&
+                                            <div className="d-flex" style={{ gap: 8 }}>
+                                                <a href="#" onClick={handleLogout} className="btn btn-secondary">Logout</a>
+                                                <a href="/edit-member" className="btn btn-primary">Edit Profile</a>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
