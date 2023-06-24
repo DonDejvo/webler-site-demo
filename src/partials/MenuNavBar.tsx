@@ -1,29 +1,32 @@
-import Button from 'react-bootstrap/Button';
+\import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useEffect, useState } from "react";
+import User from "../views/User";
 import { useAuth } from '../context/AuthContext';
-
-//import { SyntheticEvent } from 'react';
-
-/*
-function handleLoginButton(e: SyntheticEvent) {
-  e.preventDefault();
-  //logInAction();
-}
-
-function handleSignupButton(e: SyntheticEvent) {
-  e.preventDefault();
-  //signUpAction();
-}
-*/
+import { NavItem } from 'react-bootstrap';
+import DatabaseClient from "../api/DatabaseClient";
 
 function MenuNavBar() {
 
   const { signout, getUserDetails } = useAuth()
   const username = getUserDetails()?.username
+
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+
+    DatabaseClient.getUserByUsername(username as string)
+        .then(snapshot => {
+            const data = snapshot.val();
+            const user = Object.values(data)[0] as User;
+            setUser(user)
+        })
+
+}, []);
 
   async function handleLogout() {
 
@@ -48,7 +51,7 @@ function MenuNavBar() {
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '370px' }}
+            style={{ maxHeight: '370px' , alignItems:'center'}}
             navbarScroll
           >
             <Nav.Link href="/" className="NavLink">Home</Nav.Link>
@@ -62,58 +65,20 @@ function MenuNavBar() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item>
             </NavDropdown>
-
-            <NavDropdown title="Settings" id="navbarScrollingDropdown2">
-              <NavDropdown.Item href="#toggleSwitch1">
-                <Form>
-                  <Form.Check // prettier-ignore
+                <Form style={{alignSelf:"center"}}>
+                  <Form.Check
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
                   />
                 </Form>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#toggleSwitch2">
-              <Form>
-                  <Form.Check // prettier-ignore
-                    type="switch"
-                    id="remember-me-switch"
-                    label="Remember me (keep me logged in)"
-                  />
-                </Form>
-              </NavDropdown.Item>
-            </NavDropdown>
-            
           </Nav>
-          {/*
-          <Form className="d-flex">
-            <Form.Control
-              type="email"
-              placeholder="e-mail address"
-              className="me-2 navEntry"
-              aria-label="Email address"
-            />
-            <Form.Control
-              type="password"
-              placeholder="password"
-              className="me-2 navEntry"
-              aria-label="Password"
-            />
-            <div className="e-flex navFormContainer">
-              <div className="d-flex">
-                <Button size="sm" className="smallnavform navButton"><strong>Login</strong></Button>
-                <Button size="sm" className="smallnavform navButton">Sign-up</Button>
-              </div>
-              <a href="/resetpassword" className="smallnavform forgot">Forgot password?</a>
-            </div>
-          </Form>
-          */}
-          <Nav>
+          <Nav style={{alignItems:"center"}}>
           {
             (username) ?
               <>
-                <NavDropdown align="end" title={username} id="navbarScrollingDropdownUser">
+                
+                <NavDropdown align="end" title={user?<><img width={34} height={34} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} /> {(username)} </>: <>{(username)}</>} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
@@ -122,8 +87,10 @@ function MenuNavBar() {
               </>
             : 
             <>
-              <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
-              <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+              <NavItem>
+                <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
+                <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+              </NavItem>
             </>
           }
           </Nav>
