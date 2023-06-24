@@ -6,13 +6,13 @@ class User {
 
     bio: string;
 
-    profileUrl: string | null;
+    avatarUrl: string;
 
     constructor(username: string) {
         this.username = username;
         this.nationality = null;
         this.bio = "Member of Webler";
-        this.profileUrl = null;
+        this.avatarUrl = "";
     }
 }
 

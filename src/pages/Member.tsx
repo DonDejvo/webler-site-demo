@@ -3,11 +3,10 @@ import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ref, onValue } from "firebase/database";
-import { db } from "../services/firebase.config";
 import User from "../views/User";
 import Loader from "../partials/Loader";
 import { useAuth } from "../context/AuthContext";
+import DatabaseClient from "../api/DatabaseClient";
 
 function Member() {
 
@@ -16,19 +15,14 @@ function Member() {
     const { signout } = useAuth()
 
     useEffect(() => {
-        const query = ref(db, "users");
-        return onValue(query, (snapshot) => {
-            const data = snapshot.val();
 
-            if (snapshot.exists()) {
-                for (let user of Object.values(data)) {
-                    if ((user as User).username == username) {
-                        setUser(user as User);
-                        break;
-                    }
-                }
-            }
-        });
+        DatabaseClient.getUserByUsername(username as string)
+            .then(snapshot => {
+                const data = snapshot.val();
+                const user = Object.values(data)[0] as User;
+                setUser(user)
+            })
+
     }, []);
 
     async function handleLogout() {
@@ -56,7 +50,7 @@ function Member() {
                             <div className="bg-white" style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto" }}>
                                 <div className="d-block d-sm-flex p-4" style={{ gap: 12 }}>
                                     <div className="img-circle text-center mb-2">
-                                        <img width={128} height={128} className="rounded-circle" src="https://picsum.photos/200" />
+                                        <img width={128} height={128} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} />
                                     </div>
                                     <div className="d-flex flex-column align-items-center align-items-sm-start">
                                         <h3>{user.username}</h3>

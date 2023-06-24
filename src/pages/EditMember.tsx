@@ -2,13 +2,13 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { ref, onValue, update } from "firebase/database";
-import { db } from "../services/firebase.config";
 import User from "../views/User";
 import { Alert, Form } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import Reauntheticate from "../partials/Reauntheticate";
 import Loader from "../partials/Loader";
+import DatabaseClient from "../api/DatabaseClient";
+import StorageClient from "../api/StorageClient";
 
 function EditMember() {
 
@@ -23,29 +23,27 @@ function EditMember() {
     const [authRequired, setAuthRequired] = useState(false)
     const [password, setPassword] = useState<string>('')
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
+    const [file, setFile] = useState<File | null>(null)
+    const [avatarUrl, setAvatarUrl] = useState<string>('')
 
     useEffect(() => {
-        const query = ref(db, "users");
 
         setLoading(true);
 
-        return onValue(query, (snapshot) => {
-            const data = snapshot.val();
+        DatabaseClient.getUserByUsername(localStorage.getItem("username") as string)
+            .then(snapshot => {
+                const data = snapshot.val();
 
-            for (let entry of Object.entries(data)) {
-                const user = entry[1] as User;
+                let [key, user] = Object.entries(data)[0] as [string, User];
 
-                if (user.username == localStorage.getItem("username")) {
-                    setUid(entry[0]);
-                    setUsername(user.username)
-                    setBio(user.bio)
-                    break;
-                }
-            }
+                setUid(key);
+                setUsername(user.username)
+                setBio(user.bio)
+                setAvatarUrl(user.avatarUrl)
 
-            setLoading(false);
+                setLoading(false);
+            })
 
-        });
     }, []);
 
     useEffect(() => {
@@ -57,16 +55,17 @@ function EditMember() {
             setLoading(true)
             setError('')
             setMessage('')
-            const query = ref(db, `users/${uid}`);
-            await update(query, {
+
+            await DatabaseClient.updateUser(uid, {
                 username,
                 bio
-            })
+            });
+
             localStorage.setItem("username", username)
             setMessage('Account updated')
         }
         catch (err) {
-            setError('Something went wrong')
+            setError('Account update failed')
         }
         setLoading(false)
     }
@@ -132,6 +131,73 @@ function EditMember() {
         setActiveTab(tabName);
     }
 
+    function handleFile(e: SyntheticEvent) {
+        let fileList = (e.target as HTMLInputElement).files as FileList;
+
+        setFile(fileList[0])
+        if (fileList[0]) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                setAvatarUrl(reader.result as string)
+            });
+            reader.readAsDataURL(fileList[0]);
+        }
+
+    }
+
+    async function handleAvatarUpload() {
+
+        setLoading(true)
+        setError('')
+        setMessage('')
+
+        if(!file) {
+            return setError('No image selected')
+        }
+
+        try {
+            const path = `avatars/${uid}`;
+            await StorageClient.uploadFile(path, file);
+            let url = await StorageClient.getUrl(path);
+
+            setAvatarUrl(url)
+
+            await DatabaseClient.updateUser(uid, {
+                avatarUrl: url
+            })
+
+            setMessage('Avatar updated')
+        }
+        catch {
+            setError('Avatar update failed')
+        }
+
+        setLoading(false)
+    }
+
+    async function handleAvatarRemoval() {
+        setLoading(true)
+        setError('')
+        setMessage('')
+
+        try {
+
+            setFile(null)
+            setAvatarUrl('')
+
+            await DatabaseClient.updateUser(uid, {
+                avatarUrl: ""
+            })
+
+            setMessage('Avatar updated')
+        }
+        catch {
+            setError('Avatar update failed')
+        }
+
+        setLoading(false)
+    }
+
     PageTitle(`${localStorage.getItem("username")} | Webler`)
 
     return (
@@ -172,6 +238,34 @@ function EditMember() {
                                         {error && <Alert variant="danger">{error}</Alert>}
                                         {message && <Alert variant="success">{message}</Alert>}
                                         <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="d-flex" style={{ gap: 12 }}>
+                                                    <div className="img-circle mb-2">
+                                                        <img width={96} height={96} className="rounded-circle" src={avatarUrl ? avatarUrl : "/resources/images/logo.png"} />
+                                                    </div>
+                                                    <div>
+                                                        <div className="mb-2">
+                                                            <input className="form-control" type="file" name="file" onChange={handleFile} />
+                                                        </div>
+                                                        <div className="d-flex" style={{ gap: 12 }}>
+                                                            {
+                                                                file &&
+                                                                <>
+                                                                    <button onClick={handleAvatarUpload} className="btn btn-primary">Set</button>
+                                                                </>
+                                                            }
+                                                            {
+                                                                avatarUrl &&
+                                                                <>
+                                                                    <button onClick={handleAvatarRemoval} className="btn btn-primary">
+                                                                        <i className="fa fa-trash"></i>
+                                                                    </button>
+                                                                </>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label>Username</label>

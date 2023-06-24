@@ -12,9 +12,9 @@ import {
     EmailAuthProvider
 } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
-import { auth, db } from "../services/firebase.config";
-import { child, get, ref, set } from "firebase/database";
+import { auth, } from "../services/firebase.config";
 import User from "../views/User";
+import DatabaseClient from "../api/DatabaseClient";
 
 const googleProvider = new GoogleAuthProvider();
 const AuthContext = React.createContext<any>({});
@@ -35,8 +35,7 @@ export function AuthProvider({ children }: any) {
 
     async function signin(email: string, password: string) {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const dbRef = ref(db);
-        await get(child(dbRef, `users/${userCredential.user.uid}`))
+        await DatabaseClient.getUser(userCredential.user.uid)
             .then(snapshot => {
                 localStorage.setItem("username", snapshot.val().username);
             })
@@ -45,8 +44,6 @@ export function AuthProvider({ children }: any) {
     async function signWithGoogle() {
         const userCredential = await signInWithPopup(auth, googleProvider);
         await createUserIfNotExists(userCredential.user.uid, null);
-        const dbRef = ref(db);
-        await get(child(dbRef, `users/${userCredential.user.uid}`))
     }
 
     async function signout() {
@@ -72,15 +69,14 @@ export function AuthProvider({ children }: any) {
     }
 
     async function createUserIfNotExists(uid: string, username: string | null) {
-        const dbRef = ref(db);
-        const snapshot = await get(child(dbRef, `users/${uid}`))
+        let snapshot = await DatabaseClient.getUser(uid)
         if (!snapshot.exists()) {
             if (username == null) {
                 username = "User" + Date.now().toString() + Math.floor(Math.random() * 10).toString();
             }
             const user = new User(username);
             localStorage.setItem("username", username)
-            await set(ref(db, 'users/' + uid), user);
+            await DatabaseClient.createUser(uid, user);
         }
         else {
             localStorage.setItem("username", snapshot.val().username)
