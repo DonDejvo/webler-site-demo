@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import User from "../views/User";
 import { useAuth } from '../context/AuthContext';
