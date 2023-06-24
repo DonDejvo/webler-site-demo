@@ -42,6 +42,8 @@ body {
 
 main {
     background-color: rgb(232, 240, 247);
+    padding: 20px;
+    min-height: 99vh;
 }
 
 .NavLink {
@@ -164,11 +166,6 @@ main {
     position: sticky;
     position: -webkit-sticky;
     top: 70px;
-}
-
-main {
-    padding: 20px;
-    min-height: 99vh;
 }
 
 .footer {
