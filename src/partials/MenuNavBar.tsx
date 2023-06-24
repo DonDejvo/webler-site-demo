@@ -81,7 +81,7 @@ function MenuNavBar() {
             (username) ?
               <>
                 
-                <NavDropdown align="end" title={user?<><img width={34} height={34} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} /> {(username)} </>: <></>} id="navbarScrollingDropdownUser">
+                <NavDropdown align="end" title={user?<><img width={34} height={34} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} /> {(username)} </>: <>{(username)}</>} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
