@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+\import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -51,7 +51,7 @@ function MenuNavBar() {
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '370px' }}
+            style={{ maxHeight: '370px' , alignItems:'center'}}
             navbarScroll
           >
             <Nav.Link href="/" className="NavLink">Home</Nav.Link>
@@ -65,18 +65,15 @@ function MenuNavBar() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item>
             </NavDropdown>
-            <NavItem className="center">
-                <Form>
-                  <Form.Check // prettier-ignore
+                <Form style={{alignSelf:"center"}}>
+                  <Form.Check
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
-                    style={{position:"relative",top:"7px",left:"5px"}}
                   />
                 </Form>
-            </NavItem>
           </Nav>
-          <Nav>
+          <Nav style={{alignItems:"center"}}>
           {
             (username) ?
               <>
