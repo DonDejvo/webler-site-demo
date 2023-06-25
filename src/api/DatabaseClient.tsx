@@ -21,11 +21,16 @@ const DatabaseClient = (function() {
         return await get(userRef)
     }
 
+    async function getAllUsers() {
+        return await get(ref(db, `users`))
+    }
+
     return {
         createUser,
         updateUser,
         getUser,
-        getUserByUsername
+        getUserByUsername,
+        getAllUsers
     }
 
 })()

@@ -19,12 +19,14 @@ function MenuNavBar() {
 
   useEffect(() => {
 
-    DatabaseClient.getUserByUsername(username as string)
+    if(username) {
+      DatabaseClient.getUserByUsername(username)
         .then(snapshot => {
             const data = snapshot.val();
             const user = Object.values(data)[0] as User;
             setUser(user)
         })
+    }
 
 }, []);
 

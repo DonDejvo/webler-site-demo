@@ -1,8 +1,22 @@
 import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
+import { useState, useEffect } from "react";
+import DatabaseClient from "../api/DatabaseClient";
+import User from "../views/User";
 
 function MembersList() {
+
+    const [memberList, setMemberlist] = useState<User[]>([])
+
+    useEffect(() => {
+        DatabaseClient.getAllUsers()
+            .then(snapshot => {
+                const data = snapshot.val();
+                setMemberlist(Object.values(data))
+            })
+    }, [])
+
     PageTitle("Members of Webler")
     return (
         <>
@@ -15,12 +29,19 @@ function MembersList() {
                 <hr />
                 <p>These are the current members of Webler Group: </p>
                 <ul>
-                    <li><a href="/member/corangar1999">CorAngar1999</a></li>
-                    <li><a href="/member/tester02">Tester02</a></li>
-                    <li><a href="/member/user16876371308640">User16876371308640</a></li>
-                    <li><a href="/member/tejadon">TejaDon</a></li>
-                    <li><a href="/member/tester01">Tester01</a></li>
-                    <li><a href="/member/beachlasagna">beachlasagna</a></li>
+
+                    {
+                        memberList.map((item: User, key) => {
+                            return (
+                                <li key={key}>
+                                    <a href={"/member/" + item.username}>
+                                    {item.username}
+                                    </a>
+                                </li>
+                            )
+                        })
+                    }
+
                 </ul>
             </main>
 
