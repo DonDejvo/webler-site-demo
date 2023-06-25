@@ -30,7 +30,7 @@ function Products() {
                     <div className="col-7">
                         <h1>Chicken Shooter</h1>
                         <p>Product: Game</p>
-                        <p>Developer: Tejas Shreemali</p>
+                        <p>Developer: Tejas Shrimali</p>
                         <p>Genre: Shooter, Action</p>
                         <hr></hr>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, "to add a short description of this product here" sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
