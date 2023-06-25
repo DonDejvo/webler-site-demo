@@ -23,8 +23,14 @@ function Reauntheticate({ onAuth, onReturn }: any) {
 
             await reauthWithCredential(passwordRef.current.value)
             onAuth();
-        } catch {
-            setError("Failed to login")
+        } catch(err : any) {
+            switch(err.code) {
+                case "auth/user-not-found":
+                    setError("Email or password does not match")
+                    break
+                default:
+                    setError("Something went wrong")
+            }
         }
 
         setLoading(false)
@@ -36,8 +42,14 @@ function Reauntheticate({ onAuth, onReturn }: any) {
             setLoading(true)
             await reauthWithGoogle()
             onAuth();
-        } catch {
-            setError("Failed to login")
+        } catch(err: any) {
+            
+            switch(err.code) {
+                case "auth/popup-closed-by-user":
+                    break;
+                default:
+                    setError("Something went wrong")
+            }
         }
         setLoading(false)
     }
