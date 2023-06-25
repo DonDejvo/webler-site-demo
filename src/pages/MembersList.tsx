@@ -15,20 +15,12 @@ function MembersList() {
                 <hr />
                 <p>These are the current members of Webler Group: </p>
                 <ul>
-                    <li><a href="/member">John Doe</a></li>
-                    <li>Mary Doe</li>
-                    <li>David Dolejsi</li>
-                    <li>Paul Caron</li>
-                    <li>ChillPill</li>
-                    <li>Cosmin T</li>
-                    <li>Solomoni Railoa</li>
-                    <li>Tejas Don</li>
-                    <li>Adrit Kanra</li>
-                    <li>Manav Roy</li>
-                    <li>Tapabrata Banerjee</li>
-                    <li>Sparkoder</li>
-                    <li><a href="/member">Jennifer Sweet</a></li>
-                    <li>Jenice Doe</li>
+                    <li><a href="/member/corangar1999">CorAngar1999</a></li>
+                    <li><a href="/member/tester02">Tester02</a></li>
+                    <li><a href="/member/user16876371308640">User16876371308640</a></li>
+                    <li><a href="/member/tejadon">TejaDon</a></li>
+                    <li><a href="/member/tester01">Tester01</a></li>
+                    <li><a href="/member/beachlasagna">beachlasagna</a></li>
                 </ul>
             </main>
 
