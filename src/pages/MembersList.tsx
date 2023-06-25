@@ -1,7 +1,7 @@
 import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import DatabaseClient from "../api/DatabaseClient";
 import User from "../views/User";
 
@@ -29,6 +29,7 @@ function MembersList() {
                 <hr />
                 <p>These are the current members of Webler Group: </p>
                 <ul>
+
                     {
                         memberList.map((item: User, key) => {
                             return (
@@ -40,6 +41,7 @@ function MembersList() {
                             )
                         })
                     }
+
                 </ul>
             </main>
 
