@@ -35,7 +35,7 @@ function Member() {
         }
       }
 
-    PageTitle(`${user?.username} | Webler`)
+    user ? PageTitle(`${user?.username + " | Webler"}`) : PageTitle("Webler")
 
     return (
         <>
