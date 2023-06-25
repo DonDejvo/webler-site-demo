@@ -46,7 +46,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            WEBLER - Copyright © 2023 Webler Group - All rights reserved <br/><code style={{fontSize: "x-small"}}>Web Development by: Solomoni Railoa (S_R)</code>
+            WEBLER - Copyright © {new Date().getFullYear()} Webler Group - All rights reserved <br/><code style={{fontSize: "x-small"}}>Web Development by: Solomoni Railoa (S_R)</code>
           </div>
         </div>
       </footer>
