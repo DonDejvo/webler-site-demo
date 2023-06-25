@@ -65,72 +65,73 @@ function SignUp() {
             <MenuNavBar />
 
             {/* Main */}
-            <div className="d-flex flex-column justify-content-center" style={{ height: "100vh" }}>
-                <div className="d-flex justify-content-center">
-                    <div className="w-100 p-4 m-2 rounded bg-white" style={{ maxWidth: '600px' }}>
-                        <h3 className="text-center m-2">Sign Up</h3>
-                        {error && <Alert variant="danger">{error}</Alert>}
-                        <p className="text-center">New here? Let's create your account:</p>
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group mb-2">
-                                <label htmlFor="email">Email</label>
-                                <input className="form-control" type="email" name="email" id="email" placeholder="email adrress" />
-                            </div>
-                            <div className="form-group mb-2">
-                                <label htmlFor="username">Username</label>
-                                <input className="form-control" type="text" name="username" id="username" placeholder="username" />
-                            </div>
-                            <div className="form-group mb-2">
-                                <label htmlFor="password">Password</label>
-                                <input className="form-control" type="password" name="password" id="password" placeholder="password" />
-                            </div>
-                            <div className="form-group mb-2">
-                                <label htmlFor="password-confirmation">Password Confirmation</label>
-                                <input className="form-control" type="password" name="password-confirmation" id="password-confirmation" placeholder="repeat password" />
-                            </div>
-                            <div className="pt-2">
-                                <Button disabled={loading} type="submit" className="w-100">Sign up</Button>
-                            </div>
-                        </form>
-                        <p className="text-divider">
-                            <span>or</span>
-                        </p>
-                        <div className="row">
-                            <div className="col-sm p-2">
-                                <button className="btn btn-danger w-100" onClick={handleGoogleLogin}>
-                                    <span className="bg-white me-2 rounded-circle">
-                                        <i className="fa fa-google p-1 text-danger"></i>
-                                    </span>
-                                    <span>Google</span>
-                                </button>
-                            </div>
-                            <div className="col-sm p-2">
-                                <button className="btn btn-dark w-100">
-                                    <span className="bg-white me-2 rounded-circle">
-                                        <i className="fa fa-github p-1 text-dark"></i>
-                                    </span>
-                                    <span>Github</span>
-                                </button>
-                            </div>
-                            <div className="col-sm p-2">
-                                <button className="btn btn-primary w-100">
-                                    <span className="bg-white me-2">
-                                        <i className="fa fa-facebook p-1 text-primary"></i>
-                                    </span>
-                                    <span>Facebook</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <p className="text-center">
-                                <span>Already have an account?</span>
-                                <a className="ms-2" href="/login">Log in</a>
+            <main>
+                <div className="d-flex flex-column justify-content-center" >
+                    <div className="d-flex justify-content-center">
+                        <div className="w-100 p-4 m-2 rounded bg-white" style={{ maxWidth: '600px' }}>
+                            <h3 className="text-center m-2">Sign Up</h3>
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <p className="text-center">New here? Let's create your account:</p>
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group mb-2">
+                                    <label htmlFor="email">Email</label>
+                                    <input className="form-control" type="email" name="email" id="email" placeholder="email adrress" />
+                                </div>
+                                <div className="form-group mb-2">
+                                    <label htmlFor="username">Username</label>
+                                    <input className="form-control" type="text" name="username" id="username" placeholder="username" />
+                                </div>
+                                <div className="form-group mb-2">
+                                    <label htmlFor="password">Password</label>
+                                    <input className="form-control" type="password" name="password" id="password" placeholder="password" />
+                                </div>
+                                <div className="form-group mb-2">
+                                    <label htmlFor="password-confirmation">Password Confirmation</label>
+                                    <input className="form-control" type="password" name="password-confirmation" id="password-confirmation" placeholder="repeat password" />
+                                </div>
+                                <div className="pt-2">
+                                    <Button disabled={loading} type="submit" className="w-100">Sign up</Button>
+                                </div>
+                            </form>
+                            <p className="text-divider">
+                                <span>or</span>
                             </p>
+                            <div className="row">
+                                <div className="col-sm p-2">
+                                    <button className="btn btn-danger w-100" onClick={handleGoogleLogin}>
+                                        <span className="bg-white me-2 rounded-circle">
+                                            <i className="fa fa-google p-1 text-danger"></i>
+                                        </span>
+                                        <span>Google</span>
+                                    </button>
+                                </div>
+                                <div className="col-sm p-2">
+                                    <button className="btn btn-dark w-100">
+                                        <span className="bg-white me-2 rounded-circle">
+                                            <i className="fa fa-github p-1 text-dark"></i>
+                                        </span>
+                                        <span>Github</span>
+                                    </button>
+                                </div>
+                                <div className="col-sm p-2">
+                                    <button className="btn btn-primary w-100">
+                                        <span className="bg-white me-2">
+                                            <i className="fa fa-facebook p-1 text-primary"></i>
+                                        </span>
+                                        <span>Facebook</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <p className="text-center">
+                                    <span>Already have an account?</span>
+                                    <a className="ms-2" href="/login">Log in</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </main>
             {/* Footer */}
             <Footer />
         </>
