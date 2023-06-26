@@ -1,11 +1,19 @@
 :root {
     overflow-x: hidden;
+    --bGcolor: #fafafa;
+    --fontColor: #1f2023;
+
 }
 
 body {
-    background-color: rgb(143, 158, 168);
-    margin: 0px;
-    padding: 0px;
+    background-color: var(--bGcolor);
+    color: var(--fontColor);  
+  }
+
+.dark {
+    --bGcolor: #1f2023;
+    --fontColor: #efefef;
+
 }
 
 .navBarBG {
@@ -42,7 +50,7 @@ body {
 
 main {
     display: block;
-    background-color: rgb(232, 240, 247);
+    background-color: var(--bGcolor);
     padding: 20px;
     min-height: 99vh;
 }
