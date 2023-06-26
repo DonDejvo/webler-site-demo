@@ -18,7 +18,6 @@ function MenuNavBar() {
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-
     if(username) {
       DatabaseClient.getUserByUsername(username)
         .then(snapshot => {
@@ -27,11 +26,9 @@ function MenuNavBar() {
             setUser(user)
         })
     }
-
-}, []);
+  }, []);
 
   async function handleLogout() {
-
     try {
       await signout()
       window.location.href = "/login"
@@ -44,6 +41,14 @@ function MenuNavBar() {
     if(username)
       window.location.href = "/member/" + username;
   }
+
+  // Dark theme handler
+  const [switchState, setSwitchState] = useState(false)
+  const handleChange=(e: { target: { checked: any; }; })=>{
+    console.log("Dark: " + e.target.checked)
+    setSwitchState(!switchState)
+  }
+  //Dark theme handler
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navBarBG">
@@ -72,6 +77,8 @@ function MenuNavBar() {
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
+                    defaultChecked={switchState}
+                    onChange={handleChange}   
                   />
                 </Form>
           </Nav>
@@ -103,3 +110,7 @@ function MenuNavBar() {
 }
 
 export default MenuNavBar;
+
+function setField(arg0: string, checked: any) {
+  throw new Error('Function not implemented.');
+}
