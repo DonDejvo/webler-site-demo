@@ -127,7 +127,7 @@ function MenuNavBar() {
             <>
               <NavItem>
                 <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
-                <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+                <Button href="/signup" size="lg" className="smallnavform navButton" variant="success">Sign-up</Button>
               </NavItem>
             </>
           }
