@@ -1,11 +1,12 @@
 :root {
     overflow-x: hidden;
-    --bGcolor: #e0ebfa;
+    --bGcolor: #e7edf5;
     --fontColor: #1f2023;
     --authFormBGcolor: rgb(255, 255, 255);
-    --navBarBgColor: rgb(178, 224, 236);
+    --navBarBgColor: rgb(118, 165, 202);
     --hrefLinkColor: rgb(0, 26, 255);
-    --colGridColor: linear-gradient(rgb(217, 241, 248), rgb(178, 190, 209));
+    --colGridColor: linear-gradient(rgb(221, 238, 243), rgb(205, 210, 221));
+    --footerColor: rgb(207, 214, 221);
 }
 
 body {
@@ -20,6 +21,7 @@ body {
     --navBarBgColor: rgb(46, 43, 87);
     --hrefLinkColor: rgb(89, 236, 89);
     --colGridColor: linear-gradient(rgb(46, 79, 100), rgb(18, 28, 44));
+    --footerColor: rgb(26, 26, 27);
 }
 
 a{
@@ -265,7 +267,7 @@ main {
     color: var(--fontColor);
     padding: 30px 0px;
     text-align: center;
-    background-color: #88bccc13;
+    background-color: var(--footerColor);
     z-index: 3;
 }
 
