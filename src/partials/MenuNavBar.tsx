@@ -44,19 +44,19 @@ function MenuNavBar() {
 
   // Dark theme handler
   const [switchState, setSwitchState] = useState(false)
-  const [moodtheme, setMoodTheme] = useState("tertiary")
+  const [moodtheme, setMoodTheme] = useState("light2")
   const handleChange=(e: { target: { checked: any; }; })=>{
     let isDark = e.target.checked ? false: true;
     let body = document.getElementsByTagName("body")[0];
     console.log("Dark: " + isDark);
     if (isDark) { 
       body.className = "";
-      setMoodTheme("tertiary");
+      setMoodTheme("light2");
       localStorage.setItem("data-theme", "light");
     }
     else{
       body.className += " dark";
-      setMoodTheme("dark");
+      setMoodTheme("dark2");
       localStorage.setItem("data-theme", "dark");
     }   
     setSwitchState(!switchState)
@@ -92,7 +92,7 @@ function MenuNavBar() {
             <Nav.Link href="/" className="NavLink">Home</Nav.Link>
             <Nav.Link href="/products" className="NavLink">Products</Nav.Link>
             <Nav.Link href="/news" className="NavLink">News</Nav.Link>
-            <NavDropdown title="More" id="navbarScrollingDropdown1">
+            <NavDropdown title="More" id="navbarScrollingDropdown1"  style={{color:"var(--fontColor)"}}>
             <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item>
@@ -106,7 +106,7 @@ function MenuNavBar() {
                     id="dark-theme-switch"
                     label="Dark Theme"
                     onChange={handleChange}   
-                    checked = {switchIt()}
+                    defaultChecked = {switchIt()}
                   />
                 </Form>
           </Nav>
