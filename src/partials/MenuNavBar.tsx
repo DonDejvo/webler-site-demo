@@ -44,14 +44,26 @@ function MenuNavBar() {
 
   // Dark theme handler
   const [switchState, setSwitchState] = useState(false)
+  const [moodtheme, setMoodTheme] = useState("light")
   const handleChange=(e: { target: { checked: any; }; })=>{
-    console.log("Dark: " + e.target.checked)
+    let isDark = e.target.checked ? false: true;
+    let body = document.getElementsByTagName("body")[0];
+    console.log("Dark: " + isDark);
+    if (isDark) { 
+      body.className = "";
+      setMoodTheme("light");
+    }
+    else{
+      body.className += " dark";
+      setMoodTheme("dark");
+    }
+      
     setSwitchState(!switchState)
   }
   //Dark theme handler
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary navBarBG">
+    <Navbar expand="lg" className="bg-body-tertiary navBarBG" id="navID" bg={moodtheme} data-bs-theme={moodtheme}>
       <Container fluid className="navBarSvg">
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
