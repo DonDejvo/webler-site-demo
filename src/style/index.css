@@ -2,8 +2,10 @@
     overflow-x: hidden;
     --bGcolor: #e0ebfa;
     --fontColor: #1f2023;
-    --authFormBGcolor: rgb(231, 236, 241);
-    
+    --authFormBGcolor: rgb(255, 255, 255);
+    --navBarBgColor: rgb(178, 224, 236);
+    --hrefLinkColor: rgb(0, 26, 255);
+    --colGridColor: linear-gradient(rgb(217, 241, 248), rgb(178, 190, 209));
 }
 
 body {
@@ -15,7 +17,13 @@ body {
     --bGcolor: #1f2023;
     --fontColor: #efefef;
     --authFormBGcolor: rgb(36, 47, 58);
+    --navBarBgColor: rgb(46, 43, 87);
+    --hrefLinkColor: rgb(89, 236, 89);
+    --colGridColor: linear-gradient(rgb(46, 79, 100), rgb(18, 28, 44));
+}
 
+a{
+    color: var(--hrefLinkColor);
 }
 
 .navBarBG {
@@ -23,6 +31,8 @@ body {
     position: -webkit-sticky;
     top: 0px;
     z-index: 987;
+    color: var(--fontColor);
+    background-color: var(--navBarBgColor);
 }
 
 .smallnavform {
@@ -59,6 +69,7 @@ main {
 
 .NavLink {
     font-weight: 700;
+    color: var(--fontColor);
 }
 
 .NavLink:hover {
@@ -213,6 +224,7 @@ main {
     border: var(--bGcolor) solid 21px;
     border-radius: 40px;
     background-color: #5f9fe917;
+    background-image: var(--colGridColor);
 }
 .col-7 {
     width: 50%;
@@ -220,6 +232,7 @@ main {
     border: var(--bGcolor) solid 21px;
     border-radius: 40px;
     background-color: #5f9fe917;
+    background-image: var(--colGridColor);
 }
 .col-8 {width: 66.66%;}
 .col-9 {width: 75%;}
