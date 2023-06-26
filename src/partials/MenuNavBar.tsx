@@ -45,18 +45,19 @@ function MenuNavBar() {
   // Dark theme handler
   const [switchState, setSwitchState] = useState(false)
   const [moodtheme, setMoodTheme] = useState("light2")
+  let isDark = false;
   const handleChange=(e: { target: { checked: any; }; })=>{
-    let isDark = e.target.checked ? false: true;
+    isDark = e.target.checked ? true: false;
     let body = document.getElementsByTagName("body")[0];
-    console.log("Dark: " + isDark);
-    if (isDark) { 
+    console.log("handleChange() ... Dark: " + isDark);
+    if (isDark===false) { 
       body.className = "";
       setMoodTheme("light2");
       localStorage.setItem("data-theme", "light");
     }
-    else{
+    else if (isDark === true){
       body.className += " dark";
-      setMoodTheme("dark2");
+      setMoodTheme("dark");
       localStorage.setItem("data-theme", "dark");
     }   
     setSwitchState(!switchState)
@@ -64,23 +65,23 @@ function MenuNavBar() {
 
   const switchIt =()=>{
     let body = document.getElementsByTagName("body")[0];
-    console.log(localStorage.getItem("data-theme"));
+    console.log("switchIt() ... "+localStorage.getItem("data-theme"));
     if(localStorage.getItem("data-theme")==="dark"){
       body.className += " dark";
-      localStorage.setItem("data-theme", "dark");
+      isDark = true;
       return true;
     }   
     else if (localStorage.getItem("data-theme")==="light"){
       body.className = "";
-      localStorage.setItem("data-theme", "light");
+      isDark = false;
       return false;
     }
   }
   //Dark theme handler
 
   return (
-    <Navbar expand="lg" className="navBarBG" id="navID" bg={moodtheme} data-bs-theme={moodtheme}>
-      <Container fluid className="navBarSvg">
+    <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme}>
+      <Container fluid>
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -92,8 +93,8 @@ function MenuNavBar() {
             <Nav.Link href="/" className="NavLink">Home</Nav.Link>
             <Nav.Link href="/products" className="NavLink">Products</Nav.Link>
             <Nav.Link href="/news" className="NavLink">News</Nav.Link>
-            <NavDropdown title="More" id="navbarScrollingDropdown1"  style={{color:"var(--fontColor)"}}>
-            <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item>
+            <NavDropdown title="More" style={{color:"var(--fontColor)"}} >
+              <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item>
               <NavDropdown.Item href="/help">Help & FAQ's</NavDropdown.Item>
@@ -107,6 +108,7 @@ function MenuNavBar() {
                     label="Dark Theme"
                     onChange={handleChange}   
                     defaultChecked = {switchIt()}
+                    checked = {switchIt()}
                   />
                 </Form>
           </Nav>
@@ -114,7 +116,6 @@ function MenuNavBar() {
           {
             (username) ?
               <>
-                
                 <NavDropdown align="end" title={user?<><img width={34} height={34} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} /> {(username)} </>: <>{(username)}</>} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
