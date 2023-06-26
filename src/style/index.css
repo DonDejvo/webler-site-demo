@@ -1,8 +1,9 @@
 :root {
     overflow-x: hidden;
-    --bGcolor: #fafafa;
+    --bGcolor: #e0ebfa;
     --fontColor: #1f2023;
-
+    --authFormBGcolor: rgb(231, 236, 241);
+    
 }
 
 body {
@@ -13,6 +14,7 @@ body {
 .dark {
     --bGcolor: #1f2023;
     --fontColor: #efefef;
+    --authFormBGcolor: rgb(36, 47, 58);
 
 }
 
@@ -199,7 +201,7 @@ main {
     display: block;
 }
   
-  /* For desktop: */
+  /* Grid layout for desktop: */
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -208,14 +210,14 @@ main {
 .col-6 {
     width: 50%;
     height: 350px;
-    border: rgb(232, 240, 247) solid 21px;
+    border: var(--bGcolor) solid 21px;
     border-radius: 40px;
     background-color: #5f9fe917;
 }
 .col-7 {
     width: 50%;
     height: fit-content;
-    border: rgb(232, 240, 247) solid 21px;
+    border: var(--bGcolor) solid 21px;
     border-radius: 40px;
     background-color: #5f9fe917;
 }
@@ -226,7 +228,7 @@ main {
 .col-12 {width: 100%;}
 
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
+    /* Grid layout for mobile phones: */
     [class*="col-"] {
         width: 100%;
     }
@@ -247,10 +249,10 @@ main {
     position: relative;
     bottom:0px;
     width: 100%;
-    color: #000;
+    color: var(--fontColor);
     padding: 30px 0px;
     text-align: center;
-    background-color: #daddff;
+    background-color: #88bccc13;
     z-index: 3;
 }
 
@@ -258,13 +260,13 @@ main {
     width: 100%;
     margin: 1% 0%;
     padding: 0.7% 0%;
-    color: rgb(0, 0, 0);
+    color: var(--fontColor);
     font-size: 0.8em;
 }
 
 .footer .row a {
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: var(--fontColor);
     transition: 0.6s;
 }
 
