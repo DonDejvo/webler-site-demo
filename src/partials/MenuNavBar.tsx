@@ -52,13 +52,29 @@ function MenuNavBar() {
     if (isDark) { 
       body.className = "";
       setMoodTheme("tertiary");
+      localStorage.setItem("data-theme", "light");
     }
     else{
       body.className += " dark";
       setMoodTheme("dark");
-    }
-      
+      localStorage.setItem("data-theme", "dark");
+    }   
     setSwitchState(!switchState)
+  }
+
+  const switchIt =()=>{
+    let body = document.getElementsByTagName("body")[0];
+    console.log(localStorage.getItem("data-theme"));
+    if(localStorage.getItem("data-theme")==="dark"){
+      body.className += " dark";
+      localStorage.setItem("data-theme", "dark");
+      return true;
+    }   
+    else if (localStorage.getItem("data-theme")==="light"){
+      body.className = "";
+      localStorage.setItem("data-theme", "light");
+      return false;
+    }
   }
   //Dark theme handler
 
@@ -89,8 +105,8 @@ function MenuNavBar() {
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
-                    defaultChecked={switchState}
                     onChange={handleChange}   
+                    checked = {switchIt()}
                   />
                 </Form>
           </Nav>
