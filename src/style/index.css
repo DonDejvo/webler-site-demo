@@ -18,7 +18,7 @@ body {
     --bGcolor: #1f2023;
     --fontColor: #efefef;
     --authFormBGcolor: rgb(36, 47, 58);
-    --navBarBgColor: rgb(46, 43, 87);
+    --navBarBgColor: rgb(24, 23, 37);
     --hrefLinkColor: rgb(89, 236, 89);
     --colGridColor: linear-gradient(rgb(46, 79, 100), rgb(18, 28, 44));
     --footerColor: rgb(26, 26, 27);
@@ -74,13 +74,28 @@ main {
     color: var(--fontColor);
 }
 
+.dropdown-toggle .nav-link{
+    color: var(--fontColor);
+}
+
+.nav-link{
+    color: var(--fontColor);
+}
+
+.nav-link:hover{
+    color: rgb(63, 62, 168);
+}
+
+.nav-link:active{
+    color: rgb(97, 62, 180);
+}
+
 .NavLink:hover {
     color: rgb(63, 62, 168);
 }
 
-#navbarScrollingDropdown1:hover,
-#navbarScrollingDropdown2:hover {
-    color: rgb(39, 141, 107);
+.NavLink:active {
+    color: rgb(78, 76, 206);
 }
 
 .bannerImage {
