@@ -44,14 +44,14 @@ function MenuNavBar() {
 
   // Dark theme handler
   const [switchState, setSwitchState] = useState(false)
-  const [moodtheme, setMoodTheme] = useState("light")
+  const [moodtheme, setMoodTheme] = useState("tertiary")
   const handleChange=(e: { target: { checked: any; }; })=>{
     let isDark = e.target.checked ? false: true;
     let body = document.getElementsByTagName("body")[0];
     console.log("Dark: " + isDark);
     if (isDark) { 
       body.className = "";
-      setMoodTheme("light");
+      setMoodTheme("tertiary");
     }
     else{
       body.className += " dark";
@@ -63,7 +63,7 @@ function MenuNavBar() {
   //Dark theme handler
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary navBarBG" id="navID" bg={moodtheme} data-bs-theme={moodtheme}>
+    <Navbar expand="lg" className="navBarBG" id="navID" bg={moodtheme} data-bs-theme={moodtheme}>
       <Container fluid className="navBarSvg">
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -122,7 +122,3 @@ function MenuNavBar() {
 }
 
 export default MenuNavBar;
-
-function setField(arg0: string, checked: any) {
-  throw new Error('Function not implemented.');
-}

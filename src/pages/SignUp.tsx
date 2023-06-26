@@ -68,14 +68,14 @@ function SignUp() {
             <main>
                 <div className="d-flex flex-column justify-content-center" >
                     <div className="d-flex justify-content-center">
-                        <div className="w-100 p-4 m-2 rounded bg-white" style={{ maxWidth: '600px' }}>
+                        <div className="w-100 p-4 m-2 rounded" style={{ maxWidth: '600px' , backgroundColor:"var(--authFormBGcolor)"}}>
                             <h3 className="text-center m-2">Sign Up</h3>
                             {error && <Alert variant="danger">{error}</Alert>}
                             <p className="text-center">New here? Let's create your account:</p>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group mb-2">
                                     <label htmlFor="email">Email</label>
-                                    <input className="form-control" type="email" name="email" id="email" placeholder="email adrress" />
+                                    <input className="form-control" type="email" name="email" id="email" placeholder="email address" />
                                 </div>
                                 <div className="form-group mb-2">
                                     <label htmlFor="username">Username</label>
@@ -94,7 +94,7 @@ function SignUp() {
                                 </div>
                             </form>
                             <p className="text-divider">
-                                <span>or</span>
+                                <span style={{backgroundColor:"var(--authFormBGcolor)"}}>or</span>
                             </p>
                             <div className="row">
                                 <div className="col-sm p-2">

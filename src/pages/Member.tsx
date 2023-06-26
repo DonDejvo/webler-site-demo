@@ -47,7 +47,7 @@ function Member() {
                 {
                     user ?
                         <>
-                            <div className="bg-white" style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto" }}>
+                            <div style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto" , background:"#88bccc3b"}}>
                                 <div className="d-block d-sm-flex p-4" style={{ gap: 12 }}>
                                     <div className="img-circle text-center mb-2">
                                         <img width={128} height={128} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} />
