@@ -21,7 +21,7 @@ function MembersList() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"MembersList"} />
 
             {/* Main */}
             <main>

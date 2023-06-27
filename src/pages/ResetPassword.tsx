@@ -38,12 +38,12 @@ function ResetPassword() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"ResetPassword"} />
 
             {/* Main */}
             <div className="d-flex flex-column justify-content-center" style={{ height: "100vh" }}>
                 <div className="d-flex justify-content-center">
-                    <div className="w-100 p-4 m-2 rounded bg-white" style={{ maxWidth: '600px' }}>
+                    <div className="w-100 p-4 m-2 rounded" style={{ maxWidth: '600px' , backgroundColor: 'var(--authFormBGcolor)'}}>
                         <h3 className="text-center m-2">Password Reset</h3>
                         {error && <Alert variant="danger">{error}</Alert>}
                         {message && <Alert variant="success">{message}</Alert>}
@@ -51,7 +51,7 @@ function ResetPassword() {
                         <form onSubmit={handleSubmit}>
                             <div className="form-group mb-2">
                                 <label htmlFor="email">Email</label>
-                                <input className="form-control" type="email" name="email" id="email" placeholder="email adress" />
+                                <input className="form-control" type="email" name="email" id="email" placeholder="email address" />
                             </div>
                             <div className="pt-2" >
                                 <Button disabled={loading} type="submit" className="w-100">Submit</Button>

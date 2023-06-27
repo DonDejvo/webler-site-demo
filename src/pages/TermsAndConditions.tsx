@@ -7,23 +7,23 @@ function TermsAndConditions() {
   return (
     <>
         {/* Header */}
-        <MenuNavBar />
+        <MenuNavBar pageName={"TermsAndConditions"} />
 
         {/* Main */}
         <main>
-            <h1>Terms & Conditions</h1>
+            <h1 id="top-of-page">Terms & Conditions</h1>
             <hr />
             <div style={{padding:"22px"}}>
               <p>Terms of Use</p>
-              <p>Last revised: June 13, 2023</p>
-              <p></p>
+              <p>Last revised: June 18, 2023</p>
+              <br/>
               <p>Please note that your use of and access to our services are subject to the following Terms; if you do not agree to all of the following, you may not use or access the services in any manner.</p>
-              <p></p>
-              <p> </p>
-              <p></p>
+              <br />
+              <br />
+              <br />
               <p>Welcome to Webler! Please read these Terms of Use (these “Terms”) carefully before using the website(s) (including https://www.webler.com/), products, services and applications (the “Services”) operated by Webler Inc. ("Webler", "us", "we", or "our"). </p>
               <p></p>
-              <p>If you have any questions, comments, or concerns regarding these Terms or the Services, please contact us by emailing us at info@webler.com.</p>
+              <p>If you have any questions, comments, or concerns regarding these Terms or the Services, please contact us by emailing us at <a href="mailto:info@webler.com">info@webler.com</a>.</p>
               <p></p>
               <p>These Terms are a legally binding contract between you and Webler. You must agree to and accept all of these Terms, or you don’t have the right to access or use the Services in any manner. These Terms apply to all visitors, users and others who access or use the Services. Your access or use of the Services in any way means that you agree to all of these Terms, and these Terms will remain in effect while you access or use the Services. These Terms include the provisions in this document, as well as those in the Privacy Policy, the Content Creation Guidelines, and Copyright Dispute Policy. If you disagree with any part of these Terms, then you may not access or use the Services.</p>
               <p></p>
@@ -33,25 +33,25 @@ function TermsAndConditions() {
               <p></p>
               <p>Your use of or participation in certain Services may be subject to additional policies, rules and/or conditions (“Additional Terms”), which are incorporated in these Terms by reference, and you understand and agree that by using or participating in any such Services, you agree to also comply with these Additional Terms.</p>
               <p></p>
-              <p> </p>
+              <br />
+              <br/>
+              <h5>Will these Terms ever change?</h5>
               <p></p>
-              <p>Will these Terms ever change?</p>
-              <p></p>
-              <p>We are constantly trying to improve our Services, so these Terms may need to change along with our Services. We reserve the right to change these Terms at any time, but if we do, we will place a notice on the https://www.Webler.com/ site, send you an email, and/or notify you by some other means.</p>
+              <p>We are constantly trying to improve our Services, so these Terms may need to change along with our Services. We reserve the right to change these Terms at any time, but if we do, we will place a notice on the https://www.webler.com/ site, send you an email, and/or notify you by some other means.</p>
               <p></p>
               <p>If you don’t agree with the new Terms, you are free to reject them; unfortunately, that means you will no longer be able to use the Services. If you use the Services in any way after a change to the Terms is effective, that means you agree to all of the changes. Except for changes by us as described here, no other amendment or modification of these Terms will be effective unless in writing and signed by both you and us.</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>What about my privacy?</p>
+              <h5>What about my privacy?</h5>
               <p></p>
               <p>Webler takes the privacy of its users very seriously. For the current Webler Privacy Policy, please click here.</p>
               <p></p>
-              <p>The Children’s Online Privacy Protection Act ("COPPA") requires that online service providers obtain parental consent before they knowingly collect personally identifiable information online from children who are under thirteen (13). We do not knowingly collect or solicit personally identifiable information from children under thirteen (13); if you are a child under thirteen (13), please do not attempt to register for or otherwise use the Services or send us any personal information. If we learn we have collected personal information from a child under thirteen (13), we will delete that information as quickly as possible. If you believe that a child under thirteen (13) may have provided us personal information, please contact us at info@Webler.com.</p>
+              <p>The Children’s Online Privacy Protection Act ("COPPA") requires that online service providers obtain parental consent before they knowingly collect personally identifiable information online from children who are under eighteen (18). We do not knowingly collect or solicit personally identifiable information from children under eighteen (18); if you are a child under eighteen (18), please do not attempt to register for or otherwise use the Services or send us any personal information. If we learn we have collected personal information from a child under eighteen (18), we will delete that information as quickly as possible. If you believe that a child under eighteen (18) may have provided us personal information, please contact us at info@webler.com.</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>What are the basics of using the Services?</p>
+              <h5>What are the basics of using the Services?</h5>
               <p></p>
               <p>You may be required to sign up for an account, and select a password and username ("Webler User ID"). You promise to provide us with accurate, complete, and updated registration information about yourself. You may not select as your Webler User ID a name that you do not have the right to use, or another person's name with the intent to impersonate that person. </p>
               <p></p>
@@ -68,32 +68,32 @@ function TermsAndConditions() {
               <p>Your use of the Services is subject to the following additional restrictions:</p>
               <p></p>
               <p>You represent, warrant, and agree that you will not contribute any Content or User Submission (each of those terms is defined below) or otherwise use the Services or interact with the Services in a manner that:</p>
-              <p></p>
-              <p>infringes or violates the intellectual property rights or any other rights of anyone else (including Webler);</p>
-              <p>violates any law or regulation, including, without limitation, any applicable export control laws, privacy laws or any other purpose not reasonably intended by Webler; </p>
-              <p>is dangerous, harmful, fraudulent, deceptive, threatening, harassing, defamatory, obscene, or otherwise objectionable;</p>
-              <p>jeopardizes the security of your Webler account or anyone else’s (such as allowing someone else to log in to the Services as you);</p>
-              <p>attempts, in any manner, to obtain the password, account, or other security information from any other user;</p>
-              <p>violates the security of any computer network, or cracks any passwords or security encryption codes;</p>
-              <p>attempts to generate code that is designed to disrupt, damage, or gain unauthorized access to a computer system; </p>
-              <p>fraudulent or deceptive activity, including plagiarism and academic dishonesty;</p>
-              <p>runs Maillist, Listserv, any form of auto-responder or “spam” on the Services, or any processes that run or are activated while you are not logged into the Services, or that otherwise interferes with the proper working of the Services (including by placing an unreasonable load on the Services’ infrastructure);</p>
-              <p>“crawls,” “scrapes,” or “spiders” any page, data, or portion of or relating to the Services or Content (through use of manual or automated means); </p>
-              <p>copies or stores any significant portion of the Content; </p>
-              <p>or decompiles, reverse engineers, or otherwise attempts to obtain the source code or underlying ideas or information of or relating to the Services.</p>
+              <ul>
+                <li>infringes or violates the intellectual property rights or any other rights of anyone else (including Webler);</li>
+                <li>violates any law or regulation, including, without limitation, any applicable export control laws, privacy laws or any other purpose not reasonably intended by Webler; </li>
+                <li>is dangerous, harmful, fraudulent, deceptive, threatening, harassing, defamatory, obscene, or otherwise objectionable;</li>
+                <li>jeopardizes the security of your Webler account or anyone else’s (such as allowing someone else to log in to the Services as you);</li>
+                <li>attempts, in any manner, to obtain the password, account, or other security information from any other user;</li>
+                <li>violates the security of any computer network, or cracks any passwords or security encryption codes;</li>
+                <li>attempts to generate code that is designed to disrupt, damage, or gain unauthorized access to a computer system; </li>
+                <li>fraudulent or deceptive activity, including plagiarism and academic dishonesty;</li>
+                <li>runs Maillist, Listserv, any form of auto-responder or “spam” on the Services, or any processes that run or are activated while you are not logged into the Services, or that otherwise interferes with the proper working of the Services (including by placing an unreasonable load on the Services’ infrastructure);</li>
+                <li>“crawls,” “scrapes,” or “spiders” any page, data, or portion of or relating to the Services or Content (through use of manual or automated means); </li>
+                <li>copies or stores any significant portion of the Content; </li>
+                <li>or decompiles, reverse engineers, or otherwise attempts to obtain the source code or underlying ideas or information of or relating to the Services.</li>
+              </ul>
               <p>A violation of any of the foregoing is grounds for termination of your right to use or access the Services.</p>
+              <br />
               <p></p>
-              <p> </p>
-              <p></p>
-              <p>What are my responsibilities for using the Services?</p>
+              <h5>What are my responsibilities for using the Services?</h5>
               <p></p>
               <p>The materials displayed or performed or available on or through the Services, including, but not limited to, text, graphics, data, articles, photos, images, illustrations, User Submissions, and so forth (all of the foregoing, the “Content”) are protected by copyright and/or other intellectual property laws. You promise to abide by all copyright notices, trademark rules, information, and restrictions contained in any Content you access through the Services, and you won’t use, copy, reproduce, modify, translate, publish, broadcast, transmit, distribute, perform, upload, display, license, sell, commercialize or otherwise exploit for any purpose any Content not owned by you, (i) without the prior consent of the owner of that Content or (ii) in a way that violates someone else’s (including Webler’s) rights.</p>
               <p></p>
               <p>You understand that Webler owns the Services. You won’t modify, publish, transmit, participate in the transfer or sale of, reproduce (except as expressly provided in this Section), create derivative works based on, or otherwise exploit any of the Services. The Services may allow you to copy or download certain Content; please remember that just because this functionality exists, doesn’t mean that all the restrictions above don’t apply - they do!</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>Do I have to grant any licenses to Webler or to other users?</p>
+              <h5>Do I have to grant any licenses to Webler or to other users?</h5>
               <p></p>
               <p>Anything you post, upload, share, store, or otherwise provide through the Services is your “User Submission.” Some User Submissions may be viewable by other users. In order to display your User Submissions on the Services, and to allow other users to enjoy them (where applicable), you grant us certain rights in those User Submissions. Please note that all of the following licenses are subject to our Privacy Policy to the extent they relate to User Submissions that are also your personally-identifiable information.</p>
               <p></p>
@@ -111,15 +111,15 @@ function TermsAndConditions() {
               <p></p>
               <p>Finally, you understand and agree that Webler, in performing the required technical steps to provide the Services to our users (including you), may need to make changes to your User Submissions to conform and adapt those User Submissions to the technical requirements of connection networks, devices, services, or media, and the foregoing licenses include the rights to do so.</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>What if I see something on the Services that infringes my copyright?</p>
+              <h5>What if I see something on the Services that infringes my copyright?</h5>
               <p></p>
               <p>You may have heard of the Digital Millennium Copyright Act (the “DMCA”), as it relates to online service providers, like Webler, being asked to remove material that allegedly violates someone’s copyright. We respect others’ intellectual property rights, and we reserve the right to delete or disable Content alleged to be infringing, and to terminate the accounts of repeat alleged infringers; to review our complete Copyright Dispute Policy and learn how to report potentially infringing content, click here. To learn more about the DMCA, click here.</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>Who is responsible for what I see and do on the Services?</p>
+              <h5>Who is responsible for what I see and do on the Services?</h5>
               <p></p>
               <p>Any information or Content publicly posted or privately transmitted through the Services is the sole responsibility of the person from whom such Content originated, and you access all such information and Content at your own risk, and we aren’t liable for any errors or omissions in that information or Content or for any damages or loss you might suffer in connection with it. We cannot control and have no duty to take any action regarding how you may interpret and use the Content or what actions you may take as a result of having been exposed to the Content, and you hereby release us from all liability for you having acquired or not acquired Content through the Services. We can’t guarantee the identity of any users with whom you interact in using the Services and are not responsible for which users gain access to the Services.</p>
               <p></p>
@@ -131,37 +131,37 @@ function TermsAndConditions() {
               <p></p>
               <p>If there is a dispute between participants on this site or Services, or between users and any third party, you agree that Webler is under no obligation to become involved. In the event that you have a dispute with one or more other users, you release Webler, its directors, officers, employees, agents, and successors from claims, demands, and damages of every kind or nature, known or unknown, suspected or unsuspected, disclosed or undisclosed, arising out of or in any way related to such disputes and/or our Services. You shall and hereby do waive California Civil Code Section 1542 or any similar law of any jurisdiction, which says in substance: “A general release does not extend to claims which the creditor does not know or suspect to exist in his or her favor at the time of executing the release, which, if known by him or her must have materially affected his or her settlement with the debtor.”</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>Will Webler ever change the Services?</p>
+              <h5>Will Webler ever change the Services?</h5>
               <p></p>
               <p>We’re always trying to improve our Services, so they may change over time. We may suspend or discontinue any part of the Services, or we may introduce new features or impose limits on certain features or restrict access to parts or all of the Services. We’ll try to give you notice when we make a material change to the Services that would adversely affect you, but this isn’t always practical. </p>
               <p></p>
               <p>We reserve the right to remove any Content from the Services at any time, for any reason (including, but not limited to, if someone alleges you contributed that Content in violation of these Terms), in our sole discretion, and without notice.</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>Do the Services cost anything?</p>
+              <h5>Do the Services cost anything?</h5>
               <p></p>
               <p>The Services are currently free, but we reserve the right to charge for certain or all Services in the future. We will notify you before any Services you are then using begin carrying a fee, and if you wish to continue using such Services, you must pay all applicable fees for such Services.</p>
               <p></p>
-              <p>There is also a PRO subscription available to purchase via the app stores and website. You can find more information on the subscription and our refund policy here: https://www.Webler.com/refund-policy</p>
+              <p>There are also PRO and VIP subscriptions available to purchase via the app stores and website. You can find more information on the subscription and our refund policy here: https://www.webler.com/refund-policy</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>What if I want to stop using the Services?</p>
+              <h5>What if I want to stop using the Services?</h5>
               <p></p>
-              <p>You’re free to do that at any time by contacting us at info@Webler.com; please refer to our Privacy Policy, as well as the licenses above, to understand how we treat information you provide to us after you have stopped using our Services.</p>
+              <p>You’re free to do that at any time by contacting us at info@webler.com; please refer to our Privacy Policy, as well as the licenses above, to understand how we treat information you provide to us after you have stopped using our Services.</p>
               <p></p>
               <p>Webler is also free to terminate (or suspend access to) your use of the Services or your account, for any reason in our discretion, including your breach of these Terms. Webler has the sole right to decide whether you are in violation of any of the restrictions set forth in these Terms. Account deactivation or termination may result in destruction of any Content associated with your account, so keep that in mind before you decide to deactivate or terminate your account.</p>
               <p></p>
-              <p>If you have deleted your account by mistake, contact us immediately at info@Webler.com - we will try to help, but unfortunately, we can’t promise that we can recover or restore anything. </p>
+              <p>If you have deleted your account by mistake, contact us immediately at info@webler.com - we will try to help, but unfortunately, we can’t promise that we can recover or restore anything. </p>
               <p></p>
               <p>Provisions that, by their nature, should survive termination of these Terms shall survive termination. By way of example, all of the following will survive termination: any obligation you have to pay us or indemnify us, any limitations on our liability, any terms regarding ownership or intellectual property rights, and terms regarding disputes between us, including without limitation the arbitration agreement.</p>
               <p></p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>I use the Webler App available via the Apple App Store – what should I know about that?</p>
+              <h5>I use the Webler App available via the Apple App Store – what should I know about that?</h5>
               <p></p>
               <p>These Terms apply to your use of all the Services, including the iOS applications (the “Application”) available via the Apple, Inc. (“Apple”) App Store, but the following additional terms also apply to the Application:</p>
               <p></p>
@@ -176,9 +176,9 @@ function TermsAndConditions() {
               <p>You represent and warrant that you are not located in a country subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a “terrorist supporting” country, and that you are not listed on any U.S. Government list of prohibited or restricted parties;</p>
               <p>Both you and Webler acknowledge and agree that, in your use of the Application, you will comply with any applicable third-party terms of agreement which may affect or be affected by such use; </p>
               <p>And Both you and Webler acknowledge and agree that Apple and Apple’s subsidiaries are third-party beneficiaries of these Terms, and that upon your acceptance of these Terms, Apple will have the right (and will be deemed to have accepted the right) to enforce these Terms against you as the third-party beneficiary hereof.</p>
-              <p> </p>
+              <br />
               <p></p>
-              <p>What else do I need to know?</p>
+              <h5>What else do I need to know?</h5>
               <p></p>
               <p>Warranty Disclaimer.</p>
               <p></p>
@@ -242,10 +242,10 @@ function TermsAndConditions() {
               <p></p>
               <p>You will be responsible for paying, withholding, filing, and reporting all taxes, duties, and other governmental assessments associated with your activity in connection with the Services, provided that the Webler may, in its sole discretion, do any of the foregoing on your behalf or for itself as it sees fit. The failure of either you or us to exercise, in any way, any right herein shall not be deemed a waiver of any further rights hereunder. If any provision of these Terms are found to be unenforceable or invalid, that provision will be limited or eliminated, to the minimum extent necessary, so that these Terms shall otherwise remain in full force and effect and enforceable. You and Webler agree that these Terms are the complete and exclusive statement of the mutual understanding between you and Webler, and that these Terms supersede and cancel all previous written and oral agreements, communications and other understandings relating to the subject matter of these Terms. You hereby acknowledge and agree that you are not an employee, agent, partner, or joint venture of Webler, and you do not have any authority of any kind to bind Webler in any respect whatsoever.</p>
               <p></p>
-              <p>Except as expressly set forth in the section(s) above regarding the Apple Application and the arbitration agreement, you and Webler agree there are no third-party beneficiaries intended under these Terms</p>
+              <p id="bottom-of-page">Except as expressly set forth in the section(s) above regarding the Apple Application and the arbitration agreement, you and Webler agree there are no third-party beneficiaries intended under these Terms</p>
             </div>
         </main>
-            
+
         {/* Footer */}
         <Footer />
     </>

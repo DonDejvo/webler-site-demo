@@ -1,6 +1,7 @@
 import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
+import Button from 'react-bootstrap/Button';
 import { SyntheticEvent, useEffect, useState } from "react";
 import { Alert, Form } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
@@ -242,7 +243,7 @@ function EditMember() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"EditMember"} />
 
             {/* Main */}
             <main>
@@ -255,8 +256,8 @@ function EditMember() {
                         :
                         <>
                             <h1 className="mb-4">Account Settings</h1>
-                            <div className="bg-white rounded-lg d-block d-sm-flex">
-                                <div className="profile-tab-nav border-right">
+                            <div className="rounded-lg d-block d-sm-flex">
+                                <div className="profile-tab-nav border-right" style={{backgroundColor:"var(--authFormBGcolor)",padding:"20px", borderRadius:"20px"}} >
                                     <div className="p-4">
                                         <h4 className="text-center">{getUserDetails().username}</h4>
                                     </div>
@@ -272,7 +273,7 @@ function EditMember() {
                                     </div>
                                 </div>
                                 <div className="tab-content p-4 p-md-5" id="v-pills-tabContent">
-                                    <div className="tab-pane fade show active" id="account-tabpanel" role="tabpanel" aria-labelledby="account-tab">
+                                    <div className="tab-pane fade show active" id="account-tabpanel" role="tabpanel" aria-labelledby="account-tab" style={{backgroundColor:"var(--authFormBGcolor)",padding:"20px", borderRadius:"20px"}}>
                                         <h3 className="mb-4">Account Settings</h3>
                                         {error && <Alert variant="danger">{error}</Alert>}
                                         {message && <Alert variant="success">{message}</Alert>}
@@ -318,11 +319,12 @@ function EditMember() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="mt-2">
-                                            <button onClick={saveAccountSettings} className="btn btn-primary">Save</button>
+                                        <div>
+                                            <button onClick={saveAccountSettings} className="btn btn-primary" >Save</button>
+                                            <Button href = {"/member/"+username} variant="secondary" style={{marginLeft:"20px"}}>Back to profile</Button>
                                         </div>
                                     </div>
-                                    <div className="tab-pane fade" id="password-tabpanel" role="tabpanel" aria-labelledby="password-tab">
+                                    <div className="tab-pane fade" id="password-tabpanel" role="tabpanel" aria-labelledby="password-tab" style={{backgroundColor:"var(--authFormBGcolor)",padding:"20px", borderRadius:"20px"}} >
                                         <h3 className="mb-4">Password Settings</h3>
                                         {error && <Alert variant="danger">{error}</Alert>}
                                         {message && <Alert variant="success">{message}</Alert>}

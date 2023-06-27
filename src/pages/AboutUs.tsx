@@ -7,7 +7,7 @@ function AboutUs() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"AboutUs"} />
 
             {/* Main */}
             <main>

@@ -10,7 +10,11 @@ import { useAuth } from '../context/AuthContext';
 import { NavItem } from 'react-bootstrap';
 import DatabaseClient from "../api/DatabaseClient";
 
-function MenuNavBar() {
+interface Props{
+  pageName: string;
+}
+
+function MenuNavBar({pageName}:Props) {
 
   const { signout, getUserDetails } = useAuth()
   const username = getUserDetails()?.username
@@ -18,7 +22,6 @@ function MenuNavBar() {
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-
     if(username) {
       DatabaseClient.getUserByUsername(username)
         .then(snapshot => {
@@ -27,11 +30,9 @@ function MenuNavBar() {
             setUser(user)
         })
     }
-
-}, []);
+  }, []);
 
   async function handleLogout() {
-
     try {
       await signout()
       window.location.href = "/login"
@@ -45,9 +46,89 @@ function MenuNavBar() {
       window.location.href = "/member/" + username;
   }
 
+  // Dark theme handler
+  const [switchState, setSwitchState] = useState(false)
+  const [moodtheme, setMoodTheme] = useState("light2")
+  const handleChange=(e: { target: { checked: any; }; })=>{
+    const isDark = e.target.checked ? true: false;
+    const body = document.getElementsByTagName("body")[0];
+    if (isDark===false) { 
+      body.className = "";
+      setMoodTheme("light2");
+      localStorage.setItem("data-theme", "light");
+    }
+    else if (isDark === true){
+      body.className += " dark";
+      setMoodTheme("dark");
+      localStorage.setItem("data-theme", "dark");
+    }   
+    setSwitchState(!switchState)
+  }
+
+  const switchIt =()=>{
+    let body = document.getElementsByTagName("body")[0];
+    if(localStorage.getItem("data-theme")==="dark"){
+      body.className += " dark";
+      return true;
+    }   
+    else if (localStorage.getItem("data-theme")==="light"){
+      body.className = "";
+      return false;
+    }
+  }
+  //Dark theme handler
+
+  //Handler for quick scroll to top or quick scroll to bottom
+  const [buttonHideUp, setbuttonHideUp] = useState(false)
+  const [buttonHideDown, setbuttonHideDown] = useState(false)
+  
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  function bottomFunction() {
+    document.body.scrollTop = document.body.scrollHeight;
+    document.documentElement.scrollTop = document.body.scrollHeight;
+  }
+  
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function() {scrollFunction()};
+  window.onload = function() {scrollFunction()}; 
+  function scrollFunction() {
+    if(pageName==="Home"){
+      setbuttonHideUp(true);
+      setbuttonHideDown(true);
+      if (document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
+        setbuttonHideUp(false);
+        setbuttonHideDown(false);
+      } else {
+        setbuttonHideUp(true);
+        setbuttonHideDown(true);
+      }
+      if (document.body.scrollTop > document.body.scrollHeight-800 || document.documentElement.scrollTop > document.body.scrollHeight-800){
+        setbuttonHideDown(true);
+      }
+    } else {
+      if (document.body.scrollTop > 240 || document.documentElement.scrollTop > 240) {
+        setbuttonHideUp(false);
+      } else {
+        setbuttonHideUp(true);
+        setbuttonHideDown(false);
+      }
+      if (document.body.scrollTop > document.body.scrollHeight-800 || document.documentElement.scrollTop > document.body.scrollHeight-800){
+        setbuttonHideDown(true);
+      } else {
+        setbuttonHideDown(false)
+      }
+    }
+  }
+  
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary navBarBG">
-      <Container fluid className="navBarSvg">
+    <>
+    <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme} >
+      <Container fluid >
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -56,22 +137,24 @@ function MenuNavBar() {
             style={{ maxHeight: '370px' , alignItems:'center'}}
             navbarScroll
           >
-            <Nav.Link href="/" className="NavLink">Home</Nav.Link>
-            <Nav.Link href="/products" className="NavLink">Products</Nav.Link>
-            <Nav.Link href="/news" className="NavLink">News</Nav.Link>
-            <NavDropdown title="More" id="navbarScrollingDropdown1">
-            <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item>
+            <Nav.Link href="/" className="NavLink" >Home</Nav.Link>
+            <Nav.Link href="/products" className="NavLink" >Products</Nav.Link>
+            <Nav.Link href="/news" className="NavLink" >News</Nav.Link>
+            <NavDropdown title="More" style={{color:"var(--fontColor)"}} >
+              <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item >
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item>
-              <NavDropdown.Item href="/help">Help & FAQ's</NavDropdown.Item>
+              <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item >
+              <NavDropdown.Item href="/help">Help & FAQ's</NavDropdown.Item >
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item>
-            </NavDropdown>
+              <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item >
+            </NavDropdown >
                 <Form style={{alignSelf:"center"}}>
                   <Form.Check
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
+                    onChange={handleChange}   
+                    checked = {switchIt()}
                   />
                 </Form>
           </Nav>
@@ -79,7 +162,6 @@ function MenuNavBar() {
           {
             (username) ?
               <>
-                
                 <NavDropdown align="end" title={user?<><img width={34} height={34} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} /> {(username)} </>: <>{(username)}</>} id="navbarScrollingDropdownUser">
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -92,7 +174,7 @@ function MenuNavBar() {
             <>
               <NavItem>
                 <Button href="/login" size="lg" className="smallnavform navButton"><strong>Login</strong></Button>
-                <Button href="/signup" size="lg" className="smallnavform navButton">Sign-up</Button>
+                <Button href="/signup" size="lg" className="smallnavform navButton" variant="success">Sign-up</Button>
               </NavItem>
             </>
           }
@@ -100,6 +182,10 @@ function MenuNavBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
+    <button onClick={topFunction} className="quick-scroll-button" id="myBtnTop" title="Go to top" hidden={buttonHideUp}>^</button>
+    <button onClick={bottomFunction} className="quick-scroll-button" id="myBtnBottom" title="Go to top" hidden={buttonHideDown}>v</button>
+    </>
   );
 }
 

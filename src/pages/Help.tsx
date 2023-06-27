@@ -7,7 +7,7 @@ function Help() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"Help"} />
 
             {/* Main */}
             <main>
@@ -25,6 +25,14 @@ function Help() {
                 <p>Answer 3</p>
                 <p>Question 4?</p>
                 <p>Answer 4</p>
+                <p>Question 5?</p>
+                <p>Answer 5</p>
+                <p>Question 6?</p>
+                <p>Answer 6</p>
+                <p>Question 7?</p>
+                <p>Answer 7</p>
+                <p>Question 8?</p>
+                <p>Answer 8</p>
             </main>
                 
             {/* Footer */}
