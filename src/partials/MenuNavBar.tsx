@@ -93,8 +93,8 @@ function MenuNavBar({pageName}:Props) {
   }
   
   // When the user scrolls down 20px from the top of the document, show the button
-  window.onscroll = function() {scrollFunction()};
   window.onload = function() {scrollFunction()}; 
+  window.onscroll = function() {scrollFunction()};
   function scrollFunction() {
     if(pageName==="Home"){
       setbuttonHideUp(true);
@@ -127,7 +127,7 @@ function MenuNavBar({pageName}:Props) {
 
   return (
     <>
-    <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme} >
+    <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme} onLoad={scrollFunction}>
       <Container fluid >
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
