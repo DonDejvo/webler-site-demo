@@ -62,13 +62,6 @@ a{
     height: 60px;
 }
 
-main {
-    display: block;
-    background-color: var(--bGcolor);
-    padding: 20px;
-    min-height: 99vh;
-}
-
 .NavLink {
     font-weight: 700;
     color: var(--fontColor);
@@ -78,16 +71,66 @@ main {
     color: var(--fontColor);
 }
 
+.dropdown a{
+    color: var(--fontColor);
+}
+
+.dropdown a:active{
+    color: var(--fontColor);
+}
+
+.dropdown a:hover{
+    color: var(--hrefLinkColor);
+}
+
+.dropdown-item:hover{
+    color: rgb(81, 178, 223);
+    background-color: #4f719944;
+}
+
 .nav-link{
     color: var(--fontColor);
 }
 
+.nav-link::after{
+    color: var(--fontColor);
+}
 .nav-link:hover{
-    color: rgb(63, 62, 168);
+    color: rgb(81, 79, 189);
 }
 
 .nav-link:active{
     color: rgb(97, 62, 180);
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: var(--fontColor);
+}
+
+.nav-link:hover, .nav-link:focus {
+    color: var(--fontColor);
+}
+
+.navbar-toggler {
+    padding: var(--bs-navbar-toggler-padding-y) var(--bs-navbar-toggler-padding-x);
+    font-size: var(--bs-navbar-toggler-font-size);
+    line-height: 1;
+    color: rgb(88, 88, 112);
+    background-color: rgba(188, 190, 212, 0.363);
+    border: var(--bs-border-width) solid rgba(72, 72, 131, 0.514);
+    border-radius: var(--bs-navbar-toggler-border-radius);
+    transition: var(--bs-navbar-toggler-transition);
+}
+
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-image: var(--bs-navbar-toggler-icon-bg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
 }
 
 .NavLink:hover {
@@ -96,6 +139,19 @@ main {
 
 .NavLink:active {
     color: rgb(78, 76, 206);
+}
+
+.show{
+    color: var(--fontColor);
+}
+
+.dropdown-menu, .dropdown-item{
+    background-color: var(--bGcolor);
+    color: var(--fontColor);
+}
+
+.dropdown-menu:active{
+    color: var(--fontColor);
 }
 
 .bannerImage {
@@ -273,6 +329,13 @@ main {
 /* Home grid ^^^*/
 
 
+
+main {
+    display: block;
+    background-color: var(--bGcolor);
+    padding: 20px;
+    min-height: 99vh;
+}
 
 .footer {
     display: block;
