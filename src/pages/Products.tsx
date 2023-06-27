@@ -8,7 +8,7 @@ function Products() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"Products"} />
 
             {/* Main */}
             <main>

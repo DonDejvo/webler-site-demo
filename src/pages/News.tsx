@@ -7,7 +7,7 @@ function News() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"News"} />
 
             {/* Main */}
             <main>

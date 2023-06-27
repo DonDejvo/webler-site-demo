@@ -60,31 +60,10 @@ function Reauntheticate({ onAuth, onReturn }: any) {
         onReturn();
     }
 
-    /*
-    function logInAction() {
-        const email = (document.getElementById("email") as HTMLInputElement).value;
-        const password = (document.getElementById("password") as HTMLInputElement).value;
-        //Do something here with login
-        console.log(`Logging in: ${email} and ${password}`);
-        //What will happen?
-        toast("Authentication in progress", {
-            position: "bottom-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    }
-    */
-
     PageTitle("Re-authenticate | Webler")
 
     return (
         <>
-
             {/* Main */}
             <div className="d-flex flex-column justify-content-center" style={{ height: "100vh" }}>
                 <div className="d-flex justify-content-center">
@@ -135,7 +114,6 @@ function Reauntheticate({ onAuth, onReturn }: any) {
                     </div>
                 </div>
             </div>
-
         </>
     );
 }

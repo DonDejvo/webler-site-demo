@@ -7,7 +7,7 @@ function ContactUs() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"ContactUs"} />
 
             {/* Main */}
             <main>

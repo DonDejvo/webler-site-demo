@@ -10,7 +10,11 @@ import { useAuth } from '../context/AuthContext';
 import { NavItem } from 'react-bootstrap';
 import DatabaseClient from "../api/DatabaseClient";
 
-function MenuNavBar() {
+interface Props{
+  pageName: string;
+}
+
+function MenuNavBar({pageName}:Props) {
 
   const { signout, getUserDetails } = useAuth()
   const username = getUserDetails()?.username
@@ -45,11 +49,9 @@ function MenuNavBar() {
   // Dark theme handler
   const [switchState, setSwitchState] = useState(false)
   const [moodtheme, setMoodTheme] = useState("light2")
-  let isDark = false;
   const handleChange=(e: { target: { checked: any; }; })=>{
-    isDark = e.target.checked ? true: false;
-    let body = document.getElementsByTagName("body")[0];
-    console.log("handleChange() ... Dark: " + isDark);
+    const isDark = e.target.checked ? true: false;
+    const body = document.getElementsByTagName("body")[0];
     if (isDark===false) { 
       body.className = "";
       setMoodTheme("light2");
@@ -65,21 +67,66 @@ function MenuNavBar() {
 
   const switchIt =()=>{
     let body = document.getElementsByTagName("body")[0];
-    console.log("switchIt() ... "+localStorage.getItem("data-theme"));
     if(localStorage.getItem("data-theme")==="dark"){
       body.className += " dark";
-      isDark = true;
       return true;
     }   
     else if (localStorage.getItem("data-theme")==="light"){
       body.className = "";
-      isDark = false;
       return false;
     }
   }
   //Dark theme handler
 
+  //Handler for quick scroll to top or quick scroll to bottom
+  const [buttonHideUp, setbuttonHideUp] = useState(false)
+  const [buttonHideDown, setbuttonHideDown] = useState(false)
+  
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  function bottomFunction() {
+    document.body.scrollTop = document.body.scrollHeight;
+    document.documentElement.scrollTop = document.body.scrollHeight;
+  }
+  
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function() {scrollFunction()};
+  window.onload = function() {scrollFunction()}; 
+  function scrollFunction() {
+    if(pageName==="Home"){
+      setbuttonHideUp(true);
+      setbuttonHideDown(true);
+      if (document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
+        setbuttonHideUp(false);
+        setbuttonHideDown(false);
+      } else {
+        setbuttonHideUp(true);
+        setbuttonHideDown(true);
+      }
+      if (document.body.scrollTop > document.body.scrollHeight-800 || document.documentElement.scrollTop > document.body.scrollHeight-800){
+        setbuttonHideDown(true);
+      }
+    } else {
+      if (document.body.scrollTop > 240 || document.documentElement.scrollTop > 240) {
+        setbuttonHideUp(false);
+      } else {
+        setbuttonHideUp(true);
+        setbuttonHideDown(false);
+      }
+      if (document.body.scrollTop > document.body.scrollHeight-800 || document.documentElement.scrollTop > document.body.scrollHeight-800){
+        setbuttonHideDown(true);
+      } else {
+        setbuttonHideDown(false)
+      }
+    }
+  }
+  
+
   return (
+    <>
     <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme} >
       <Container fluid >
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
@@ -134,6 +181,10 @@ function MenuNavBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
+    <button onClick={topFunction} className="quick-scroll-button" id="myBtnTop" title="Go to top" hidden={buttonHideUp}>^</button>
+    <button onClick={bottomFunction} className="quick-scroll-button" id="myBtnBottom" title="Go to top" hidden={buttonHideDown}>v</button>
+    </>
   );
 }
 

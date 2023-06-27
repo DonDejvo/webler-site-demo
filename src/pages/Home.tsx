@@ -5,7 +5,7 @@ function Home() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"Home"}/>
             <div className="bannerImage">{/* collage.jpg is set as blurred background image*/}</div>
             <div className="bannerImagePropsFore">
                 <img src="../resources/images/logotransparent.png" className="bigLogoFront"/>

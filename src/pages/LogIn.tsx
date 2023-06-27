@@ -63,7 +63,7 @@ function LogIn() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"Login"} />
 
             {/* Main */}
             <main>

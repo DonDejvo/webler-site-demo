@@ -40,7 +40,7 @@ function Member() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"Member"} />
 
             {/* Main */}
             <main>

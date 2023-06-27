@@ -62,7 +62,7 @@ function SignUp() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"SignUp"} />
 
             {/* Main */}
             <main>

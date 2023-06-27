@@ -7,7 +7,7 @@ function Error404() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"Error404"} />
 
             {/* Main */}
             <main>

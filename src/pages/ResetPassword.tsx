@@ -38,7 +38,7 @@ function ResetPassword() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"ResetPassword"} />
 
             {/* Main */}
             <div className="d-flex flex-column justify-content-center" style={{ height: "100vh" }}>

@@ -243,7 +243,7 @@ function EditMember() {
     return (
         <>
             {/* Header */}
-            <MenuNavBar />
+            <MenuNavBar pageName={"EditMember"} />
 
             {/* Main */}
             <main>
