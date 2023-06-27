@@ -80,8 +80,8 @@ function MenuNavBar() {
   //Dark theme handler
 
   return (
-    <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme}>
-      <Container fluid>
+    <Navbar expand="lg" className="navBarBG" data-bs-theme={moodtheme} >
+      <Container fluid >
         <Navbar.Brand href="/"><img src="/resources/images/logo.png" height="50px" width="150px"/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -90,24 +90,23 @@ function MenuNavBar() {
             style={{ maxHeight: '370px' , alignItems:'center'}}
             navbarScroll
           >
-            <Nav.Link href="/" className="NavLink">Home</Nav.Link>
-            <Nav.Link href="/products" className="NavLink">Products</Nav.Link>
-            <Nav.Link href="/news" className="NavLink">News</Nav.Link>
+            <Nav.Link href="/" className="NavLink" >Home</Nav.Link>
+            <Nav.Link href="/products" className="NavLink" >Products</Nav.Link>
+            <Nav.Link href="/news" className="NavLink" >News</Nav.Link>
             <NavDropdown title="More" style={{color:"var(--fontColor)"}} >
-              <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item>
+              <NavDropdown.Item href="/about-us">About Us</NavDropdown.Item >
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item>
-              <NavDropdown.Item href="/help">Help & FAQ's</NavDropdown.Item>
+              <NavDropdown.Item href="/contact-us">Contact Us</NavDropdown.Item >
+              <NavDropdown.Item href="/help">Help & FAQ's</NavDropdown.Item >
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item>
-            </NavDropdown>
+              <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item >
+            </NavDropdown >
                 <Form style={{alignSelf:"center"}}>
                   <Form.Check
                     type="switch"
                     id="dark-theme-switch"
                     label="Dark Theme"
                     onChange={handleChange}   
-                    defaultChecked = {switchIt()}
                     checked = {switchIt()}
                   />
                 </Form>
