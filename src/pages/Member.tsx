@@ -28,12 +28,12 @@ function Member() {
     async function handleLogout() {
 
         try {
-          await signout()
-          window.location.href = "/login"
+            await signout()
+            window.location.href = "/login"
         } catch {
-          console.log("Failed to log out")
+            console.log("Failed to log out")
         }
-      }
+    }
 
     user ? PageTitle(`${user?.username + " | Webler"}`) : PageTitle("Webler")
 
@@ -50,7 +50,7 @@ function Member() {
                             <div className="bg-white" style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto" }}>
                                 <div className="d-block d-sm-flex p-4" style={{ gap: 12 }}>
                                     <div className="img-circle text-center mb-2">
-                                        <img width={128} height={128} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "resources/images/logo.png"} />
+                                        <img width={128} height={128} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "/resources/images/logo.png"} />
                                     </div>
                                     <div className="d-flex flex-column align-items-center align-items-sm-start">
                                         <h3>{user.username}</h3>
@@ -59,13 +59,20 @@ function Member() {
                                             <b>0 Followers</b>
                                         </div>
                                         <p>{user.bio}</p>
-                                        {
-                                            user.username == getUserDetails()?.username &&
-                                            <div className="d-flex" style={{ gap: 8 }}>
-                                                <a href="#" onClick={handleLogout} className="btn btn-secondary">Logout</a>
-                                                <a href="/edit-member" className="btn btn-primary">Edit Profile</a>
-                                            </div>
-                                        }
+                                        <div className="d-flex" style={{ gap: 8 }}>
+                                            {
+                                                user.username == getUserDetails()?.username ?
+                                                    <>
+                                                        <a href="#" onClick={handleLogout} className="btn btn-secondary">Logout</a>
+                                                        <a href="/edit-member" className="btn btn-primary">Edit Profile</a>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <a href="#" className="btn btn-primary">Follow</a>
+                                                        <a href="#" className="btn btn-primary">Message</a>
+                                                    </>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>

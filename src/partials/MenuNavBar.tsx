@@ -84,6 +84,7 @@ function MenuNavBar() {
                   <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="/chat">Chat</NavDropdown.Item>
                   <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                 </NavDropdown>
               </>
