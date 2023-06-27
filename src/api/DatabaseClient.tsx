@@ -1,10 +1,11 @@
-import { equalTo, get, orderByChild, ref, set, update, query, DataSnapshot, onValue, limitToLast, endBefore, push } from "firebase/database"
+import { equalTo, get, orderByChild, ref, set, update, query, DataSnapshot, onValue, limitToLast, endBefore, push, remove } from "firebase/database"
 import User from "../views/User"
 import { db } from "../services/firebase.config"
 import UserMinimal from "../views/UserMinimal"
 import Message from "../views/Message"
 import Conversation from "../views/Conversation"
 import UserConversation from "../views/UserConversation"
+import ConversationInvite from "../views/ConversationInvite"
 
 const DatabaseClient = (function() {
 
@@ -62,19 +63,37 @@ const DatabaseClient = (function() {
         return conversation
     }
 
-    async function addUserToConversation(conversation: Conversation, user: UserMinimal) {
+    async function addUserToConversation(conversation: UserConversation, user: UserMinimal) {
         const participantsRef = ref(db, `conversations/${conversation.id}/participants`);
         const newParticipantRef = push(participantsRef)
 
         const userConversationsRef = ref(db, `users/${user.uid}/conversations`);
         const newUserConversationRef = push(userConversationsRef)
-        const userConversation = new UserConversation(conversation.id, conversation.title, conversation.ownerId, conversation.isGroup)
 
         let promises = [
             set(newParticipantRef, user),
-            set(newUserConversationRef, userConversation)
+            set(newUserConversationRef, conversation)
         ]
         return await Promise.all(promises)
+    }
+
+    function onConversationInvitesChange(uid: string, callback: (snaphost: DataSnapshot) => unknown) {
+        const conversationInvitesRef = ref(db, `conversationInvites/${uid}`);
+        const unsubscribe = onValue(conversationInvitesRef, callback)
+        return unsubscribe
+    }
+
+    async function createConversationInvite(conversation: UserConversation, invitedId: string, inviter: UserMinimal) {
+        const conversationInviteRef = ref(db, `conversationInvites/${invitedId}`);
+        const newConversationInviteRef = push(conversationInviteRef)
+        const conversationInvite = new ConversationInvite(newConversationInviteRef.key as string, conversation, inviter)
+        await set(newConversationInviteRef, conversationInvite)
+        return conversationInvite
+    }
+
+    async function deleteConversationInvite(invitedId: string, id: string) {
+        const conversationInviteRef = ref(db, `conversationInvites/${invitedId}/${id}`);
+        return await remove(conversationInviteRef)
     }
 
     return {
@@ -88,7 +107,10 @@ const DatabaseClient = (function() {
         getMesages,
         createMessage,
         createConversation,
-        addUserToConversation
+        addUserToConversation,
+        onConversationInvitesChange,
+        createConversationInvite,
+        deleteConversationInvite
     }
 
 })()

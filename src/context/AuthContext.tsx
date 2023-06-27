@@ -83,7 +83,7 @@ export function AuthProvider({ children }: any) {
                 username = "User" + Date.now().toString() + Math.floor(Math.random() * 10).toString();
             }
             const user = new User(uid, username);
-            await DatabaseClient.createUser(uid, user);
+            await DatabaseClient.createUser(user);
             snapshot = await DatabaseClient.getUser(uid);
         }
         return snapshot

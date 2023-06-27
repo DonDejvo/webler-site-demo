@@ -3,6 +3,7 @@ import { Alert } from "react-bootstrap";
 import DatabaseClient from "../api/DatabaseClient";
 import { useAuth } from "../context/AuthContext";
 import UserMinimal from "../views/UserMinimal";
+import UserConversation from "../views/UserConversation";
 
 function CreateConversationPopup({ onCancel }: any) {
 
@@ -22,7 +23,8 @@ function CreateConversationPopup({ onCancel }: any) {
         try {
             const conversation = await DatabaseClient.createConversation(title.current.value, userDetails.uid)
             const user = new UserMinimal(userDetails.uid, userDetails.username, userDetails.avatarUrl)
-            await DatabaseClient.addUserToConversation(conversation, user)
+            const userConversation = new UserConversation(conversation.id, conversation.title, conversation.ownerId, conversation.isGroup)
+            await DatabaseClient.addUserToConversation(userConversation, user)
             onCancel();
         }
         catch(err) {
@@ -41,7 +43,7 @@ function CreateConversationPopup({ onCancel }: any) {
                 {error && <Alert variant="danger">{error}</Alert>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group mb-2">
-                        <label htmlFor="email">Title</label>
+                        <label>Title</label>
                         <input className="form-control" type="text" name="title" placeholder="title" ref={title} />
                     </div>
                     <div className="pt-2 d-flex justify-content-end" style={{ gap: 8 }}>

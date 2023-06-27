@@ -3,12 +3,23 @@ import DatabaseClient from "../api/DatabaseClient";
 import Message from "../views/Message";
 import UserMinimal from "../views/UserMinimal";
 import { useAuth } from "../context/AuthContext";
+import DateUtils from "../utils/DateUtils";
 
 function Chat({ conversation }: any) {
 
     const messageRef = useRef<any>();
     const [messages, setMessages] = useState<Message[]>([])
     const { getUserDetails } = useAuth()
+
+    const scrollToBottom = () => {
+        const messageBox = document.getElementById("message-box") as HTMLElement
+        messageBox.scrollTop = messageBox.scrollHeight - messageBox.clientHeight;
+    }
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages])
+
 
     useEffect(() => {
 
@@ -35,26 +46,26 @@ function Chat({ conversation }: any) {
 
             messageRef.current.value = null
         }
-        catch(err) {
+        catch (err) {
             console.log(err);
         }
     }
 
     return (
         <>
-            <div className="w-100 h-100 bg-light p-4">
-                <div className="d-flex flex-column justify-content-end" style={{ height: "calc(100% - 80px)", overflowY: "scroll" }}>
+            <div className="w-100 h-100 bg-light p-0 d-flex flex-column">
+                <div id="message-box" className="d-flex flex-column message-box p-2" style={{ flexGrow: 1, overflowY: "scroll" }}>
                     {
                         messages.map(item => {
-                            let date = new Date(item.timestamp)
-                            let dateStr = date.toString()
+                            let date = DateUtils.format(new Date(item.timestamp))
+
                             return (
                                 <div key={item.id} className="d-flex" style={{ gap: 12 }}>
                                     <div className="img-circle">
                                         <img width={34} height={34} className="rounded-circle" src={item.user.avatarUrl ? item.user.avatarUrl : "/resources/images/logo.png"} />
                                     </div>
                                     <div>
-                                        <div><b>{item.user.username}</b> <small>{dateStr}</small></div>
+                                        <div><b>{item.user.username}</b> <small>{date}</small></div>
                                         <p style={{ whiteSpace: "pre-wrap" }}>{item.text}</p>
                                     </div>
                                 </div>

@@ -20,9 +20,7 @@ class User {
         this.usernameLowercase = username.toLowerCase();
         this.bio = "Member of Webler";
         this.avatarUrl = "";
-        this.conversations = [
-            new UserConversation("", "Global")
-        ];
+        this.conversations = [];
     }
 }
 

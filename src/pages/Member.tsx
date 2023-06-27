@@ -2,11 +2,13 @@ import MenuNavBar from "../partials/MenuNavBar";
 import Footer from "../partials/Footer";
 import PageTitle from "../partials/PageTitle";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import User from "../views/User";
 import Loader from "../partials/Loader";
 import { useAuth } from "../context/AuthContext";
 import DatabaseClient from "../api/DatabaseClient";
+import UserConversation from "../views/UserConversation";
+import UserMinimal from "../views/UserMinimal";
 
 function Member() {
 
@@ -32,6 +34,28 @@ function Member() {
             window.location.href = "/login"
         } catch {
             console.log("Failed to log out")
+        }
+    }
+
+    async function handleMessage(e: SyntheticEvent) {
+        e.preventDefault()
+
+        const userDetails = getUserDetails()
+        if(!userDetails || !user) {
+            return
+        }
+
+        try {
+            const conversation = await DatabaseClient.createConversation("", "", false)
+            const userConversation = new UserConversation(conversation.id, "", "", false)
+            const loggedUser = new UserMinimal(userDetails.uid, userDetails.username, userDetails.avatarUrl)
+            
+            await DatabaseClient.addUserToConversation(userConversation, loggedUser)
+            let invite = await DatabaseClient.createConversationInvite(userConversation, user.uid, loggedUser)
+            console.log(invite);
+        }
+        catch(err) {
+            console.log(err)
         }
     }
 
@@ -69,7 +93,7 @@ function Member() {
                                                     :
                                                     <>
                                                         <a href="#" className="btn btn-primary">Follow</a>
-                                                        <a href="#" className="btn btn-primary">Message</a>
+                                                        <a href="#" onClick={handleMessage} className="btn btn-primary">Message</a>
                                                     </>
                                             }
                                         </div>
