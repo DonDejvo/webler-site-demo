@@ -11,8 +11,8 @@
 
 body {
     background-color: var(--bGcolor);
-    color: var(--fontColor);  
-  }
+    color: var(--fontColor);
+}
 
 .dark {
     --bGcolor: #1f2023;
@@ -24,7 +24,7 @@ body {
     --footerColor: rgb(26, 26, 27);
 }
 
-a{
+a {
     color: var(--hrefLinkColor);
 }
 
@@ -67,47 +67,50 @@ a{
     color: var(--fontColor);
 }
 
-.dropdown-toggle .nav-link{
+.dropdown-toggle .nav-link {
     color: var(--fontColor);
 }
 
-.dropdown a{
+.dropdown a {
     color: var(--fontColor);
 }
 
-.dropdown a:active{
+.dropdown a:active {
     color: var(--fontColor);
 }
 
-.dropdown a:hover{
+.dropdown a:hover {
     color: var(--hrefLinkColor);
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
     color: rgb(81, 178, 223);
     background-color: #4f719944;
 }
 
-.nav-link{
+.nav-link {
     color: var(--fontColor);
 }
 
-.nav-link::after{
+.nav-link::after {
     color: var(--fontColor);
 }
-.nav-link:hover{
+
+.nav-link:hover {
     color: rgb(81, 79, 189);
 }
 
-.nav-link:active{
+.nav-link:active {
     color: rgb(97, 62, 180);
 }
 
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
     color: var(--fontColor);
 }
 
-.nav-link:hover, .nav-link:focus {
+.nav-link:hover,
+.nav-link:focus {
     color: var(--fontColor);
 }
 
@@ -141,16 +144,17 @@ a{
     color: rgb(78, 76, 206);
 }
 
-.show{
+.show {
     color: var(--fontColor);
 }
 
-.dropdown-menu, .dropdown-item{
+.dropdown-menu,
+.dropdown-item {
     background-color: var(--bGcolor);
     color: var(--fontColor);
 }
 
-.dropdown-menu:active{
+.dropdown-menu:active {
     color: var(--fontColor);
 }
 
@@ -257,7 +261,7 @@ a{
 
 .mainAfterBanner {
     /* Styling for Home page's <main> */
-    
+
     /* Adjust this height, Solo, it is a must, ok. */
     height: 1234px;
     /* This height is for the main scrolling div */
@@ -278,19 +282,34 @@ a{
     display: block;
     height: fit-content;
 }
-  
+
 [class*="col-"] {
     float: left;
     padding: 45px;
     display: block;
 }
-  
-  /* Grid layout for desktop: */
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
+
+/* Grid layout for desktop: */
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
 .col-6 {
     width: 50%;
     height: 350px;
@@ -299,6 +318,7 @@ a{
     background-color: #5f9fe917;
     background-image: var(--colGridColor);
 }
+
 .col-7 {
     width: 50%;
     height: fit-content;
@@ -307,13 +327,29 @@ a{
     background-color: #5f9fe917;
     background-image: var(--colGridColor);
 }
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
 
 @media only screen and (max-width: 768px) {
+
     /* Grid layout for mobile phones: */
     [class*="col-"] {
         width: 100%;
@@ -340,7 +376,7 @@ main {
 .footer {
     display: block;
     position: relative;
-    bottom:0px;
+    bottom: 0px;
     width: 100%;
     color: var(--fontColor);
     padding: 30px 0px;
@@ -429,36 +465,36 @@ main {
     width: 100%;
     height: 100%;
     background-color: rgba(50, 84, 156, 0.336);
-  }
-  
-  .jimu-primary-loading:before,
-  .jimu-primary-loading:after {
+}
+
+.jimu-primary-loading:before,
+.jimu-primary-loading:after {
     position: absolute;
     top: 0;
     content: '';
-  }
-  
-    .jimu-primary-loading:before {
+}
+
+.jimu-primary-loading:before {
     left: -19.992px;
-    }
-  
-  .jimu-primary-loading:after {
+}
+
+.jimu-primary-loading:after {
     left: 19.992px;
     -webkit-animation-delay: 0.32s !important;
     animation-delay: 0.32s !important;
-  }
-  
-  .jimu-primary-loading:before,
-  .jimu-primary-loading:after,
-  .jimu-primary-loading {
+}
+
+.jimu-primary-loading:before,
+.jimu-primary-loading:after,
+.jimu-primary-loading {
     background: #076fe5;
     -webkit-animation: loading-keys-app-loading 0.8s infinite ease-in-out;
     animation: loading-keys-app-loading 0.8s infinite ease-in-out;
     width: 13.6px;
     height: 32px;
-  }
-  
-  .jimu-primary-loading {
+}
+
+.jimu-primary-loading {
     text-indent: -9999em;
     margin: auto;
     position: absolute;
@@ -466,9 +502,9 @@ main {
     top: calc(50% - 16px);
     -webkit-animation-delay: 0.16s !important;
     animation-delay: 0.16s !important;
-  }
+}
 
-  .quick-scroll-button {
+.quick-scroll-button {
     display: hidden;
     opacity: 0.4;
     position: fixed;
@@ -481,52 +517,85 @@ main {
     cursor: pointer;
     padding: 15px;
     border-radius: 4px;
-  }
-  
-  #myBtnTop{
+}
+
+#myBtnTop {
     bottom: 60px;
     right: 5px;
-  }
-  
-  #myBtnBottom{
+}
+
+#myBtnBottom {
     bottom: 10px;
     right: 7px;
-  }
-  
-  #myBtn:hover {
+}
+
+#myBtn:hover {
     background-color: #555;
-  }
-  
-  @-webkit-keyframes loading-keys-app-loading {
-  
+}
+
+@-webkit-keyframes loading-keys-app-loading {
+
     0%,
     80%,
     100% {
-      opacity: .75;
-      box-shadow: 0 0 #076fe5;
-      height: 32px;
+        opacity: .75;
+        box-shadow: 0 0 #076fe5;
+        height: 32px;
     }
-  
+
     40% {
-      opacity: 1;
-      box-shadow: 0 -8px #076fe5;
-      height: 40px;
+        opacity: 1;
+        box-shadow: 0 -8px #076fe5;
+        height: 40px;
     }
-  }
-  
-  @keyframes loading-keys-app-loading {
-  
+}
+
+@keyframes loading-keys-app-loading {
+
     0%,
     80%,
     100% {
-      opacity: .75;
-      box-shadow: 0 0 #076fe5;
-      height: 32px;
+        opacity: .75;
+        box-shadow: 0 0 #076fe5;
+        height: 32px;
     }
-  
+
     40% {
-      opacity: 1;
-      box-shadow: 0 -8px #076fe5;
-      height: 40px;
+        opacity: 1;
+        box-shadow: 0 -8px #076fe5;
+        height: 40px;
     }
-  }
+}
+
+.message-box> :first-child {
+    margin-top: auto;
+}
+
+.chat-sidebar {
+    position: absolute;
+    height: 100%;
+    z-index: 9;
+    background: white;
+    transition: 800ms transform;
+    top: 0;
+}
+
+.chat-sidebar-closed {
+    transform: translate(-100%, 0);
+}
+
+.chat-setting-bar {
+    background: white;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 60px);
+    top: 0;
+    left: 0;
+    z-index: 1;
+    top: 60px;
+    transition: 800ms transform;
+}
+
+.chat-setting-bar-closed {
+    transform: translate(0, -100%);
+}

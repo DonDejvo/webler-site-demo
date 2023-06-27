@@ -1,3 +1,5 @@
+import UserConversation from "./UserConversation";
+
 class User {
 
     uid: string;
@@ -6,19 +8,19 @@ class User {
 
     usernameLowercase: string;
 
-    nationality: string | null;
-
     bio: string;
 
     avatarUrl: string;
+
+    conversations: UserConversation[];
 
     constructor(uid: string, username: string) {
         this.uid = uid;
         this.username = username;
         this.usernameLowercase = username.toLowerCase();
-        this.nationality = null;
         this.bio = "Member of Webler";
         this.avatarUrl = "";
+        this.conversations = [];
     }
 }
 

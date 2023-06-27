@@ -19,6 +19,7 @@ import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import { AuthProvider } from './context/AuthContext';
 import EditMember from './pages/EditMember';
+import Messaging from './pages/Messaging';
 
 
 function App(){
@@ -41,6 +42,7 @@ function App(){
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/chat" element={<Messaging />} />
         <Route path="/*" element={<Error404 />} />
       </Routes>
     </AuthProvider>
