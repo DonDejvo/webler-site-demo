@@ -1,14 +1,13 @@
 import UserConversation from "./UserConversation";
-import UserMinimal from "./UserMinimal"
 
 class ConversationInvite {
     id: string;
-    inviter: UserMinimal;
+    inviterId: string;
     conversation: UserConversation;
-    constructor(id: string, conversation: UserConversation, inviter: UserMinimal) {
+    constructor(id: string, conversation: UserConversation, inviterId: string) {
         this.id = id;
-        this.inviter = inviter;
         this.conversation = conversation;
+        this.inviterId = inviterId;
     }
 }
 

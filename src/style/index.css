@@ -578,6 +578,7 @@ main {
     background: white;
     transition: 800ms transform;
     top: 0;
+    border-right: 1px solid silver;
 }
 
 .chat-sidebar-closed {
@@ -591,8 +592,8 @@ main {
     height: calc(100% - 60px);
     top: 0;
     left: 0;
-    z-index: 1;
-    top: 60px;
+    z-index: 0;
+    top: 55px;
     transition: 800ms transform;
 }
 
