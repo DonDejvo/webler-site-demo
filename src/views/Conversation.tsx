@@ -1,10 +1,8 @@
-import UserMinimal from "./UserMinimal";
-
 class Conversation {
     id: string;
     title: string;
     isGroup: boolean;
-    participants: UserMinimal[];
+    participants: string[];
     ownerId: string;
 
     constructor(id: string, title: string, isGroup: boolean, ownerId: string) {

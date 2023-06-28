@@ -7,8 +7,8 @@ import User from "../views/User";
 import Loader from "../partials/Loader";
 import { useAuth } from "../context/AuthContext";
 import DatabaseClient from "../api/DatabaseClient";
-import UserConversation from "../views/UserConversation";
-import UserMinimal from "../views/UserMinimal";
+//import UserConversation from "../views/UserConversation";
+//import UserMinimal from "../views/UserMinimal";
 
 function Member() {
 
@@ -40,7 +40,8 @@ function Member() {
     async function handleMessage(e: SyntheticEvent) {
         e.preventDefault()
 
-        const userDetails = getUserDetails()
+        // TODO
+        /*const userDetails = getUserDetails()
         if(!userDetails || !user) {
             return
         }
@@ -56,7 +57,7 @@ function Member() {
         }
         catch(err) {
             console.log(err)
-        }
+        }*/
     }
 
     user ? PageTitle(`${user?.username + " | Webler"}`) : PageTitle("Webler")

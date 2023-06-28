@@ -1,4 +1,4 @@
-import { equalTo, get, orderByChild, ref, set, update, query, DataSnapshot, onValue, limitToLast, endBefore, push, remove } from "firebase/database"
+import { equalTo, get, orderByChild, ref, set, update, query, DataSnapshot, onValue, limitToLast, endBefore, push, remove, child } from "firebase/database"
 import User from "../views/User"
 import { db } from "../services/firebase.config"
 import UserMinimal from "../views/UserMinimal"
@@ -63,16 +63,34 @@ const DatabaseClient = (function() {
         return conversation
     }
 
+    function onConversationChange(id: string, callback: (snapshot: DataSnapshot) => unknown) {
+        return onValue(ref(db, `conversations/${id}`), callback)
+    }
+
     async function addUserToConversation(conversation: UserConversation, user: UserMinimal) {
         const participantsRef = ref(db, `conversations/${conversation.id}/participants`);
-        const newParticipantRef = push(participantsRef)
+        const newParticipantRef = child(participantsRef, user.uid)
 
         const userConversationsRef = ref(db, `users/${user.uid}/conversations`);
-        const newUserConversationRef = push(userConversationsRef)
+        const newUserConversationRef = child(userConversationsRef, conversation.id)
 
         let promises = [
             set(newParticipantRef, user),
             set(newUserConversationRef, conversation)
+        ]
+        return await Promise.all(promises)
+    }
+
+    async function removeUserFromConversation(conversationId: string, uid: string) {
+        const participantsRef = ref(db, `conversations/${conversationId}/participants`);
+        const participantRef = child(participantsRef, uid)
+
+        const userConversationsRef = ref(db, `users/${uid}/conversations`);
+        const userConversationRef = child(userConversationsRef, conversationId)
+
+        let promises = [
+            remove(participantRef),
+            remove(userConversationRef)
         ]
         return await Promise.all(promises)
     }
@@ -83,10 +101,10 @@ const DatabaseClient = (function() {
         return unsubscribe
     }
 
-    async function createConversationInvite(conversation: UserConversation, invitedId: string, inviter: UserMinimal) {
+    async function createConversationInvite(conversation: UserConversation, invitedId: string, inviterId: string) {
         const conversationInviteRef = ref(db, `conversationInvites/${invitedId}`);
         const newConversationInviteRef = push(conversationInviteRef)
-        const conversationInvite = new ConversationInvite(newConversationInviteRef.key as string, conversation, inviter)
+        const conversationInvite = new ConversationInvite(newConversationInviteRef.key as string, conversation, inviterId)
         await set(newConversationInviteRef, conversationInvite)
         return conversationInvite
     }
@@ -94,6 +112,31 @@ const DatabaseClient = (function() {
     async function deleteConversationInvite(invitedId: string, id: string) {
         const conversationInviteRef = ref(db, `conversationInvites/${invitedId}/${id}`);
         return await remove(conversationInviteRef)
+    }
+
+    async function updateConversation(id: string, data: any) {
+        const conversationRef = ref(db, `conversations/${id}`)
+        await update(conversationRef, data)
+        const conversationSnapshot = await get(conversationRef)
+        const participantIds = Object.keys(conversationSnapshot.child("participants").val())
+        let promises = []
+        for(let participantId of participantIds) {
+            promises.push(update(ref(db, `users/${participantId}/conversations/${id}`), data))
+        }
+        await Promise.all(promises)
+        
+    }
+
+    async function deleteConversation(id: string) {
+        const conversationRef = ref(db, `conversations/${id}`)
+        const conversationSnapshot = await get(conversationRef)
+        const participantIds = Object.keys(conversationSnapshot.child("participants").val())
+        let promises = []
+        for(let participantId of participantIds) {
+            promises.push(remove(ref(db, `users/${participantId}/conversations/${id}`)))
+        }
+        await Promise.all(promises)
+        await remove(conversationRef)
     }
 
     return {
@@ -107,10 +150,14 @@ const DatabaseClient = (function() {
         getMesages,
         createMessage,
         createConversation,
+        onConversationChange,
         addUserToConversation,
+        removeUserFromConversation,
         onConversationInvitesChange,
         createConversationInvite,
-        deleteConversationInvite
+        deleteConversationInvite,
+        updateConversation,
+        deleteConversation
     }
 
 })()
