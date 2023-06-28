@@ -113,7 +113,7 @@ function Chat({ conversation }: any) {
     }
 
     function textToMessage(text: string) {
-        const processWord = (word: string) => {
+        const processWord = () => {
             if (TextUtils.isValidUrl(word)) {
                 if (TextUtils.isImageUrl(word)) {
                     footer += `<img src="${word}" />`
@@ -134,7 +134,7 @@ function Chat({ conversation }: any) {
             let ch = text.charAt(i)
             if (/\s/.test(ch)) {
                 if (word.length) {
-                    processWord(word)
+                    processWord()
                 }
                 result += ch
             }
@@ -143,7 +143,7 @@ function Chat({ conversation }: any) {
             }
         }
         if (word.length) {
-            processWord(word)
+            processWord()
         }
         return result + "\n" + footer
     }
