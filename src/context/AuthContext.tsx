@@ -85,11 +85,6 @@ export function AuthProvider({ children }: any) {
             }
             const user = new User(uid, username);
             await DatabaseClient.createUser(user);
-
-            const inviterId = "WcrXoYdznCSklOq7Mr8y75Lnnsm2"
-            const conversation = new UserConversation("-NYzChL3IVX_QlNDpSqg", "Global", inviterId, true);
-            await DatabaseClient.createConversationInvite(conversation, uid, inviterId)
-
             snapshot = await DatabaseClient.getUser(uid);
         }
         return snapshot
