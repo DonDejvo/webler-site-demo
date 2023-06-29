@@ -64,10 +64,10 @@ function Products() {
                         <Button variant="primary">Use this app</Button><span style={{float:"right", fontSize:"12px"}}> 96 likes - 69 comments - 403 views</span>
                     </div>
                     <div className="col-7">
-                        <h1>Turtle Game</h1>
+                        <h1>Life Game</h1>
                         <p>Product: Game</p>
                         <p>Developer: Cosmin Turtureanu</p>
-                        <p>Genre: Life, Reality, Ant</p>
+                        <p>Genre: Life, Reality, Ant, Decisions, Choices</p>
                         <hr></hr>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, "to add a short description of this product here" sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
                         <Button variant="primary">Play game</Button><span style={{float:"right", fontSize:"12px"}}> 96 likes - 69 comments - 403 views</span>

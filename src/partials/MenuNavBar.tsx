@@ -79,8 +79,8 @@ function MenuNavBar({pageName}:Props) {
   //Dark theme handler
 
   //Handler for quick scroll to top or quick scroll to bottom
-  const [buttonHideUp, setbuttonHideUp] = useState(false)
-  const [buttonHideDown, setbuttonHideDown] = useState(false)
+  const [buttonHideUp, setbuttonHideUp] = useState("none")
+  const [buttonHideDown, setbuttonHideDown] = useState("none")
   
   function topFunction() {
     document.body.scrollTop = 0;
@@ -97,29 +97,33 @@ function MenuNavBar({pageName}:Props) {
   window.onscroll = function() {scrollFunction()};
   function scrollFunction() {
     if(pageName==="Home"){
-      setbuttonHideUp(true);
-      setbuttonHideDown(true);
+      setbuttonHideUp("none");
+      setbuttonHideDown("none");
       if (document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
-        setbuttonHideUp(false);
-        setbuttonHideDown(false);
+        setbuttonHideUp("block");
+        setbuttonHideDown("block");
       } else {
-        setbuttonHideUp(true);
-        setbuttonHideDown(true);
+        setbuttonHideUp("none");
+        setbuttonHideDown("none");
       }
       if (document.body.scrollTop > document.body.scrollHeight-800 || document.documentElement.scrollTop > document.body.scrollHeight-800){
-        setbuttonHideDown(true);
+        setbuttonHideDown("none");
       }
-    } else {
+    } else if (pageName === "Chat"){
+      setbuttonHideUp("none");
+      setbuttonHideDown("none");
+    } 
+    else {
       if (document.body.scrollTop > 240 || document.documentElement.scrollTop > 240) {
-        setbuttonHideUp(false);
+        setbuttonHideUp("block");
       } else {
-        setbuttonHideUp(true);
-        setbuttonHideDown(false);
+        setbuttonHideUp("none");
+        setbuttonHideDown("block");
       }
       if (document.body.scrollTop > document.body.scrollHeight-800 || document.documentElement.scrollTop > document.body.scrollHeight-800){
-        setbuttonHideDown(true);
+        setbuttonHideDown("none");
       } else {
-        setbuttonHideDown(false)
+        setbuttonHideDown("block");
       }
     }
   }
@@ -183,8 +187,8 @@ function MenuNavBar({pageName}:Props) {
       </Container>
     </Navbar>
 
-    <button onClick={topFunction} className="quick-scroll-button" id="myBtnTop" title="Go to top" hidden={buttonHideUp}>^</button>
-    <button onClick={bottomFunction} className="quick-scroll-button" id="myBtnBottom" title="Go to top" hidden={buttonHideDown}>v</button>
+    <button onClick={topFunction} className="quick-scroll-button" id="myBtnTop" title="Go to top" style={{display:buttonHideUp}}>^</button>
+    <button onClick={bottomFunction} className="quick-scroll-button" id="myBtnBottom" title="Go to bottom" style={{display:buttonHideDown}}>v</button>
     </>
   );
 }
