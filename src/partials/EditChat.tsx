@@ -61,9 +61,14 @@ function EditChat({ conversation }: any) {
 
     async function handleInvite() {
 
-        setLoading(true)
         setError('')
         setMessage('')
+
+        if(inviteUsernameRef.current.value == userDetails.username) {
+            return setError('You cannot invite yourself')
+        }
+
+        setLoading(true)
 
         try {
 
@@ -72,8 +77,14 @@ function EditChat({ conversation }: any) {
                 setLoading(false)
                 return setError("User with this username does not exist")
             }
+            
             const data = snapshot.val();
             const invited = Object.values(data)[0] as User;
+
+            if(invited.conversations && invited.conversations[conversation.id]) {
+                setLoading(false)
+                return setError("User is already member of this group")
+            }
 
             const userDetails = getUserDetails();
             const userConversation = new UserConversation(conversation.id, conversation.title, conversation.ownerId, conversation.isGroup)
@@ -118,6 +129,7 @@ function EditChat({ conversation }: any) {
     async function removeUser(conversationId: string, user: User) {
         setLoading(true)
         try {
+            await DatabaseClient.createMessage(conversationId, null, `${user.username} left the conversation`)
             await DatabaseClient.removeUserFromConversation(conversationId, user.uid)
         }
         catch (err) {
@@ -175,9 +187,9 @@ function EditChat({ conversation }: any) {
                                         {
                                             conversation.participants.map((participant: User) => {
                                                 return (
-                                                    <li className="list-group-item d-flex justify-content-between" key={participant.uid}>
+                                                    <li className="list-group-item d-flex justify-content-between flex-wrap" style={{ gap: 6 }} key={participant.uid}>
                                                         <div className="d-flex align-items-center">
-                                                            <a className="d-flex  align-items-center me-2" href={"/member/" + participant.username}>
+                                                            <a className="d-flex  align-items-center me-2 NavLink" href={"/member/" + participant.username}>
                                                                 <img width={34} height={34} className="rounded-circle me-2" src={participant.avatarUrl} />
                                                                 <span>{participant.username}</span>
                                                             </a>

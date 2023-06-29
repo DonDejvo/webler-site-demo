@@ -2,11 +2,11 @@ import UserMinimal from "./UserMinimal";
 
 class Message {
     id: string;
-    user: UserMinimal;
+    user: UserMinimal | null;
     text: string;
     timestamp: number;
 
-    constructor(id: string, user: UserMinimal, text: string, timestamp: number) {
+    constructor(id: string, user: UserMinimal | null, text: string, timestamp: number) {
         this.id = id;
         this.user = user;
         this.text = text;

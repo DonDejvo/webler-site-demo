@@ -14,6 +14,8 @@ class User {
 
     conversations: UserConversation[];
 
+    activeConversationId: string | null;
+
     constructor(uid: string, username: string) {
         this.uid = uid;
         this.username = username;
@@ -21,6 +23,7 @@ class User {
         this.bio = "Member of Webler";
         this.avatarUrl = "";
         this.conversations = [];
+        this.activeConversationId = null
     }
 }
 

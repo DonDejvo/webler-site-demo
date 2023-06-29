@@ -519,6 +519,18 @@ main {
     border-radius: 4px;
 }
 
+.quick-scroll-button-chat {
+    opacity: 0.4;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: rgb(65, 70, 136);
+    color: white;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+}
+
 #myBtnTop {
     bottom: 60px;
     right: 5px;
@@ -567,6 +579,10 @@ main {
     }
 }
 
+.message-box {
+    scroll-behavior: smooth;
+}
+
 .message-box> :first-child {
     margin-top: auto;
 }
@@ -590,6 +606,7 @@ main {
     position: absolute;
     width: 100%;
     height: calc(100% - 60px);
+    overflow-y: scroll;
     top: 0;
     left: 0;
     z-index: 0;
