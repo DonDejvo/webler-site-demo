@@ -15,7 +15,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { auth, } from "../services/firebase.config";
 import User from "../views/User";
 import DatabaseClient from "../api/DatabaseClient";
-import UserConversation from "../views/UserConversation";
 
 const googleProvider = new GoogleAuthProvider();
 const AuthContext = React.createContext<any>({});
