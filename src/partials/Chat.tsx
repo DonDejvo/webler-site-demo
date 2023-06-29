@@ -19,16 +19,20 @@ function Chat({ conversation }: any) {
     const { getUserDetails } = useAuth()
     const [sendButtonDisabled, setSendButtonDisabled] = useState(true)
     const [gifSearchBarHidden, setGifSearchBarHidden] = useState(true)
+    const [firstMessageTimestamp, setFirstMessageTimestamp] = useState(0)
+    const [keepingCurrent, setKeepingCurrent] = useState(true)
 
-    const scrollToBottom = () => {
+    const scrollToBottom = (forced = false) => {
         const messageBox = document.getElementById("message-box") as HTMLElement
-        if (messageBox) {
+        if (messageBox && (keepingCurrent || forced)) {
             messageBox.scrollTop = messageBox.scrollHeight - messageBox.clientHeight;
         }
     }
 
     useEffect(() => {
         scrollToBottom();
+        DatabaseClient.updateLastReadMessage(getUserDetails().uid, conversation.id, Date.now())
+            .catch(err => console.log(err));
     }, [messages])
 
     useEffect(() => {
@@ -43,14 +47,13 @@ function Chat({ conversation }: any) {
         setGifSearchBarHidden(true)
         closeSettingBar()
 
-        let unsubscribe1 = DatabaseClient.onNewMessageAdded(conversation.id, 50, (snapshot) => {
+        setMessages([])
+
+        let unsubscribe1 = DatabaseClient.onNewMessageAdded(conversation.id, 20, (snapshot) => {
             if (snapshot.exists()) {
-                const data = Object.values(snapshot.val()) as Message[]
-                data.sort((a, b) => a.timestamp - b.timestamp)
-                setMessages(data);
-            }
-            else {
-                setMessages([])
+                const data = snapshot.val() as Message
+
+                setMessages(messages => [...messages, data]);
             }
         })
 
@@ -75,6 +78,16 @@ function Chat({ conversation }: any) {
         }
 
     }, [conversation])
+
+    useEffect(() => {
+        let timestamp = Date.now()
+        for (let msg of messages) {
+            if (msg.timestamp < timestamp) {
+                timestamp = msg.timestamp
+            }
+        }
+        setFirstMessageTimestamp(timestamp)
+    }, [messages])
 
     async function handleSendMessage(e: SyntheticEvent) {
         e.preventDefault();
@@ -164,7 +177,21 @@ function Chat({ conversation }: any) {
         }).catch(err => {
             console.log(err);
         })
-        
+
+    }
+
+    function onMessagesScroll(e: SyntheticEvent) {
+        const messageBox = e.target as HTMLDivElement;
+        if (messageBox.scrollTop == 0) {
+            DatabaseClient.getMessages(conversation.id, 20, firstMessageTimestamp).then(snapshot => {
+                if (snapshot.exists()) {
+                    const oldMessages = Object.values(snapshot.val()) as Message[]
+                    oldMessages.sort((a, b) => a.timestamp - b.timestamp)
+                    setMessages(messages => [...oldMessages, ...messages])
+                }
+            })
+        }
+        setKeepingCurrent(messageBox.scrollTop >= messageBox.scrollHeight - messageBox.clientHeight)
     }
 
     return (
@@ -187,18 +214,18 @@ function Chat({ conversation }: any) {
                         <div id="setting-bar" className="chat-setting-bar chat-setting-bar-closed" style={{backgroundColor: "var(--authFormBGcolor)"}}>
                             <EditChat conversation={conversationFull} />
                         </div>
-                        <div id="message-box" className="d-flex flex-column message-box p-2" style={{ flexGrow: 1, overflowY: "scroll" , backgroundColor: "var(--bGcolor)" }}>
+                        <div id="message-box" onScroll={onMessagesScroll} className="d-flex flex-column message-box p-2" style={{ flexGrow: 1, overflowY: "scroll" , backgroundColor: "var(--bGcolor)" }}>
                             {
-                                messages.map(item => {
+                                messages.map((item, key) => {
                                     let date = DateUtils.format(new Date(item.timestamp))
 
                                     return (
-                                        <div key={item.id} className="d-flex" style={{ gap: 12 }}>
-                                            <div className="img-circle">
-                                                <img width={34} height={34} className="rounded-circle" src={item.user.avatarUrl ? item.user.avatarUrl : "/resources/images/logo.png"} />
+                                        <div key={key} className="d-flex" style={{ gap: 12 }}>
+                                            <div>
+                                                {item.user && <img width={34} height={34} className="rounded-circle" src={item.user.avatarUrl ? item.user.avatarUrl : "/resources/images/logo.png"} />}
                                             </div>
                                             <div>
-                                                <div><b>{item.user.username}</b> <small>{date}</small></div>
+                                                <div>{item.user && <a className="NavLink" href={"/member/" + item.user.username}>{item.user.username}</a>} <small>{date}</small></div>
                                                 <p style={{ whiteSpace: "pre-wrap", wordBreak: "break-all" }}>{parse(textToMessage(item.text))}</p>
                                             </div>
                                         </div>
@@ -209,6 +236,12 @@ function Chat({ conversation }: any) {
                         <div className="p-2" style={{ height: "75px" , backgroundColor: "var(--footerColor)"}}>
                             <div hidden={gifSearchBarHidden} style={{ position: "absolute", left: "0", transform: "translate(0, -100%)", width: "100%", maxWidth: "600px", height: "400px" }}>
                                 <GifSearchBar onSelect={handleOnSelectGif} />
+                            </div>
+                            <div hidden={keepingCurrent} style={{ position: "absolute", right: "0", transform: "translate(0, -100%)" }}>
+                                <button onClick={() => scrollToBottom(true)} className="quick-scroll-button-chat" style={{ display: "block" }}>
+                                    <i className="fa fa-arrow-down"></i>
+                                    Jump to present
+                                </button>
                             </div>
                             <form onSubmit={handleSendMessage} className="w-100 h-100 d-flex p-2 rounded mt-2" style={{ gap: 6 , backgroundColor: "var(--footerColor)"}}>
                                 <button onClick={toggleGifSearchBar} className="btn btn-primary" type="button">

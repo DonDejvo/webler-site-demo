@@ -2,6 +2,7 @@ class UserConversation {
     id: string;
     title: string;
     lastReadMessageTimestamp: number;
+    lastMessageTimestamp: number;
     ownerId: string;
     isGroup: boolean;
     
@@ -9,6 +10,7 @@ class UserConversation {
         this.id = id;
         this. title = title;
         this.lastReadMessageTimestamp = 0;
+        this.lastMessageTimestamp = 0;
         this.ownerId = ownerId;
         this.isGroup = isGroup;
     }

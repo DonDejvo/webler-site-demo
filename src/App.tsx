@@ -42,7 +42,7 @@ function App(){
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/chat" element={<Messaging />} />
+        <Route path="/messages" element={<Messaging />} />
         <Route path="/*" element={<Error404 />} />
       </Routes>
     </AuthProvider>

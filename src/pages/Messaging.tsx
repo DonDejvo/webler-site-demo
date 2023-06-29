@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, SetStateAction } from "react"
 import Chat from "../partials/Chat"
 import DatabaseClient from "../api/DatabaseClient"
 import { useAuth } from "../context/AuthContext"
@@ -7,44 +7,42 @@ import UserConversation from "../views/UserConversation"
 import CreateConversationPopup from "../partials/CreateConversationPopup"
 import ConversationInvite from "../views/ConversationInvite"
 import UserMinimal from "../views/UserMinimal"
-import { NavDropdown } from "react-bootstrap"
-import Form from 'react-bootstrap/Form';
+
 
 function Messaging() {
 
-    const { getUserDetails, signout } = useAuth()
+    const { getUserDetails, updateUserDetails } = useAuth()
     const [conversationList, setConversationList] = useState<UserConversation[]>([])
     const [conversationInvites, setConversationInvites] = useState<any[]>([])
     const [activeConversation, setActiveConversation] = useState<UserConversation>()
     const [createConversationPopupOpened, setCreateConversationPopupOpened] = useState(false)
-    const userDetails = getUserDetails()
+    const [isFirst, setIsFirst] = useState(true)
 
     useEffect(() => {
 
-        const unsubscribe = DatabaseClient.onUserConversationsChange(getUserDetails().uid, (snapshot) => {
+        const unsubscribe1 = DatabaseClient.onUserConversationsChange(getUserDetails().uid, (snapshot) => {
             if (snapshot.exists()) {
-                const data = snapshot.val()
-                setConversationList(Object.values(data))
+                const data = (Object.values(snapshot.val()) as UserConversation[]).filter(item => item.id != null)
+                setConversationList(data)
             }
             else {
                 setConversationList([])
             }
         })
-        return unsubscribe
-    }, [])
 
-    useEffect(() => {
-
-        const unsubscribe = DatabaseClient.onConversationInvitesChange(getUserDetails().uid, (snapshot) => {
+        const unsubscribe2 = DatabaseClient.onConversationInvitesChange(getUserDetails().uid, (snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val()
-                const arr = Object.values(data) as any[]
-                
+                let arr: SetStateAction<any[]> = []
                 let promises = []
-                for (let item of arr) {
-                    promises.push(DatabaseClient.getUser(item.inviterId).then(snapshot => {
-                        item.inviter = snapshot.val()
-                    }))
+                for (let conversationId in data) {
+                    for(let item of Object.values(data[conversationId]) as any[]) {
+                        arr.push(item)
+                        promises.push(DatabaseClient.getUser(item.inviterId).then(snapshot => {
+                            item.inviter = snapshot.val()
+                        }))
+                    }
+                    
                 }
                 Promise.all(promises)
                     .then(() => setConversationInvites(arr))
@@ -53,15 +51,32 @@ function Messaging() {
                 setConversationInvites([])
             }
         })
-        return unsubscribe
+        return () => {
+            unsubscribe1()
+            unsubscribe2()
+        }
     }, [])
+
+    useEffect(() => {
+        if(isFirst && conversationList.length > 0) {
+            setIsFirst(false)
+            const userDetails = getUserDetails()
+            if(userDetails.activeConversationId) {
+                const item = conversationList.find(e => e.id == userDetails.activeConversationId)
+                if(item) {
+                    setActiveConversation(item)
+                }
+            }
+        }
+    }, [conversationList])
 
     async function handleAcceptInvite(conversationInvite: ConversationInvite) {
         try {
             const userDetails = getUserDetails()
             const user = new UserMinimal(userDetails.uid, userDetails.username, userDetails.avatarUrl)
             await DatabaseClient.addUserToConversation(conversationInvite.conversation, user)
-            await DatabaseClient.deleteConversationInvite(user.uid, conversationInvite.id)
+            await DatabaseClient.deleteAllConversationInvites(user.uid, conversationInvite.conversation.id)
+            await DatabaseClient.createMessage(conversationInvite.conversation.id, null, `${user.username} entered the conversation`)
         }
         catch (err) {
             console.log(err);
@@ -72,7 +87,7 @@ function Messaging() {
         try {
             const userDetails = getUserDetails()
             const user = new UserMinimal(userDetails.uid, userDetails.username, userDetails.avatarUrl)
-            await DatabaseClient.deleteConversationInvite(user.uid, conversationInvite.id)
+            await DatabaseClient.deleteConversationInvite(user.uid, conversationInvite.conversation.id, conversationInvite.id)
         }
         catch (err) {
             console.log(err);
@@ -87,56 +102,10 @@ function Messaging() {
         document.getElementById("sidebar")?.classList.remove("chat-sidebar-closed")
     }
 
-    async function handleLogout() {
-        try {
-            await signout()
-            window.location.href = "/login"
-        } catch {
-            console.log("Failed to log out")
-        }
-    }
-
-    function openProfile() {
-        if (userDetails.username)
-            window.location.href = "/member/" + userDetails.username;
-    }
-
-    // Dark theme handler
-  const [switchState, setSwitchState] = useState(false)
-  const [moodtheme, setMoodTheme] = useState("light2")
-  const handleChange=(e: { target: { checked: any; }; })=>{
-    const isDark = e.target.checked ? true: false;
-    const body = document.getElementsByTagName("body")[0];
-    if (isDark===false) { 
-      body.className = "";
-      setMoodTheme("light2");
-      localStorage.setItem("data-theme", "light");
-    }
-    else if (isDark === true){
-      body.className += " dark";
-      setMoodTheme("dark");
-      localStorage.setItem("data-theme", "dark");
-    }   
-    setSwitchState(!switchState)
-  }
-
-  const switchIt =()=>{
-    let body = document.getElementsByTagName("body")[0];
-    if(localStorage.getItem("data-theme")==="dark"){
-      body.className += " dark";
-      return true;
-    }   
-    else if (localStorage.getItem("data-theme")==="light"){
-      body.className = "";
-      return false;
-    }
-  }
-  //Dark theme handler
-
     return (
         <>
 
-            <div className="rounded-lg d-block d-flex flex-column" style={{ overflow: "hidden", position: "relative", width: "100%", height: "100vh", minHeight: "300px" }}>
+            <div className="rounded-lg d-block d-flex flex-column" style={{ overflow: "hidden", position: "fixed", width: "100%", height: "100%", minHeight: "300px" }}>
                 {
                     createConversationPopupOpened &&
                     <div className="w-100 h-100 d-flex justify-content-center align-items-center" style={{ position: "absolute", zIndex: "999", background: "rgba(128,128,128,0.5)" }}>
@@ -151,35 +120,22 @@ function Messaging() {
                                 <i className="fa fa-bars"></i>
                             </button>
                         </div>
-                        <div>
-                            <NavDropdown data-bs-theme={moodtheme} align="end" title={userDetails ? <><img width={34} height={34} className="rounded-circle" src={userDetails.avatarUrl ? userDetails.avatarUrl : "resources/images/logo.png"} /> {(userDetails.username)} </> : <>{(userDetails.username)}</>} id="navbarScrollingDropdownUser">
-                                <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="/chat">Chat</NavDropdown.Item>
-                                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-                            </NavDropdown>
+                        <div className="d-flex">
+                            <button onClick={() => history.back()} className="btn" style={{ color: "var(--fontColor)", backgroundColor: "var(--navBarBgColor)" }}>
+                                <i className="fa fa-arrow-left"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div id="sidebar" className="chat-sidebar chat-sidebar-closed d-flex flex-column" style={{backgroundColor: "var(--authFormBGcolor)"}}>
-                    <div className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px"}}>
-                        <Form className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px" , fontSize:"14px", position:"absolute",left:"0px",top:"3px"}}>
-                        <Form.Check
-                            type="switch"
-                            id="dark-theme-switch"
-                            label="Dark Theme"
-                            onChange={handleChange}   
-                            checked = {switchIt()}
-                        />
-                        </Form>
-                        <button className="btn" style={{color:"var(--fontColor)"}} onClick={closeSidebar}>Close &times;</button>
+                <div id="sidebar" className="chat-sidebar chat-sidebar-closed d-flex flex-column">
+                    <div className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px" }}>
+                        <button className="btn" onClick={closeSidebar}>Close &times;</button>
                     </div>
 
                     <div className="p-2">
                         <h3 className="m-0">Conversations</h3>
-                        <button onClick={() => setCreateConversationPopupOpened(true)} className="btn btn-primary">New</button>
+                        <button onClick={() => setCreateConversationPopupOpened(true)} className="btn btn-primary">Create</button>
                     </div>
 
                     <div style={{ width: "240px", overflowY: "scroll", flexGrow: 1 }}>
@@ -190,10 +146,10 @@ function Messaging() {
                                     <span style={{ backgroundColor: "var(--authFormBGcolor)" }}>Invites</span>
                                 </p>
                                 {
-                                    conversationInvites.map(item => {
+                                    conversationInvites.map((item, key) => {
 
                                         return (
-                                            <div key={item.id} className="border-bottom p-2 text-center">
+                                            <div key={key} className="border-bottom p-2 text-center">
                                                 {
                                                     item.inviter &&
                                                     <>
@@ -219,14 +175,23 @@ function Messaging() {
                                     <span style={{ backgroundColor: "var(--authFormBGcolor)" }}>Conversations</span>
                                 </p>
                                 {
-                                    conversationList.map(item => {
+                                    conversationList.map((item, key) => {
                                         const handleOnClick = () => {
                                             closeSidebar();
 
                                             setActiveConversation(item)
+
+                                            DatabaseClient.updateUser(getUserDetails().uid, {
+                                                activeConversationId: item.id
+                                            }).then(() => {
+                                                updateUserDetails({
+                                                    activeConversationId: item.id
+                                                })
+                                            })
+                                           
                                         }
                                         return (
-                                            <ChatListItem onClick={handleOnClick} key={item.id} item={item} />
+                                            <ChatListItem onClick={handleOnClick} key={key} item={item} />
                                         )
                                     })
                                 }
