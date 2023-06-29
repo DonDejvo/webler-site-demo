@@ -8,7 +8,7 @@ import CreateConversationPopup from "../partials/CreateConversationPopup"
 import ConversationInvite from "../views/ConversationInvite"
 import UserMinimal from "../views/UserMinimal"
 import { NavDropdown } from "react-bootstrap"
-
+import Form from 'react-bootstrap/Form';
 
 function Messaging() {
 
@@ -101,6 +101,38 @@ function Messaging() {
             window.location.href = "/member/" + userDetails.username;
     }
 
+    // Dark theme handler
+  const [switchState, setSwitchState] = useState(false)
+  const [moodtheme, setMoodTheme] = useState("light2")
+  const handleChange=(e: { target: { checked: any; }; })=>{
+    const isDark = e.target.checked ? true: false;
+    const body = document.getElementsByTagName("body")[0];
+    if (isDark===false) { 
+      body.className = "";
+      setMoodTheme("light2");
+      localStorage.setItem("data-theme", "light");
+    }
+    else if (isDark === true){
+      body.className += " dark";
+      setMoodTheme("dark");
+      localStorage.setItem("data-theme", "dark");
+    }   
+    setSwitchState(!switchState)
+  }
+
+  const switchIt =()=>{
+    let body = document.getElementsByTagName("body")[0];
+    if(localStorage.getItem("data-theme")==="dark"){
+      body.className += " dark";
+      return true;
+    }   
+    else if (localStorage.getItem("data-theme")==="light"){
+      body.className = "";
+      return false;
+    }
+  }
+  //Dark theme handler
+
     return (
         <>
 
@@ -120,7 +152,7 @@ function Messaging() {
                             </button>
                         </div>
                         <div>
-                            <NavDropdown align="end" title={userDetails ? <><img width={34} height={34} className="rounded-circle" src={userDetails.avatarUrl ? userDetails.avatarUrl : "resources/images/logo.png"} /> {(userDetails.username)} </> : <>{(userDetails.username)}</>} id="navbarScrollingDropdownUser">
+                            <NavDropdown data-bs-theme={moodtheme} align="end" title={userDetails ? <><img width={34} height={34} className="rounded-circle" src={userDetails.avatarUrl ? userDetails.avatarUrl : "resources/images/logo.png"} /> {(userDetails.username)} </> : <>{(userDetails.username)}</>} id="navbarScrollingDropdownUser">
                                 <NavDropdown.Item onClick={openProfile}>Profile</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/edit-member">Edit Profile</NavDropdown.Item>
@@ -131,9 +163,18 @@ function Messaging() {
                     </div>
                 </div>
 
-                <div id="sidebar" className="chat-sidebar chat-sidebar-closed d-flex flex-column">
-                    <div className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px" }}>
-                        <button className="btn" onClick={closeSidebar}>Close &times;</button>
+                <div id="sidebar" className="chat-sidebar chat-sidebar-closed d-flex flex-column" style={{backgroundColor: "var(--authFormBGcolor)"}}>
+                    <div className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px"}}>
+                        <Form className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px" , fontSize:"14px", position:"absolute",left:"0px",top:"3px"}}>
+                        <Form.Check
+                            type="switch"
+                            id="dark-theme-switch"
+                            label="Dark Theme"
+                            onChange={handleChange}   
+                            checked = {switchIt()}
+                        />
+                        </Form>
+                        <button className="btn" style={{color:"var(--fontColor)"}} onClick={closeSidebar}>Close &times;</button>
                     </div>
 
                     <div className="p-2">

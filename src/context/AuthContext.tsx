@@ -84,6 +84,7 @@ export function AuthProvider({ children }: any) {
             }
             const user = new User(uid, username);
             await DatabaseClient.createUser(user);
+
             snapshot = await DatabaseClient.getUser(uid);
         }
         return snapshot

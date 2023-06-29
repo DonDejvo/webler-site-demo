@@ -171,23 +171,23 @@ function Chat({ conversation }: any) {
         <>
             {
                 conversationFull ?
-                    <div className="w-100 h-100 bg-light p-0 d-flex flex-column">
-                        <div className="w-100 bg-white border-bottom" style={{ height: "60px", zIndex: 1, position: "relative" }} >
-                            <div className="d-flex justify-content-between align-items-center p-2 w-100">
+                    <div className="w-100 h-100 bg-light p-0 d-flex flex-column" >
+                        <div className="w-100 bg-white border-bottom" style={{ height: "60px", zIndex: 1, position: "relative", backgroundColor: "var(--bGcolor)" }} >
+                            <div className="d-flex justify-content-between align-items-center p-2 w-100" style={{background: "var(--navBarBgColor)"}}>
                                 <div>
                                     <h3>{conversationFull.title}</h3>
                                 </div>
                                 <div>
                                     <button onClick={toggleSettingBar} className="btn">
-                                        <i className="fa fa-gear"></i>
+                                        <i className="fa fa-gear" style={{color:"var(--fontColor)"}}></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div id="setting-bar" className="chat-setting-bar chat-setting-bar-closed">
+                        <div id="setting-bar" className="chat-setting-bar chat-setting-bar-closed" style={{backgroundColor: "var(--authFormBGcolor)"}}>
                             <EditChat conversation={conversationFull} />
                         </div>
-                        <div id="message-box" className="d-flex flex-column message-box p-2" style={{ flexGrow: 1, overflowY: "scroll" }}>
+                        <div id="message-box" className="d-flex flex-column message-box p-2" style={{ flexGrow: 1, overflowY: "scroll" , backgroundColor: "var(--bGcolor)" }}>
                             {
                                 messages.map(item => {
                                     let date = DateUtils.format(new Date(item.timestamp))
@@ -206,11 +206,11 @@ function Chat({ conversation }: any) {
                                 })
                             }
                         </div>
-                        <div className="p-2" style={{ height: "75px" }}>
+                        <div className="p-2" style={{ height: "75px" , backgroundColor: "var(--footerColor)"}}>
                             <div hidden={gifSearchBarHidden} style={{ position: "absolute", left: "0", transform: "translate(0, -100%)", width: "100%", maxWidth: "600px", height: "400px" }}>
                                 <GifSearchBar onSelect={handleOnSelectGif} />
                             </div>
-                            <form onSubmit={handleSendMessage} className="w-100 h-100 d-flex bg-white p-2 rounded mt-2" style={{ gap: 6 }}>
+                            <form onSubmit={handleSendMessage} className="w-100 h-100 d-flex p-2 rounded mt-2" style={{ gap: 6 , backgroundColor: "var(--footerColor)"}}>
                                 <button onClick={toggleGifSearchBar} className="btn btn-primary" type="button">
                                     GIF
                                 </button>

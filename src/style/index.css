@@ -505,7 +505,7 @@ main {
 }
 
 .quick-scroll-button {
-    display: hidden;
+    display: none;
     opacity: 0.4;
     position: fixed;
     z-index: 99;
@@ -575,7 +575,7 @@ main {
     position: absolute;
     height: 100%;
     z-index: 9;
-    background: white;
+    background: var(--navBarBgColor);
     transition: 800ms transform;
     top: 0;
     border-right: 1px solid silver;
@@ -586,7 +586,7 @@ main {
 }
 
 .chat-setting-bar {
-    background: white;
+    background: var(--navBarBgColor);
     position: absolute;
     width: 100%;
     height: calc(100% - 60px);
@@ -599,4 +599,8 @@ main {
 
 .chat-setting-bar-closed {
     transform: translate(0, -100%);
+}
+
+.rounded-circle{
+    border: 1px solid grey;
 }

@@ -175,7 +175,7 @@ function EditChat({ conversation }: any) {
                                         {
                                             conversation.participants.map((participant: User) => {
                                                 return (
-                                                    <li className="list-group-item d-flex justify-content-between" key={participant.uid}>
+                                                    <li className="list-group-item d-flex justify-content-between" key={participant.uid} style={{background: "var(--bGcolor)"}}>
                                                         <div className="d-flex align-items-center">
                                                             <a className="d-flex  align-items-center me-2" href={"/member/" + participant.username}>
                                                                 <img width={34} height={34} className="rounded-circle me-2" src={participant.avatarUrl} />
