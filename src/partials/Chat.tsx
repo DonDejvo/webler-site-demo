@@ -131,7 +131,7 @@ function Chat({ conversation }: any) {
                 if (TextUtils.isImageUrl(word)) {
                     footer += `<img src="${word}" style="max-width:212px"/>`
                 }
-                //result += `<a href="${word}">${word}</a>`
+                result += `<a href="${word}">${word}</a>`
             }
             else {
                 result += word

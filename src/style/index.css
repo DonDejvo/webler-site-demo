@@ -203,13 +203,13 @@ a {
 
 @media screen and (min-width: 200px) {
     .bigLogoFront {
-        width: 240px;
+        width: 200px;
     }
 }
 
 @media screen and (min-width: 300px) {
     .bigLogoFront {
-        width: 300px;
+        width: 255px;
     }
 }
 
