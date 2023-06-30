@@ -1,7 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from "react"
 
 const apikey = "LIVDSRZULELA"
-const lmt = 30
+const lmt = 50
 
 function GifSearchBar({ onSelect }: any) {
 
@@ -27,7 +27,7 @@ function GifSearchBar({ onSelect }: any) {
         <div className="p-3 rounded border d-flex flex-column w-100 h-100 " style={{background: "var(--navBarBgColor)"}}>
             <h4>GIFs</h4>
             <div>
-                <input value={searchTerm} onChange={onSearchBoxChange} className="form-control" type="search" placeholder="Search for GIF"/>
+                <input value={searchTerm} onChange={onSearchBoxChange} className="inputTag" type="search" placeholder="Search for GIF"/>
             </div>
             <hr />
             <div className="row" style={{ flexGrow: 1, overflowY: "scroll" }}>

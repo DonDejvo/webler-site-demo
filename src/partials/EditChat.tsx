@@ -220,7 +220,7 @@ function EditChat({ conversation }: any) {
                                         {message && <Alert variant="success">{message}</Alert>}
 
                                         <div className="form-group">
-                                            <input className="form-control" type="text" placeholder="Enter username" ref={inviteUsernameRef} />
+                                            <input className="inputTag" type="text" placeholder="Enter username" ref={inviteUsernameRef} />
                                             <button className="btn btn-primary mt-2" onClick={handleInvite}>Invite</button>
                                         </div>
                                     </div>
@@ -231,13 +231,13 @@ function EditChat({ conversation }: any) {
                                         {
                                             conversation.participants.map((participant: User) => {
                                                 return (
-                                                    <li className="list-group-item d-flex justify-content-between flex-wrap" style={{ gap: 6, background: "var(--bGcolor)" }} key={participant.uid}>
+                                                    <li className="list-group-item d-flex justify-content-between flex-wrap" style={{ gap: 6, background: "var(--chatGroupMembersListColor)" , border: "solid 1px var(--authFormBGcolor)"}} key={participant.uid}>
                                                         <div className="d-flex align-items-center">
                                                             <a className="d-flex  align-items-center me-2 NavLink" href={"/member/" + participant.username}>
                                                                 <img width={34} height={34} className="rounded-circle me-2" src={participant.avatarUrl} />
                                                                 <span>{participant.username}</span>
                                                             </a>
-                                                            <span>
+                                                            <span style={{color:"grey"}}>
                                                                 {
                                                                     (conversation.ownerId == participant.uid) ? "Owner" : "Member"
                                                                 }
@@ -261,7 +261,7 @@ function EditChat({ conversation }: any) {
                                 </div>
                             </div>
 
-                            <div className="tab-pane fade show active" id="conversation-tabpanel" role="tabpanel" aria-labelledby="conversation-tab" style={{ backgroundColor: "var(--authFormBGcolor)", padding: "20px", borderRadius: "20px" }}>
+                            <div className="tab-pane fade show active" id="conversation-tabpanel" role="tabpanel" aria-labelledby="conversation-tab" style={{ backgroundColor: "var(--authFormBGcolor)", padding: "20px", borderRadius: "20px" , color:"var(--fontColor)"}}>
                                 <h3 className="mb-4">General</h3>
                                 {error && <Alert variant="danger">{error}</Alert>}
                                 {message && <Alert variant="success">{message}</Alert>}
@@ -269,7 +269,7 @@ function EditChat({ conversation }: any) {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label>Group Title</label>
-                                            <input disabled={userDetails.uid != conversation.ownerId} type="text" className="form-control" value={groupTitle} onChange={(e) => setGroupTitle((e.target as HTMLInputElement).value)} />
+                                            <input placeholder="Enter group name here" disabled={userDetails.uid != conversation.ownerId} type="text" className="inputTag" value={groupTitle} onChange={(e) => setGroupTitle((e.target as HTMLInputElement).value)}  />
                                         </div>
                                     </div>
                                 </div>

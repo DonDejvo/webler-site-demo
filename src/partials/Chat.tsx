@@ -129,9 +129,9 @@ function Chat({ conversation }: any) {
         const processWord = () => {
             if (TextUtils.isValidUrl(word)) {
                 if (TextUtils.isImageUrl(word)) {
-                    footer += `<img src="${word}" />`
+                    footer += `<img src="${word}" style="max-width:212px"/>`
                 }
-                result += `<a href="${word}">${word}</a>`
+                //result += `<a href="${word}">${word}</a>`
             }
             else {
                 result += word
@@ -194,6 +194,7 @@ function Chat({ conversation }: any) {
         setKeepingCurrent(messageBox.scrollTop >= messageBox.scrollHeight - messageBox.clientHeight)
     }
 
+
     return (
         <>
             {
@@ -222,7 +223,7 @@ function Chat({ conversation }: any) {
                                     return (
                                         <div key={key} className="d-flex" style={{ gap: 12 }}>
                                             <div>
-                                                {item.user && <img width={34} height={34} className="rounded-circle" src={item.user.avatarUrl ? item.user.avatarUrl : "/resources/images/logo.png"} />}
+                                                {item.user && <a href={"/member/" + item.user.username} ><img width={34} height={34} className="rounded-circle" src={item.user.avatarUrl ? item.user.avatarUrl : "/resources/images/logo.png"} /></a>}
                                             </div>
                                             <div>
                                                 <div>{item.user && <a className="NavLink" href={"/member/" + item.user.username}>{item.user.username}</a>} <small>{date}</small></div>
@@ -243,11 +244,11 @@ function Chat({ conversation }: any) {
                                     Jump to present
                                 </button>
                             </div>
-                            <form onSubmit={handleSendMessage} className="w-100 h-100 d-flex p-2 rounded mt-2" style={{ gap: 6 , backgroundColor: "var(--footerColor)"}}>
+                            <form onSubmit={handleSendMessage} id="messageForm" className="w-100 h-100 d-flex p-2 rounded mt-2" style={{ gap: 6 , backgroundColor: "var(--footerColor)"}}>
                                 <button onClick={toggleGifSearchBar} className="btn btn-primary" type="button">
                                     GIF
                                 </button>
-                                <textarea className="bg-light p-2 rounded" value={message} onChange={onMessageInputChange} style={{ border: "none", outline: "none", flexGrow: 1, resize: "none" }} placeholder="Enter message here"></textarea>
+                                <textarea className="p-2 rounded" value={message} onChange={onMessageInputChange} style={{ border: "none", outline: "none", flexGrow: 1, resize: "none", backgroundColor:"var(--bGcolor)", color:"var(--fontColor)"}} placeholder="Enter message here"></textarea>
                                 <button hidden={sendButtonDisabled} className="btn btn-primary" type="submit">
                                     <i className="fa fa-paper-plane"></i>
                                 </button>

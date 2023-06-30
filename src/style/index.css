@@ -7,6 +7,10 @@
     --hrefLinkColor: rgb(0, 26, 255);
     --colGridColor: linear-gradient(rgb(221, 238, 243), rgb(205, 210, 221));
     --footerColor: rgb(207, 214, 221);
+    --chatGroupMembersListColor: rgb(195, 207, 219);
+    --inputFormBgColor: rgb(240, 244, 247);
+    --chatSideBarColor: rgb(185, 208, 231);
+    --InputPlaceHolderColor: rgb(102, 102, 102);
 }
 
 body {
@@ -22,6 +26,10 @@ body {
     --hrefLinkColor: rgb(89, 236, 89);
     --colGridColor: linear-gradient(rgb(46, 79, 100), rgb(18, 28, 44));
     --footerColor: rgb(26, 26, 27);
+    --chatGroupMembersListColor: rgb(45, 56, 68);
+    --inputFormBgColor: rgb(60, 74, 88);
+    --chatSideBarColor: rgb(43, 54, 68);
+    --InputPlaceHolderColor: rgb(170, 170, 170);
 }
 
 a {
@@ -591,7 +599,7 @@ main {
     position: absolute;
     height: 100%;
     z-index: 9;
-    background: var(--navBarBgColor);
+    background: var(--chatSideBarColor);
     transition: 800ms transform;
     top: 0;
     border-right: 1px solid silver;
@@ -620,4 +628,32 @@ main {
 
 .rounded-circle{
     border: 1px solid grey;
+}
+
+.inputTag{
+    width:100%;
+    border-radius: 10px;
+    height:50px;
+    padding:10px;
+    background-color: var(--inputFormBgColor);
+    color: var(--fontColor);
+    border: 1px solid grey;
+    
+}
+
+::-webkit-input-placeholder { /* Edge */
+    color: var(--InputPlaceHolderColor);
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: var(--InputPlaceHolderColor);
+  }
+  
+  ::placeholder {
+    color: var(--InputPlaceHolderColor);
+
+  } 
+
+.alert{
+    background-color: rgba(235, 91, 91, 0.39);
 }

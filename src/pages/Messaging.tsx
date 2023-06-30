@@ -1,5 +1,4 @@
 import { useState, useEffect, SetStateAction } from "react"
-import Form from 'react-bootstrap/Form';
 import Chat from "../partials/Chat"
 import DatabaseClient from "../api/DatabaseClient"
 import { useAuth } from "../context/AuthContext"
@@ -104,24 +103,6 @@ function Messaging() {
     }
 
     // Dark theme handler  vvvvvv
-    const [switchState, setSwitchState] = useState(false)
-    const [moodtheme, setMoodTheme] = useState("light2")
-    const handleChange=(e: { target: { checked: any; }; })=>{
-        const isDark = e.target.checked ? true: false;
-        const body = document.getElementsByTagName("body")[0];
-        if (isDark===false) { 
-        body.className = "";
-        setMoodTheme("light2");
-        localStorage.setItem("data-theme", "light");
-        }
-        else if (isDark === true){
-        body.className += " dark";
-        setMoodTheme("dark");
-        localStorage.setItem("data-theme", "dark");
-        }   
-        setSwitchState(!switchState)
-    }
-
     const switchIt =()=>{
         let body = document.getElementsByTagName("body")[0];
         if(localStorage.getItem("data-theme")==="dark"){
@@ -207,7 +188,7 @@ function Messaging() {
                             conversationList.length > 0 &&
                             <>
                                 <p className="text-divider">
-                                    <span style={{ backgroundColor: "var(--navBarBgColor)" }}>Conversations</span>
+                                    <span style={{ backgroundColor: "var(--chatSideBarColor)" }}>Conversations</span>
                                 </p>
                                 {
                                     conversationList.map((item, key) => {

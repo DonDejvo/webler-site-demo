@@ -44,13 +44,14 @@ function CreateConversationPopup({ onCancel }: any) {
                 <form onSubmit={handleSubmit}>
                     <div className="form-group mb-2">
                         <label>Title</label>
-                        <input className="form-control" type="text" name="title" placeholder="title" ref={title} />
+                        <input className="inputTag" type="text" name="title" placeholder="Enter title of your new group" ref={title}  />
                     </div>
-                    <div className="pt-2 d-flex justify-content-end" style={{ gap: 8 }}>
+                    <div className="pt-2 d-flex justify-content-center" style={{ gap: 8 }}>
                         <button className="btn btn-primary" disabled={loading} type="submit">Create</button>
                         <button onClick={onCancel} className="btn btn-secondary" type="button" disabled={loading}>Cancel</button>
                     </div>
                 </form>
+                <p style={{fontSize:"14px", marginTop:"10px"}}>You can add your friends later in this group after clicking on "Create", then you will add members using the <em>"<i className="fa fa-gear" style={{color:"var(--fontColor)"}}></i> Settings icon"</em> on the top right.</p>
             </div>
         </>
     )
