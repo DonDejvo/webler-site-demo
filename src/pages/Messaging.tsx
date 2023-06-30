@@ -1,4 +1,5 @@
 import { useState, useEffect, SetStateAction } from "react"
+import Form from 'react-bootstrap/Form';
 import Chat from "../partials/Chat"
 import DatabaseClient from "../api/DatabaseClient"
 import { useAuth } from "../context/AuthContext"
@@ -102,9 +103,41 @@ function Messaging() {
         document.getElementById("sidebar")?.classList.remove("chat-sidebar-closed")
     }
 
+    // Dark theme handler  vvvvvv
+    const [switchState, setSwitchState] = useState(false)
+    const [moodtheme, setMoodTheme] = useState("light2")
+    const handleChange=(e: { target: { checked: any; }; })=>{
+        const isDark = e.target.checked ? true: false;
+        const body = document.getElementsByTagName("body")[0];
+        if (isDark===false) { 
+        body.className = "";
+        setMoodTheme("light2");
+        localStorage.setItem("data-theme", "light");
+        }
+        else if (isDark === true){
+        body.className += " dark";
+        setMoodTheme("dark");
+        localStorage.setItem("data-theme", "dark");
+        }   
+        setSwitchState(!switchState)
+    }
+
+    const switchIt =()=>{
+        let body = document.getElementsByTagName("body")[0];
+        if(localStorage.getItem("data-theme")==="dark"){
+        body.className += " dark";
+        return true;
+        }   
+        else if (localStorage.getItem("data-theme")==="light"){
+        body.className = "";
+        return false;
+        }
+    }
+    //Dark theme handler   ^^^^^^^^
+
     return (
         <>
-
+            {switchIt()/*Makes sure that theme is dark*/}
             <div className="rounded-lg d-block d-flex flex-column" style={{ overflow: "hidden", position: "fixed", width: "100%", height: "100%", minHeight: "300px" }}>
                 {
                     createConversationPopupOpened &&
@@ -130,11 +163,13 @@ function Messaging() {
 
                 <div id="sidebar" className="chat-sidebar chat-sidebar-closed d-flex flex-column">
                     <div className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px" }}>
-                        <button className="btn" onClick={closeSidebar}>Close &times;</button>
+                        <button className="btn" style={{color:"var(--fontColor"}} onClick={closeSidebar}>Close &times;</button>
                     </div>
 
                     <div className="p-2">
-                        <h3 className="m-0">Conversations</h3>
+                        <h3 className="m-0">WeblerChat</h3>
+                        
+                        <p style={{width:"213px"}}>Create a new chat group by clicking the button below:</p>
                         <button onClick={() => setCreateConversationPopupOpened(true)} className="btn btn-primary">Create</button>
                     </div>
 
@@ -172,7 +207,7 @@ function Messaging() {
                             conversationList.length > 0 &&
                             <>
                                 <p className="text-divider">
-                                    <span style={{ backgroundColor: "var(--authFormBGcolor)" }}>Conversations</span>
+                                    <span style={{ backgroundColor: "var(--navBarBgColor)" }}>Conversations</span>
                                 </p>
                                 {
                                     conversationList.map((item, key) => {

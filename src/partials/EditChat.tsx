@@ -1,5 +1,6 @@
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { Alert } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 import DatabaseClient from "../api/DatabaseClient";
 import { useAuth } from "../context/AuthContext";
 import User from "../views/User";
@@ -143,6 +144,38 @@ function EditChat({ conversation }: any) {
         console.log(conversationId);
     }
 
+    // Dark theme handler  vvvvvv
+  const [switchState, setSwitchState] = useState(false)
+  const [moodtheme, setMoodTheme] = useState("light2")
+  const handleChange=(e: { target: { checked: any; }; })=>{
+    const isDark = e.target.checked ? true: false;
+    const body = document.getElementsByTagName("body")[0];
+    if (isDark===false) { 
+      body.className = "";
+      setMoodTheme("light2");
+      localStorage.setItem("data-theme", "light");
+    }
+    else if (isDark === true){
+      body.className += " dark";
+      setMoodTheme("dark");
+      localStorage.setItem("data-theme", "dark");
+    }   
+    setSwitchState(!switchState)
+  }
+
+  const switchIt =()=>{
+    let body = document.getElementsByTagName("body")[0];
+    if(localStorage.getItem("data-theme")==="dark"){
+      body.className += " dark";
+      return true;
+    }   
+    else if (localStorage.getItem("data-theme")==="light"){
+      body.className = "";
+      return false;
+    }
+  }
+  //Dark theme handler   ^^^^^^^^
+
     return (
         <>
             {loading && <Loader />}
@@ -163,6 +196,17 @@ function EditChat({ conversation }: any) {
                                     <i className="fa fa-gear"></i>
                                     General
                                 </a>
+                            </div>
+                            <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <Form style={{alignSelf:"left"}}  data-bs-theme={moodtheme}>
+                                <Form.Check
+                                    type="switch"
+                                    id="dark-theme-switch"
+                                    label="Dark Theme"
+                                    onChange={handleChange}   
+                                    checked = {switchIt()}
+                                />
+                                </Form>
                             </div>
 
                         </div>

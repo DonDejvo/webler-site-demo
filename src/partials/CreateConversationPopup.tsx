@@ -38,7 +38,7 @@ function CreateConversationPopup({ onCancel }: any) {
 
     return (
         <>
-            <div className="rounded bg-white p-4" style={{ width: "90%", maxWidth: "360px" }}>
+            <div className="rounded p-4" style={{ width: "90%", maxWidth: "360px" , backgroundColor:"var(--footerColor)"}}>
                 <h3 className="text-center m-2">New Conversation</h3>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <form onSubmit={handleSubmit}>

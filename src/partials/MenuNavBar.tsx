@@ -46,7 +46,7 @@ function MenuNavBar({pageName}:Props) {
       window.location.href = "/member/" + username;
   }
 
-  // Dark theme handler
+  // Dark theme handler  vvvvvv
   const [switchState, setSwitchState] = useState(false)
   const [moodtheme, setMoodTheme] = useState("light2")
   const handleChange=(e: { target: { checked: any; }; })=>{
@@ -76,7 +76,7 @@ function MenuNavBar({pageName}:Props) {
       return false;
     }
   }
-  //Dark theme handler
+  //Dark theme handler   ^^^^^^^^
 
   //Handler for quick scroll to top or quick scroll to bottom
   const [buttonHideUp, setbuttonHideUp] = useState("none")
@@ -152,15 +152,15 @@ function MenuNavBar({pageName}:Props) {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/members-list">Members List</NavDropdown.Item >
             </NavDropdown >
-                <Form style={{alignSelf:"center"}}>
-                  <Form.Check
-                    type="switch"
-                    id="dark-theme-switch"
-                    label="Dark Theme"
-                    onChange={handleChange}   
-                    checked = {switchIt()}
-                  />
-                </Form>
+              <Form style={{alignSelf:"center"}}>
+                <Form.Check
+                  type="switch"
+                  id="dark-theme-switch"
+                  label="Dark Theme"
+                  onChange={handleChange}   
+                  checked = {switchIt()}
+                />
+              </Form>
           </Nav>
           <Nav style={{alignItems:"center"}}>
           {
