@@ -210,7 +210,7 @@ function EditChat({ conversation }: any) {
                             </div>
 
                         </div>
-                        <div className="tab-content p-2" id="v-pills-tabContent" style={{ flexGrow: 1 }}>
+                        <div className="tab-content" id="v-pills-tabContent" style={{ flexGrow: 1 }}>
 
                             <div className="tab-pane fade show active" id="members-tabpanel" role="tabpanel" aria-labelledby="members-tab" style={{ backgroundColor: "var(--authFormBGcolor)", padding: "20px", borderRadius: "20px" }}>
                                 {conversation.ownerId == userDetails.uid &&
@@ -234,7 +234,7 @@ function EditChat({ conversation }: any) {
                                                     <li className="list-group-item d-flex justify-content-between flex-wrap" style={{ gap: 6, background: "var(--chatGroupMembersListColor)" , border: "solid 1px var(--authFormBGcolor)"}} key={participant.uid}>
                                                         <div className="d-flex align-items-center">
                                                             <a className="d-flex  align-items-center me-2 NavLink" href={"/member/" + participant.username}>
-                                                                <img width={34} height={34} className="rounded-circle me-2" src={participant.avatarUrl} />
+                                                                <img width={34} height={34} className="rounded-circle me-2" src={participant.avatarUrl ? participant.avatarUrl : "/resources/images/user.svg"} />
                                                                 <span>{participant.username}</span>
                                                             </a>
                                                             <span style={{color:"grey"}}>

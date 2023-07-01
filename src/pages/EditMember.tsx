@@ -37,11 +37,11 @@ function EditMember() {
 
         setLoading(true);
 
-        DatabaseClient.getUserByUsername(userDetails.username)
+        DatabaseClient.getUser(userDetails.uid)
             .then(snapshot => {
                 const data = snapshot.val();
 
-                let user = (Object.values(data)[0]) as any;
+                let user = data as any;
 
                 setUsername(user.username)
                 setBio(user.bio)
@@ -229,6 +229,10 @@ function EditMember() {
                 avatarUrl: ""
             })
 
+            updateUserDetails({
+                avatarUrl: ""
+            })
+
             setMessage('Avatar updated')
         }
         catch {
@@ -281,7 +285,7 @@ function EditMember() {
                                             <div className="col-md-12">
                                                 <div className="d-flex" style={{ gap: 12 }}>
                                                     <div className="img-circle mb-2">
-                                                        <img width={96} height={96} className="rounded-circle" src={avatarUrl ? avatarUrl : "/resources/images/logo.png"} />
+                                                        <img width={96} height={96} className="rounded-circle" src={avatarUrl ? avatarUrl : "/resources/images/user.svg"} />
                                                     </div>
                                                     <div>
                                                         <div className="mb-2">

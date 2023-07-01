@@ -11,7 +11,7 @@ import UserMinimal from "../views/UserMinimal"
 
 function Messaging() {
 
-    const { getUserDetails, updateUserDetails } = useAuth()
+    const { getUserDetails, updateUserDetails, setUserDetails } = useAuth()
     const [conversationList, setConversationList] = useState<UserConversation[]>([])
     const [conversationInvites, setConversationInvites] = useState<any[]>([])
     const [activeConversation, setActiveConversation] = useState<UserConversation>()
@@ -20,13 +20,17 @@ function Messaging() {
 
     useEffect(() => {
 
-        const unsubscribe1 = DatabaseClient.onUserConversationsChange(getUserDetails().uid, (snapshot) => {
+        const unsubscribe1 = DatabaseClient.onUserChange(getUserDetails().uid, (snapshot) => {
             if (snapshot.exists()) {
-                const data = (Object.values(snapshot.val()) as UserConversation[]).filter(item => item.id != null)
-                setConversationList(data)
-            }
-            else {
-                setConversationList([])
+                const user = snapshot.val()
+                setUserDetails(user)
+                if (user.conversations) {
+                    const data = (Object.values(user.conversations) as UserConversation[]).filter(item => item.id != null)
+                    setConversationList(data)
+                }
+                else {
+                    setConversationList([])
+                }
             }
         })
 
@@ -36,13 +40,13 @@ function Messaging() {
                 let arr: SetStateAction<any[]> = []
                 let promises = []
                 for (let conversationId in data) {
-                    for(let item of Object.values(data[conversationId]) as any[]) {
+                    for (let item of Object.values(data[conversationId]) as any[]) {
                         arr.push(item)
                         promises.push(DatabaseClient.getUser(item.inviterId).then(snapshot => {
                             item.inviter = snapshot.val()
                         }))
                     }
-                    
+
                 }
                 Promise.all(promises)
                     .then(() => setConversationInvites(arr))
@@ -58,12 +62,12 @@ function Messaging() {
     }, [])
 
     useEffect(() => {
-        if(isFirst && conversationList.length > 0) {
+        if (isFirst && conversationList.length > 0) {
             setIsFirst(false)
             const userDetails = getUserDetails()
-            if(userDetails.activeConversationId) {
+            if (userDetails.activeConversationId) {
                 const item = conversationList.find(e => e.id == userDetails.activeConversationId)
-                if(item) {
+                if (item) {
                     setActiveConversation(item)
                 }
             }
@@ -103,15 +107,15 @@ function Messaging() {
     }
 
     // Dark theme handler  vvvvvv
-    const switchIt =()=>{
+    const switchIt = () => {
         let body = document.getElementsByTagName("body")[0];
-        if(localStorage.getItem("data-theme")==="dark"){
-        body.className += " dark";
-        return true;
-        }   
-        else if (localStorage.getItem("data-theme")==="light"){
-        body.className = "";
-        return false;
+        if (localStorage.getItem("data-theme") === "dark") {
+            body.className += " dark";
+            return true;
+        }
+        else if (localStorage.getItem("data-theme") === "light") {
+            body.className = "";
+            return false;
         }
     }
     //Dark theme handler   ^^^^^^^^
@@ -144,13 +148,13 @@ function Messaging() {
 
                 <div id="sidebar" className="chat-sidebar chat-sidebar-closed d-flex flex-column">
                     <div className="d-flex align-items-center justify-content-end p-2" style={{ height: "60px" }}>
-                        <button className="btn" style={{color:"var(--fontColor"}} onClick={closeSidebar}>Close &times;</button>
+                        <button className="btn" style={{ color: "var(--fontColor" }} onClick={closeSidebar}>Close &times;</button>
                     </div>
 
                     <div className="p-2">
                         <h3 className="m-0">WeblerChat</h3>
-                        
-                        <p style={{width:"213px"}}>Create a new chat group by clicking the button below:</p>
+
+                        <p style={{ width: "213px" }}>Create a new chat group by clicking the button below:</p>
                         <button onClick={() => setCreateConversationPopupOpened(true)} className="btn btn-primary">Create</button>
                     </div>
 
@@ -204,7 +208,7 @@ function Messaging() {
                                                     activeConversationId: item.id
                                                 })
                                             })
-                                           
+
                                         }
                                         return (
                                             <ChatListItem onClick={handleOnClick} key={key} item={item} />

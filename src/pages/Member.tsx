@@ -20,9 +20,11 @@ function Member() {
 
         DatabaseClient.getUserByUsername(username as string)
             .then(snapshot => {
-                const data = snapshot.val();
-                const user = Object.values(data)[0] as User;
-                setUser(user)
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const user = Object.values(data)[0] as User;
+                    setUser(user)
+                }
             })
 
     }, []);
@@ -72,10 +74,10 @@ function Member() {
                 {
                     user ?
                         <>
-                            <div style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto" , background:"#88bccc3b"}}>
+                            <div style={{ maxWidth: "900px", marginLeft: "auto", marginRight: "auto", background: "#88bccc3b" }}>
                                 <div className="d-block d-sm-flex p-4" style={{ gap: 12 }}>
                                     <div className="img-circle text-center mb-2">
-                                        <img width={128} height={128} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "/resources/images/logo.png"} />
+                                        <img width={128} height={128} className="rounded-circle" src={user.avatarUrl ? user.avatarUrl : "/resources/images/user.svg"} />
                                     </div>
                                     <div className="d-flex flex-column align-items-center align-items-sm-start">
                                         <h3>{user.username}</h3>

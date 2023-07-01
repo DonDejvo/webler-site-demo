@@ -1,4 +1,4 @@
-import { equalTo, get, orderByChild, ref, set, update, query, DataSnapshot, onValue, limitToLast, endBefore, push, remove, child, onChildAdded } from "firebase/database"
+import { equalTo, get, orderByChild, ref, set, update, query, DataSnapshot, onValue, limitToLast, endBefore, push, remove, child, onChildAdded, onChildRemoved, startAt } from "firebase/database"
 import User from "../views/User"
 import { db } from "../services/firebase.config"
 import UserMinimal from "../views/UserMinimal"
@@ -14,7 +14,32 @@ const DatabaseClient = (function() {
     }
 
     async function updateUser(uid: string, data: any) {
-        return await update(ref(db, `users/${uid}`), data)
+        await update(ref(db, `users/${uid}`), data)
+        const user = (await getUser(uid)).val()
+        
+        if(user.conversations) {
+            let promises = []
+            let items: {conversationId: string, messageId: string }[] = []
+            for(let conversationId of Object.keys(user.conversations)) {
+                const messagesRef = query(ref(db, `messages/${conversationId}`), orderByChild('uid'), equalTo(uid))
+                promises.push(get(messagesRef).then(snapshot => {
+                    if(snapshot.exists()) {
+                        for(let messageId of Object.keys(snapshot.val())) {
+                            items.push({ conversationId, messageId })
+                        }
+                    }
+                }))
+            }
+            await Promise.all(promises)
+            promises = []
+            for(let item of items) {
+                const messageRef = ref(db, `messages/${item.conversationId}/${item.messageId}`)
+                promises.push(update(messageRef, {
+                    user
+                }))
+            }
+            await Promise.all(promises)
+        }
     }
 
     async function getUser(uid: string) {
@@ -24,6 +49,12 @@ const DatabaseClient = (function() {
     async function getUserByUsername(username: string) {
         const userRef = query(ref(db, `users`), orderByChild('usernameLowercase'), equalTo(username.toLowerCase()));
         return await get(userRef)
+    }
+
+    function onUserChange(uid: string, callback: (snaphost: DataSnapshot) => unknown) {
+        const userRef = ref(db, `users/${uid}`)
+        const unsubscribe = onValue(userRef, callback)
+        return unsubscribe
     }
 
     async function getAllUsers() {
@@ -36,9 +67,21 @@ const DatabaseClient = (function() {
         return unsubscribe
     }
 
-    function onNewMessageAdded(conversationId: string, limit: number, callback: (snaphost: DataSnapshot) => unknown) {
-        const messagesRef = query(ref(db, `messages/${conversationId}`), orderByChild('timestamp'), limitToLast(limit))
+    function onNewMessageAdded(conversationId: string, limit: number, timestampFrom: number, callback: (snaphost: DataSnapshot) => unknown) {
+        const messagesRef = query(ref(db, `messages/${conversationId}`), orderByChild('timestamp'), startAt(timestampFrom), limitToLast(limit))
         const unsubscribe = onChildAdded(messagesRef, callback)
+        return unsubscribe
+    }
+
+    function onMessages(conversationId: string, limit: number, callback: (snaphost: DataSnapshot) => unknown) {
+        const messagesRef = query(ref(db, `messages/${conversationId}`), orderByChild('timestamp'), limitToLast(limit))
+        const unsubscribe = onValue(messagesRef, callback)
+        return unsubscribe
+    }
+
+    function onMesageRemoved(conversationId: string, callback: (snaphost: DataSnapshot) => unknown) {
+        const messagesRef = query(ref(db, `messages/${conversationId}`))
+        const unsubscribe = onChildRemoved(messagesRef, callback)
         return unsubscribe
     }
 
@@ -168,7 +211,10 @@ const DatabaseClient = (function() {
         deleteAllConversationInvites,
         updateConversation,
         deleteConversation,
-        updateLastReadMessage
+        updateLastReadMessage,
+        onMesageRemoved,
+        onMessages,
+        onUserChange
     }
 
 })()

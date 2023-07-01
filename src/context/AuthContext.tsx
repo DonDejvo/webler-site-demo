@@ -92,7 +92,11 @@ export function AuthProvider({ children }: any) {
 
     function getUserDetails() {
         let item = localStorage.getItem("user");
-        return item ? JSON.parse(item) : null;
+        const user = item ? JSON.parse(item) : null;
+        if(user && typeof user == "object" && user.hasOwnProperty("uid")) {
+            return user
+        }
+        return null
     }
 
     function setUserDetails(user: User | null) {

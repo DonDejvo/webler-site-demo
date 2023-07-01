@@ -7,9 +7,9 @@ function ChatListItem({ item, onClick }: any) {
     const [lastMessage, setLastMessage] = useState<Message>()
 
     useEffect(() => {
-        DatabaseClient.onNewMessageAdded(item.id, 1, (snapshot) => {
+        DatabaseClient.onMessages(item.id, 1, (snapshot) => {
             if (snapshot.exists()) {
-                const data = snapshot.val()
+                const data = Object.values(snapshot.val())[0]
                 const message = data as Message
                 setLastMessage(message)
             }
